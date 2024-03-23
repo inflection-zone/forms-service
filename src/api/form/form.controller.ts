@@ -41,7 +41,6 @@ export class FormController extends BaseController {
 
     create = async (request: express.Request, response: express.Response) => {
         try {
-            // await this.authorize('Form.Create', request, response);
             let model: FormCreateModel = await this._validator.validateCreateRequest(request);
             const record = await this._service.create(model);
             if (record === null) {
@@ -56,7 +55,6 @@ export class FormController extends BaseController {
 
     getById = async (request: express.Request, response: express.Response) => {
         try {
-            // await this.authorize('Form.GetById', request, response);
             // var id: uuid = await this._validator.validateParamAsUUID(request, 'id');
             const id = request.params.id;
             const record = await this._service.getById(id);
@@ -69,7 +67,6 @@ export class FormController extends BaseController {
 
     update = async (request: express.Request, response: express.Response) => {
         try {
-            // await this.authorize('Form.Update', request, response);
             const id = await this._validator.validateParamAsUUID(request, 'id');
             var model: FormUpdateModel = await this._validator.validateUpdateRequest(request);
             const updatedRecord = await this._service.update(id, model);
@@ -82,7 +79,6 @@ export class FormController extends BaseController {
 
     delete = async (request: express.Request, response: express.Response): Promise<void> => {
         try {
-            // await this.authorize('Form.Delete', request, response);
             var id: uuid = await this._validator.validateParamAsUUID(request, 'id');
             const result = await this._service.delete(id);
             const message = 'Form deleted successfully!';
@@ -93,7 +89,6 @@ export class FormController extends BaseController {
     };
     getByTemplateId = async (request: express.Request, response: express.Response) => {
         try {
-            // await this.authorize('Form.GetById', request, response);
             var id: uuid = await this._validator.validateParamAsUUID(request, 'id');
             const record = await this._service.getByTemplateId(id);
             const message = 'Form retrieved successfully!';
@@ -105,7 +100,6 @@ export class FormController extends BaseController {
 
     submit = async (request: express.Request, response: express.Response) => {
         try {
-            // await this.authorize('Form.Create', request, response);
             var model: FormCreateModel = await this._validator.validateCreateRequest(request);
             const record = await this._service.submit(model);
             if (record === null) {

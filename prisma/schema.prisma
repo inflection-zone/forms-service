@@ -25,7 +25,7 @@ model Question {
   Hint            String
   CreatedAt       DateTime          @default(now())
   UpdatedAt       DateTime          @default(now())
-  DeletedAt       DateTime          @default(now())
+  DeletedAt       DateTime?
   QuestionDetails QuestionDetail?
   Response        Response[]
 }
@@ -42,7 +42,7 @@ model FormTemplate {
   DefaultSectionNumbering Boolean
   CreatedAt               DateTime      @default(now())
   UpdatedAt               DateTime      @default(now())
-  DeletedAt               DateTime      @default(now())
+  DeletedAt               DateTime?
   Forms                   Form[]
   FormSections            FormSection[]
   Questions               Question[]
@@ -61,7 +61,7 @@ model FormSection {
   ParentSectionId   String
   CreatedAt         DateTime     @default(now())
   UpdatedAt         DateTime     @default(now())
-  DeletedAt         DateTime     @default(now())
+  DeletedAt         DateTime?
   Question          Question[]
 }
 
@@ -88,7 +88,7 @@ model Form {
   SubmissionTimestamp DateTime     @default(now())
   CreatedAt           DateTime     @default(now())
   UpdatedAt           DateTime     @default(now())
-  DeletedAt           DateTime     @default(now())
+  DeletedAt           DateTime?
   Response            Response?
 }
 
@@ -112,7 +112,7 @@ model Response {
   LastSaveTimestamp   DateTime          @default(now())
   CreatedAt           DateTime          @default(now())
   UpdatedAt           DateTime          @default(now())
-  DeletedAt           DateTime          @default(now())
+  DeletedAt           DateTime?
 }
 
 model User {
@@ -126,21 +126,21 @@ model User {
   Password           String
   CreatedAt          DateTime            @default(now())
   UpdatedAt          DateTime            @default(now())
-  DeletedAt          DateTime            @default(now())
+  DeletedAt          DateTime?
   user_login_session UserLoginSessions[]
   Form               Form[]
 }
 
 model UserLoginSessions {
-  id              String   @id @default(uuid())
-  User            User     @relation(fields: [UserId], references: [id])
+  id              String    @id @default(uuid())
+  User            User      @relation(fields: [UserId], references: [id])
   UserId          String //one-to-one relation with users
   IsActiveSession Boolean
-  StartedAt       DateTime @default(now())
+  StartedAt       DateTime  @default(now())
   ValidTill       DateTime
-  CreatedAt       DateTime @default(now())
-  UpdatedAt       DateTime @default(now())
-  DeletedAt       DateTime @default(now())
+  CreatedAt       DateTime  @default(now())
+  UpdatedAt       DateTime  @default(now())
+  DeletedAt       DateTime?
 }
 
 enum FormType {

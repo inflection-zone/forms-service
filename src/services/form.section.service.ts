@@ -14,12 +14,12 @@ export class FormSectionService {
         const response = await this.prisma.formSection.findMany({
             include:{
                 FormTemplates:true
-            }
+            },
+            where: { DeletedAt: null }
         });
         return FormSectionMapper.toArrayDto(response);
         // return response;
     };
-
 
 
 
@@ -67,9 +67,7 @@ export class FormSectionService {
 
     getById = async (id: string) => {
         const response = await this.prisma.formSection.findUnique({
-            where: {
-                id: id,
-            },
+            where: { id: id, DeletedAt: null },
             include: {
                 FormTemplates: true,
             }
@@ -77,11 +75,24 @@ export class FormSectionService {
         return FormSectionMapper.toDto(response);
     };
 
+    // delete = async (id: string) => {
+    //     const response = await this.prisma.formSection.delete({
+    //         where: {
+    //             id: id,
+    //         },
+    //         include: {
+    //             FormTemplates: true,
+    //         }
+    //     });
+    //     return FormSectionMapper.toDto(response);
+    // };
+
     delete = async (id: string) => {
-        const response = await this.prisma.formSection.delete({
+        const response = await this.prisma.formSection.update({
             where: {
                 id: id,
             },
+            data: { DeletedAt: new Date() },
             include: {
                 FormTemplates: true,
             }
