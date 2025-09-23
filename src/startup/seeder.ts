@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import { logger } from "../logger/logger";
-import * as ServiceConfiguration from '../../service.config.json';
+import fetch from 'node-fetch';
+const ServiceConfiguration = require('../../service.config.json');
 import { Roles } from "../master.data/roles";
 import { RolePermissions } from "../master.data/role.permissions";
 import { uuid } from "../domain.types/miscellaneous/system.types";
@@ -50,7 +51,7 @@ export class Seeder {
 
 const getPermissionsToSeed = () => {
     const allPermissions = RolePermissions.flatMap(role => role.Permissions);
-    const uniquePermissions = [...new Set(allPermissions)];
+    const uniquePermissions = Array.from(new Set(allPermissions));
     return uniquePermissions;
 };
 
@@ -103,7 +104,7 @@ const seedRoles = async (tenantId: uuid) => {
                         'x-api-key'    : process.env.INTERNAL_API_KEY
                     }
                 });
-                const data = await response.json();
+                const data = await response.json() as any;
                 logger.info(`✅ Role created: ${data.Data?.Role?.Name}`);
             }
         }
@@ -136,7 +137,7 @@ const seedPermissions = async (tenantId: uuid) => {
                         'x-api-key'    : process.env.INTERNAL_API_KEY
                     }
                 });
-                const data = await response.json();
+                const data = await response.json() as any;
                 const p = data.Data?.Permission;
                 logger.info(`✅ Permission created: ${p?.Name}`);
             }
@@ -171,7 +172,7 @@ const seedNavigationPermissions = async (tenantId: uuid) => {
                         'x-api-key'    : process.env.INTERNAL_API_KEY
                     }
                 });
-                const data = await response.json();
+                const data = await response.json() as any;
                 const p = data.Data?.Permission;
                 logger.info(`✅ Navigation permission created: ${p?.Name}`);
             }
@@ -215,7 +216,7 @@ const seedRolePermissions = async (tenantId: uuid) => {
                         'x-api-key'    : process.env.INTERNAL_API_KEY
                     }
                 });
-                const data = await response.json();
+                const data = await response.json() as any;
                 const createdRolePermission = data.Data?.RolePermission;
                 logger.info(`✅ Role permission created: ${createdRolePermission?.RoleId} - ${createdRolePermission?.PermissionId}`);
             }
@@ -260,7 +261,7 @@ const seedRoleNavigationPermissions = async (tenantId: uuid) => {
                         'x-api-key'    : process.env.INTERNAL_API_KEY
                     }
                 });
-                const data = await response.json();
+                const data = await response.json() as any;
                 const createdRolePermission = data.Data?.RolePermission;
                 logger.info(`✅ Role navigation permission created: ${createdRolePermission?.RoleId} - ${createdRolePermission?.PermissionId}`);
             }

@@ -1,6 +1,6 @@
-import path from 'path';
-import fs from 'fs';
-import winston from 'winston';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as winston from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import { ILogger } from '../logger.interface';
 

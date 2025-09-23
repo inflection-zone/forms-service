@@ -21,7 +21,7 @@ export class Telemetry {
     private _sdk: NodeSDK = null;
 
     private constructor() {
-        console.info('Initializing the telemetry...');
+        // Telemetry initialization will be logged by the main logger
     }
 
     public static instance(): Telemetry {

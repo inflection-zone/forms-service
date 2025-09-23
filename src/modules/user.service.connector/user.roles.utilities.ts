@@ -1,5 +1,6 @@
 import { logger } from "../../logger/logger";
 import { uuid } from "../../domain.types/miscellaneous/system.types";
+import fetch from 'node-fetch';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,7 +14,7 @@ export const getDefaultTenant = async () => {
                 'x-api-key'    : process.env.INTERNAL_API_KEY
             }
         });
-        const data = await response.json();
+        const data = await response.json() as any;
         const tenant = data.Data?.Tenant;
         return tenant;
     } catch (error) {
@@ -31,7 +32,7 @@ export const getExistingCustomRolesForTenant = async (tenantId: uuid) => {
             'x-api-key'    : process.env.INTERNAL_API_KEY
         }
     });
-    const data = await response.json();
+    const data = await response.json() as any;
     const roles = data.Data.Roles.Items;
     return roles;
 };
@@ -44,7 +45,7 @@ export const getSystemRoles = async () => {
             'x-api-key'    : process.env.INTERNAL_API_KEY
         }
     });
-    const data = await response.json();
+    const data = await response.json() as any;
     const roles = data.Data.Roles.Items;
     return roles;
 };
@@ -64,7 +65,7 @@ export const getExistingPermissions = async (tenantId: uuid) => {
             'x-api-key'    : process.env.INTERNAL_API_KEY
         }
     });
-    const data = await response.json();
+    const data = await response.json() as any;
     const permissions = data.Data.Permissions.Items;
     return permissions;
 };
@@ -78,7 +79,7 @@ export const getExistingRolePermissions = async (tenantId: uuid) => {
             'x-api-key'    : process.env.INTERNAL_API_KEY
         }
     });
-    const dataCustomRoles = await responseCustomRoles.json();
+    const dataCustomRoles = await responseCustomRoles.json() as any;
     const customRolePermissions = dataCustomRoles.Data.RolePermissions;
 
     //System role permissions
@@ -88,7 +89,7 @@ export const getExistingRolePermissions = async (tenantId: uuid) => {
             'x-api-key'    : process.env.INTERNAL_API_KEY
         }
     });
-    const dataSystemRoles = await responseSystemRoles.json();
+    const dataSystemRoles = await responseSystemRoles.json() as any;
     const systemRolePermissions = dataSystemRoles.Data?.RolePermissions;
     return [...customRolePermissions, ...systemRolePermissions];
 };
@@ -102,7 +103,7 @@ export const getUserByEmail = async (email: string) => {
                 'x-api-key'    : process.env.INTERNAL_API_KEY
             }
         });
-        const data = await response.json();
+        const data = await response.json() as any;
         const user = data.Data.Users.Items.length > 0 ? data.Data.Users.Items[0] : null;
         return user;
     } catch (error) {

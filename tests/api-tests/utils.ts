@@ -277,7 +277,7 @@ export const generateFormSection = (formTemplateId?: string) => ({
 
 export const generateUser = () => ({
   id: generateGuid(),
-  username: faker.internet.userName(),
+  username: faker.internet.username(),
   email: faker.internet.email(),
   firstName: faker.person.firstName(),
   lastName: faker.person.lastName(),

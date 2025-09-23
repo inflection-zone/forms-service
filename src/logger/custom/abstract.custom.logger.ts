@@ -1,5 +1,5 @@
 import { AbstrctLogger } from '../abstract.logger';
-import fs from 'fs';
+import * as fs from 'fs';
 
 ///////////////////////////////////////////////////////////////////////
 

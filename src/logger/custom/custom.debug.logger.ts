@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import { AbstrctCustomLogger } from './abstract.custom.logger';
 
 ///////////////////////////////////////////////////////////////////////

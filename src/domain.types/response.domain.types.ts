@@ -74,7 +74,7 @@ export interface QuestionResponseResponseDto {
     FormFieldId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
-    FloatValue: GLfloat;
+    FloatValue: number;
     BooleanValue?: string;
     DateTimeValue: Date;
     Url: string;
@@ -90,7 +90,7 @@ export interface QuestionResponseSearchFilters extends BaseSearchFilters {
     FormFieldId?: uuid;
     ResponseType?: QueryResponseType;
     IntegerValue?: number;
-    FloatValue?: GLfloat;
+    FloatValue?: number;
     BooleanValue?: string;
     DateTimeValue?: Date;
     Url?: string;
@@ -132,7 +132,7 @@ export interface QuestionResponseSearchResponseDto extends BaseSearchResults {
     FormFieldId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
-    FloatValue: GLfloat;
+    FloatValue: number;
     BooleanValue?: string;
     DateTimeValue: Date;
     Url: string;

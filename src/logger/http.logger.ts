@@ -46,9 +46,6 @@ export class HttpLogger {
         if (provider === 'Winston') {
             app.use(expressLoggerFunc);
         }
-        else if (provider === 'Bunyan') {
-            app.use(expressLoggerFunc);
-        }
         else if (provider === 'Pino') {
             const logger: pinoHttp.HttpLogger = pinoHttp.pinoHttp();
             app.use(logger);
