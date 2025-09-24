@@ -10,6 +10,7 @@ export interface QuestionResponseCreateModel {
     FormSubmissionId: string;
     // QuestionId: string;
     FormFieldId: string;
+    FormTemplateId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
     FloatValue: number;
@@ -28,6 +29,7 @@ export interface QuestionResponseUpdateModel {
     FormSubmissionId?: string;
     // QuestionId?: string;
     FormFieldId?: string;
+    FormTemplateId?: string;
     ResponseType?: QueryResponseType;
     IntegerValue?: number;
     FloatValue?: number;
@@ -72,6 +74,7 @@ export interface QuestionResponseResponseDto {
         UpdatedAt: Date;
     };
     FormFieldId: string;
+    FormTemplateId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
     FloatValue: number;
@@ -88,6 +91,7 @@ export interface QuestionResponseSearchFilters extends BaseSearchFilters {
     FormSubmissionId?: uuid;
     // QuestionId?: uuid;
     FormFieldId?: uuid;
+    FormTemplateId?: uuid;
     ResponseType?: QueryResponseType;
     IntegerValue?: number;
     FloatValue?: number;
@@ -130,6 +134,7 @@ export interface QuestionResponseSearchResponseDto extends BaseSearchResults {
         UpdatedAt: Date;
     };
     FormFieldId: string;
+    FormTemplateId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
     FloatValue: number;

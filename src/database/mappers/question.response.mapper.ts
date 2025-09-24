@@ -32,6 +32,7 @@ export class ResponseMapper {
                 UpdatedAt: record.FormField.UpdatedAt,
             } : null,
             FormFieldId: record.FormFieldId,
+            FormTemplateId: record.FormTemplateId,
             ResponseType: record.ResponseType,
             IntegerValue: record.IntegerValue,
             FloatValue: record.FloatValue,

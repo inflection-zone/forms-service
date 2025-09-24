@@ -28,6 +28,7 @@ export class ResponseService extends BaseService {
             FormSubmissionId: createModel.FormSubmissionId,
             // QuestionId: createModel.QuestionId,
             FormFieldId: createModel.FormFieldId,
+            FormTemplateId: createModel.FormTemplateId,
             ResponseType: createModel.ResponseType,
             IntegerValue: createModel.IntegerValue,
             FloatValue: createModel.FloatValue,
@@ -201,6 +202,9 @@ export class ResponseService extends BaseService {
         if (filters.FormFieldId) {
             search.where['FormFieldId'] = filters.FormFieldId;
         }
+        if (filters.FormTemplateId) {
+            search.where['FormTemplateId'] = filters.FormTemplateId;
+        }
         if (filters.ResponseType) {
             search.where['ResponseType'] = filters.ResponseType;
         }
@@ -218,6 +222,18 @@ export class ResponseService extends BaseService {
         }
         if (filters.Url) {
             search.where['Url'] = filters.Url;
+        }
+        if (filters.FileResourceId) {
+            search.where['FileResourceId'] = filters.FileResourceId;
+        }
+        if (filters.TextValue) {
+            search.where['TextValue'] = filters.TextValue;
+        }
+        if (filters.SubmissionTimestamp) {
+            search.where['SubmissionTimestamp'] = filters.SubmissionTimestamp;
+        }
+        if (filters.LastSaveTimestamp) {
+            search.where['LastSaveTimestamp'] = filters.LastSaveTimestamp;
         }
 
         return search;

@@ -110,6 +110,7 @@ export class QuestionResponseController {
                 const createModel: QuestionResponseCreateModel = {
                     FormSubmissionId: model.FormSubmissionId,
                     FormFieldId: model.FormFieldId,
+                    FormTemplateId: model.FormTemplateId,
                     ResponseType: model.ResponseType,
                     IntegerValue: model.IntegerValue,
                     FloatValue: model.FloatValue,

@@ -15,6 +15,9 @@ export class QuestionResponse extends BaseEntity {
     @Column({ type: 'uuid', nullable: true })
     FormFieldId: string;
 
+    @Column({ type: 'uuid', nullable: false })
+    FormTemplateId: string;
+
     @Column({
         type: 'enum',
         enum: QueryResponseType,
