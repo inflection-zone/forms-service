@@ -44,6 +44,8 @@ export interface ValidationResult {
   severity: 'error' | 'warning' | 'info';
   code?: string;
   details?: any;
+  errors?: string[];
+  warnings?: string[];
 }
 
 export interface ValidationEngine {

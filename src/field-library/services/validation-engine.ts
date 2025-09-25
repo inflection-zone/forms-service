@@ -3,8 +3,6 @@
  */
 
 import { 
-  FieldInstance, 
-  FieldValidationResult, 
   ValidationContext, 
   ValidationRule,
   ValidationResult,
@@ -12,6 +10,10 @@ import {
   BuiltInValidators,
   DEFAULT_VALIDATION_MESSAGES
 } from '../types/validation.types';
+import {
+  FieldInstance,
+  FieldValidationResult
+} from '../types/field.types';
 
 export class ValidationEngine {
   private customValidators: Map<string, ValidationRule> = new Map();
@@ -162,7 +164,7 @@ export class ValidationEngine {
 
     // Skip other validations if value is empty and not required
     if (this.isEmpty(value) && !fieldConfiguration.required) {
-      return { isValid: true, errors, warnings };
+      return { isValid: true, message: 'Validation passed', severity: 'info', errors, warnings };
     }
 
     // Type-specific validations
@@ -225,6 +227,8 @@ export class ValidationEngine {
 
     return {
       isValid: errors.length === 0,
+      message: errors.length === 0 ? 'Validation passed' : 'Validation failed',
+      severity: errors.length === 0 ? 'info' : 'error',
       errors,
       warnings
     };
@@ -241,7 +245,7 @@ export class ValidationEngine {
     const errors: string[] = [];
     const warnings: string[] = [];
 
-    for (const rule of this.customValidators.values()) {
+    for (const rule of Array.from(this.customValidators.values())) {
       if (rule.enabled) {
         try {
           let result: ValidationResult;
@@ -268,6 +272,8 @@ export class ValidationEngine {
 
     return {
       isValid: errors.length === 0,
+      message: errors.length === 0 ? 'Validation passed' : 'Validation failed',
+      severity: errors.length === 0 ? 'info' : 'error',
       errors,
       warnings
     };
@@ -331,6 +337,8 @@ export class ValidationEngine {
 
     return {
       isValid: errors.length === 0,
+      message: errors.length === 0 ? 'Validation passed' : 'Validation failed',
+      severity: errors.length === 0 ? 'info' : 'error',
       errors,
       warnings
     };
@@ -355,6 +363,8 @@ export class ValidationEngine {
 
     return {
       isValid: errors.length === 0,
+      message: errors.length === 0 ? 'Validation passed' : 'Validation failed',
+      severity: errors.length === 0 ? 'info' : 'error',
       errors,
       warnings
     };

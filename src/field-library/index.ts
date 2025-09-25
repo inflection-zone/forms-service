@@ -7,8 +7,29 @@
 
 // Core interfaces and types
 export * from './types/field.types';
-export * from './types/validation.types';
-export * from './types/configuration.types';
+export { 
+  ValidationContext, 
+  ValidationRule as ValidationRuleType, 
+  ValidationResult, 
+  FormValidationResult, 
+  ValidationOptions, 
+  ValidationError, 
+  BuiltInValidators, 
+  ValidationMessages 
+} from './types/validation.types';
+export { 
+  FieldConfiguration as FieldConfig, 
+  ConfigurationSchema, 
+  ConfigurationValidator, 
+  ConfigurationValidationResult, 
+  ConfigurationPreset, 
+  ConfigurationTemplate, 
+  ConfigurationManager, 
+  ConfigurationOptionBuilder, 
+  ConfigurationDefaults, 
+  ConfigurationMerger, 
+  ConfigurationSerializer 
+} from './types/configuration.types';
 
 // Field categories
 export * from './categories/text-fields';
@@ -29,7 +50,7 @@ export * from './categories/interactive-fields';
 // Core services
 export * from './services/field-registry';
 export * from './services/field-factory';
-export * from './services/validation-engine';
+export { ValidationEngine as ValidationEngineService } from './services/validation-engine';
 export * from './services/field-renderer';
 
 // Utilities

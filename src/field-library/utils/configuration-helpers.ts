@@ -3,14 +3,16 @@
  */
 
 import { 
-  ConfigurationOption, 
-  ConfigurationType, 
   FieldConfiguration, 
   ConfigurationSchema,
   ConfigurationValidationResult,
   ConfigurationPreset,
   ConfigurationTemplate
 } from '../types/configuration.types';
+import {
+  ConfigurationOption,
+  ConfigurationType
+} from '../types/field.types';
 
 export class ConfigurationHelpers {
   /**
