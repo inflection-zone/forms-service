@@ -304,6 +304,97 @@ export class FormTemplateService extends BaseService {
         }
     };
 
+    public export = async (id: uuid): Promise<ExportFormTemplateDto> => {
+        try {
+            const template = await this._formTemplateRepository.findOne({
+                where: {
+                    id: id,
+                    DeletedAt: IsNull(),
+                },
+                relations: {
+                    FormSections: {
+                        FormFields: {
+                            SkipLogic: {
+                                Rules: {
+                                    FallbackRule: true,
+                                    BaseFallbackRuleEntity: true,
+                                },
+                            },
+                            CalculateLogic: {
+                                Rules: {
+                                    FallbackRule: true,
+                                },
+                            },
+                            ValidateLogic: {
+                                Rules: {
+                                    FallbackRule: true,
+                                },
+                            },
+                        },
+                    },
+                },
+                order: {
+                    FormSections: {
+                        CreatedAt: "ASC",
+                        FormFields: {
+                            CreatedAt: "ASC",
+                        },
+                    },
+                },
+            });
+
+            if (!template) {
+                ErrorHandler.throwNotFoundError('Form template not found!');
+            }
+
+            // Filter out deleted sections and fields
+            if (template.FormSections) {
+                template.FormSections = template.FormSections.filter(
+                    (section) => section.DeletedAt === null
+                );
+
+                template.FormSections.forEach((section) => {
+                    if (section.FormFields) {
+                        section.FormFields = section.FormFields.filter(
+                            (field) => field.DeletedAt === null
+                        );
+                    }
+                });
+            }
+
+            // Map sections to hierarchical structure
+            const mappedSections = await this.mapSections(template.FormSections);
+
+            // Populate operations for all form fields
+            await this.populateFormFieldsOperations(mappedSections);
+
+            // Create export DTO
+            const exportDto: ExportFormTemplateDto = {
+                Template: {
+                    id: template.id,
+                    Title: template.Title,
+                    Description: template.Description,
+                    CurrentVersion: template.Version,
+                    TenantCode: template.TenantId,
+                    Type: template.Type as any,
+                    DisplayCode: template.DisplayCode,
+                    OwnerUserId: template.OwnerUserId,
+                    RootSectionId: template.RootSectionId,
+                    DefaultSectionNumbering: template.DefaultSectionNumbering,
+                    CreatedAt: template.CreatedAt,
+                    UpdatedAt: template.UpdatedAt,
+                    Sections: mappedSections,
+                },
+                Sections: mappedSections,
+            };
+
+            return exportDto;
+        } catch (error) {
+            logger.error(`Error exporting form template: ${error.message}`);
+            ErrorHandler.throwInternalServerError(error.message, error);
+        }
+    };
+
 
 
     //#region Privates

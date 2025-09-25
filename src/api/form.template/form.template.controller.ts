@@ -209,6 +209,28 @@ export class FormTemplateController {
         }
     };
 
+    export = async (request: express.Request, response: express.Response) => {
+        try {
+            var id: uuid = await this._validator.requestParamAsUUID(
+                request,
+                'id'
+            );
+            const exportData = await this._service.export(id);
+
+            const { filename, sourceFileLocation }
+                        = await Helper.storeTemplateToFileLocally(exportData);
+            
+             var mimeType = Helper.getMimeType(sourceFileLocation);
+            response.setHeader('Content-type', mimeType);
+            response.setHeader('Content-disposition', 'attachment; filename=' + filename);
+            
+            var filestream = fs.createReadStream(sourceFileLocation);
+            filestream.pipe(response);
+        } catch (error) {
+            ResponseHandler.handleError(request, response, error);
+        }
+    };
+
 
 
     //#region Private Helper Methods
@@ -372,6 +394,8 @@ export class FormTemplateController {
             return [];
         }
     }
+
+    
 
     //#endregion
 }
