@@ -44,6 +44,9 @@ export class FormSubmission extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     LinkQueryParams?: string;
 
+    @Column({ type: 'boolean', default: false, nullable: false })
+    IsEmbedded: boolean;
+
     @Column({
         type: 'enum',
         enum: FormStatus,

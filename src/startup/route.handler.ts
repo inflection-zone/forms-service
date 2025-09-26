@@ -8,6 +8,7 @@ import { register as Response } from '../api/question.response/question.response
 import { register as favoriteTemplate } from '../api/favorite.template/favorite.template.router';
 import { register as formTemplateApproval } from '../api/form.template.approval/form.template.approval.router';
 import { register as templateFolder } from '../api/template.folder/template.folder.router';
+import { register as formEmbedding } from '../api/form.embedding/form.embedding.router';
 
 import { register as skipLogic } from '../api/field.logic/skip.logic/skip.logic.router';
 import { register as calculationLogic } from '../api/field.logic/calculation.logic/calculation.logic.router';
@@ -104,6 +105,7 @@ export class RouteHandler {
                 expressApp.get("/api/docs", (req, res) => {
                     res.sendFile(path.join(__dirname, "docs/index.html"));
                 });
+                
 
                 form(expressApp);
                 formTemplate(expressApp);
@@ -115,7 +117,7 @@ export class RouteHandler {
                 formTemplateApproval(expressApp);
                 templateFolder(expressApp);
                 inputUnitList(expressApp);
-
+                formEmbedding(expressApp);
                 skipLogic(expressApp);
                 calculationLogic(expressApp);
                 validationLogic(expressApp);

@@ -19,6 +19,7 @@ export class FormSubmissionMapper {
             ValidTill: record.ValidTill,
             Category: record.Category,
             Status: record.Status,
+            IsEmbedded: record.IsEmbedded,
         };
         return dto;
     };
@@ -29,4 +30,5 @@ export class FormSubmissionMapper {
         }
         return records.map(record => FormSubmissionMapper.toDto(record));
     }
+    
 }
