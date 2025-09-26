@@ -4,6 +4,11 @@
 # AWS_SECRET_ACCESS_KEY
 # PERSONAL_ACCESS_TOKEN
 # ENV_FILE_BUCKET_PATH
+# SERVER_HOST
+# SERVER_USER
+# SERVER_SSH_KEY
+# SERVER_PORT
+# SERVER_PASSPHRASE
 
 name: Inflection CI/CD
 
@@ -11,17 +16,7 @@ on:
   push:
     branches:
       - develop-inflection
-  # workflow_run:
-  #   workflows:
-  #     - GitGuardian Secrets Scan
-  #   types:
-  #     - completed
   workflow_dispatch:
-    inputs:
-      trigger_cd:
-        description: 'Trigger CD workflow (true/false)'
-        required: true
-        default: 'true'
 
 env:
   ECR_REPOSITORY_NAME: forms-service
@@ -35,7 +30,7 @@ jobs:
 
     outputs:
       ecr-registry: ${{ steps.ecr-login.outputs.registry }}
-
+  
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v4
@@ -66,12 +61,18 @@ jobs:
       - name: Show ECR image tag
         run: echo "Pushed image tag- ${{ env.ECR_IMAGE_TAG }}"
 
+      - name: Debug ECR registry output
+        run: echo "ECR_REGISTRY_URI=${{ steps.ecr-login.outputs.registry }}"
+
   deploy:
     name: Deploy built image to Server
     runs-on: ubuntu-latest
     needs: build
 
     steps:
+      - name: Debug ECR registry output
+        run: echo "ECR_REGISTRY_URI=${{ needs.build.outputs.ecr-registry }}"
+
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
