@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { DependencyContainer } from 'tsyringe';
 import { ConfigurationManager } from '../config/configuration.manager';
 import { MockMessagingService } from './sms/providers/mock.messaging.service';
-import { SendGridEmailService } from './email/providers/sendgrid.email.service';
+// import { SendGridEmailService } from './email/providers/sendgrid.email.service';
 import { SMTPEmailService } from './email/providers/smtp.email.service';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ export class ModuleInjector {
     private static injectEmailProvider(container: DependencyContainer) {
         const emailProvider = ConfigurationManager.EmailProvider();
         if (emailProvider === 'SendGrid') {
-            container.register('IEmailService', SendGridEmailService);
+            // container.register('IEmailService', SendGridEmailService);
         }
         else if (emailProvider === 'SMTP') {
             container.register('IEmailService', SMTPEmailService);

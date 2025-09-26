@@ -287,7 +287,7 @@ export const generateUser = () => ({
   updatedAt: new Date().toISOString()
 });
 
-export const generateFormSubmission = (formTemplateId?: string, submittedBy?: string) => ({
+export const generateFormSubmission = (formTemplateId?: string, submittedBy?: string, emailTo?: string, message?: string) => ({
   id: generateGuid(),
   formTemplateId: formTemplateId || generateGuid(),
   submissionKey: faker.string.alphanumeric(16),
@@ -295,7 +295,9 @@ export const generateFormSubmission = (formTemplateId?: string, submittedBy?: st
   submittedBy: submittedBy || generateGuid(),
   submittedAt: new Date().toISOString(),
   createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString()
+  updatedAt: new Date().toISOString(),
+  emailTo: emailTo || faker.internet.email(),
+  message: message || faker.lorem.sentence()
 });
 
 export const generateQuestionResponse = (formSubmissionId?: string, questionId?: string, formFieldId?: string) => ({

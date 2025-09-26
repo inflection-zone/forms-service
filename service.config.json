@@ -19,7 +19,7 @@
         "Provider": "Twilio"
     },
     "Email": {
-        "Provider": "SendGrid"
+        "Provider": "SMTP"
     },
     "MobileNotification": {
         "Provider": "Firebase"

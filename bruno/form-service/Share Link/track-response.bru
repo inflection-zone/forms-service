@@ -1,0 +1,42 @@
+meta {
+  name: Track Response
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/share-link/track-response
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{authToken}}
+  x-api-key: {{INTERNAL_API_KEY}}
+}
+
+body:json {
+  {
+    "responseId": "123e4567-e89b-12d3-a456-426614174001",
+    "usedToken": "your-share-token-here"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:5555
+  authToken: your-jwt-token-here
+}
+
+tests {
+  test("Status code is 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+  
+  test("Response contains tracking data", function() {
+    expect(res.getBody()).to.have.property('Data');
+    expect(res.getBody().Data).to.have.property('id');
+    expect(res.getBody().Data).to.have.property('responseId');
+    expect(res.getBody().Data).to.have.property('usedToken');
+  });
+}

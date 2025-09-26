@@ -26,6 +26,8 @@ import { FunctionExpressionOperation } from './models/operation/function.express
 import { IterateOperation } from './models/operation/iterate.operation.model';
 import { LogicalOperation } from './models/operation/logical.operation.model';
 import { MathematicalOperation } from './models/operation/mathematical.operation.model';
+import { FormShare } from './models/form.share/form.share.model';
+import { ResponseToken } from './models/response.token/response.token.model';
 import { DBLogger } from "./database.logger";
 import { DbClient } from "./db.clients/db.client";
 
@@ -63,6 +65,8 @@ class DatabaseConnector {
             FormField,
             TemplateFolder,
             User,
+            FormShare,
+            ResponseToken,
 
             SkipLogic,
             CalculationLogic,
