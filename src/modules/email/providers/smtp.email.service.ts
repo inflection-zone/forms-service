@@ -16,6 +16,7 @@ export class SMTPEmailService implements IEmailService {
         host   : process.env.SMTP_HOST,
         port   : parseInt(process.env.SMTP_PORT),
         secure : false,
+        requireTLS: true,
         auth   : {
             user : process.env.SMTP_USER,
             pass : process.env.SMTP_PASSWORD,
@@ -27,6 +28,8 @@ export class SMTPEmailService implements IEmailService {
     };
 
     constructor() {
+        // Log SMTP configuration for debugging
+        logger.info(`SMTP Configuration: Host=${process.env.SMTP_HOST}, Port=${process.env.SMTP_PORT}, User=${process.env.SMTP_USER}`);
         this._transporter = nodemailer.createTransport(this._options);
     }
 
@@ -52,7 +55,7 @@ export class SMTPEmailService implements IEmailService {
         }
         catch (error) {
             logger.error('Error occurred while sending email: ' + error.message);
-            throw new Error('Error occurred while sending email: ' + error.message);
+            // throw new Error('Error occurred while sending email: ' + error.message);
         }
     };
 

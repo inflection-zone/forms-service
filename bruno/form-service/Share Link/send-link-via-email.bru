@@ -1,0 +1,41 @@
+meta {
+  name: Send Link Via Email
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/share-link/send-link
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{authToken}}
+  x-api-key: {{INTERNAL_API_KEY}}
+}
+
+body:json {
+  {
+    "FormTemplateId": "4f2d438a-625e-4eb7-94f9-03587009f47b",
+    "EmailTo": "prashantkharade3721@gmail.com",
+    "Message": "Please fill out this form. Your response is important to us."
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:5555
+  authToken: your-jwt-token-here
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Response indicates email sent", function() {
+    expect(res.getBody()).to.have.property('Message');
+    expect(res.getBody().Message).to.include('email');
+  });
+}

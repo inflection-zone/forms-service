@@ -9,6 +9,7 @@ import { register as favoriteTemplate } from '../api/favorite.template/favorite.
 import { register as formTemplateApproval } from '../api/form.template.approval/form.template.approval.router';
 import { register as templateFolder } from '../api/template.folder/template.folder.router';
 import { register as formEmbedding } from '../api/form.embedding/form.embedding.router';
+import { register as shareLink } from '../api/share.link/share.link.router';
 
 import { register as skipLogic } from '../api/field.logic/skip.logic/skip.logic.router';
 import { register as calculationLogic } from '../api/field.logic/calculation.logic/calculation.logic.router';
@@ -118,6 +119,8 @@ export class RouteHandler {
                 templateFolder(expressApp);
                 inputUnitList(expressApp);
                 formEmbedding(expressApp);
+                shareLink(expressApp);
+
                 skipLogic(expressApp);
                 calculationLogic(expressApp);
                 validationLogic(expressApp);

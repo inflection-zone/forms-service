@@ -25,6 +25,8 @@ export class FormValidator extends BaseValidator {
                 UserId: joi.string().uuid().optional(),
                 FormTemplateId: joi.string().uuid().required(),
                 FormCategory: joi.string().optional(),
+                EmailTo: joi.string().email().optional(),
+                Message: joi.string().max(500).optional(),
             });
 
             await schema.validateAsync(request.body);
@@ -196,6 +198,8 @@ export class FormValidator extends BaseValidator {
             Status: request.body.Status ?? FormStatus.LinkShared,
             Category:
                 (request.body.FormCategory as FormType) ?? FormType.Survey,
+            EmailTo: request.body.EmailTo ?? null,
+            Message: request.body.Message ?? null,
         };
 
         const validTill = TimeUtils.addDuration(

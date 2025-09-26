@@ -1,15 +1,15 @@
 import path from "path";
 import fs from "fs";
 import { IEmailService } from "./email.service.interface";
-import { SMTPEmailService } from "./providers/smtp.email.service";
 import { EmailDetails } from "./email.details";
+import { Injector } from "../../startup/injector";
 
 export class EmailService {
 
     private _emailService: IEmailService;
 
     constructor() {
-        this._emailService = new SMTPEmailService(); //Hardcoded for now
+        this._emailService = Injector.Container.resolve('IEmailService');
     }
 
     sendEmail = async (emailDetails: EmailDetails, textBody: boolean): Promise<boolean> => {

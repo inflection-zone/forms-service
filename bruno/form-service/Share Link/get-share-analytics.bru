@@ -1,0 +1,38 @@
+meta {
+  name: Get Share Analytics
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{BASE_URL}}/share-link/{{shareId}}/analytics
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{authToken}}
+  x-api-key: {{INTERNAL_API_KEY}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:5555
+  authToken: your-jwt-token-here
+  shareId: your-share-id-here
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Response contains analytics data", function() {
+    expect(res.getBody()).to.have.property('Data');
+    expect(res.getBody().Data).to.have.property('totalResponses');
+    expect(res.getBody().Data).to.have.property('responsesByToken');
+    expect(res.getBody().Data).to.have.property('responsesByDate');
+    expect(res.getBody().Data.responsesByToken).to.be.an('array');
+    expect(res.getBody().Data.responsesByDate).to.be.an('array');
+  });
+}

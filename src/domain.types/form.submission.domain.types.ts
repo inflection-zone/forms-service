@@ -21,6 +21,8 @@ export interface FormSubmissionCreateModel {
     Status?: FormStatus;
     IsEmbedded?: boolean;
     Category: FormType;
+    EmailTo?: string;
+    Message?: string;
 }
 
 export interface LinkQueryParams {

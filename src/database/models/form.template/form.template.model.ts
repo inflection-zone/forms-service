@@ -4,6 +4,7 @@ import { FormSubmission } from '../form.submission/form.submission.model';
 import { FormSection } from '../form.section/form.section.model';
 // import { Question } from '../question/question.model';
 import { FormField } from '../form.field/form.field.model';
+import { FormShare } from '../form.share/form.share.model';
 import {
     FormType,
     NavigationStrategy,
@@ -74,4 +75,7 @@ export class FormTemplate extends BaseEntity {
 
     @OneToMany(() => FormField, formField => formField.FormTemplate)
     FormFields: FormField[];
+
+    @OneToMany(() => FormShare, formShare => formShare.FormTemplate)
+    FormShares: FormShare[];
 }

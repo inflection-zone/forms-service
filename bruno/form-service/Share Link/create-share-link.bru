@@ -1,0 +1,43 @@
+meta {
+  name: Create Share Link
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/share-link
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{authToken}}
+  x-api-key: {{INTERNAL_API_KEY}}
+}
+
+body:json {
+  {
+    "formId": "4f2d438a-625e-4eb7-94f9-03587009f47b",
+    "shareType": "single",
+    "expiresInValue": 7,
+    "expiresInUnit": "days"
+  }
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:5555
+  authToken: your-jwt-token-here
+}
+
+tests {
+  test("Status code is 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+  
+  test("Response contains share data", function() {
+    expect(res.getBody()).to.have.property('Data');
+    expect(res.getBody().Data).to.have.property('shareToken');
+    expect(res.getBody().Data).to.have.property('shareUrl');
+  });
+}
