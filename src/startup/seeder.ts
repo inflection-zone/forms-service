@@ -18,6 +18,7 @@ import {
 import { TestDataSeeder } from "../startup/test.data.seeder";
 import { NavigationPermissions } from "../master.data/navigation.permissions";
 import { RoleNavigationPermissions } from "../master.data/navigation.role.permissions";
+import { FieldLibrarySeederStartup } from "./field.library.seeder";
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -27,18 +28,30 @@ export class Seeder {
         try {
             logger.info('🌾 Seeding service data...');
             await createTempFolders();
-            const tenant = await getDefaultTenant();
-            await seedRoles(tenant.id);
-            await seedPermissions(tenant.id);
-            await seedRolePermissions(tenant.id);
-            await seedNavigationPermissions(tenant.id);
-            await seedRoleNavigationPermissions(tenant.id);
-            await cacheRoles(tenant.id);
-            await cacheRolePermissions(tenant.id);
+            
+            // Seed field library data first (independent of tenant)
+            logger.info('🌾 Seeding field library data...');
+            const fieldLibrarySeeder = new FieldLibrarySeederStartup();
+            await fieldLibrarySeeder.initialize();
+            logger.info('✅ Field library data seeded successfully');
 
-            await seedMasterData();
+            try {
+                const tenant = await getDefaultTenant();
+                await seedRoles(tenant.id);
+                await seedPermissions(tenant.id);
+                await seedRolePermissions(tenant.id);
+                await seedNavigationPermissions(tenant.id);
+                await seedRoleNavigationPermissions(tenant.id);
+                await cacheRoles(tenant.id);
+                await cacheRolePermissions(tenant.id);
 
-            await TestDataSeeder.seed(tenant.id);
+                await seedMasterData();
+
+                await TestDataSeeder.seed(tenant.id);
+            } catch (tenantError) {
+                logger.error(`❌ Error seeding tenant-dependent data: ${tenantError.message}`);
+                logger.info('⚠️ Continuing with field library data only...');
+            }
 
         } catch (error) {
             logger.error(`❌ Error seeding service data: ${error.message}`);

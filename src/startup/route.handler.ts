@@ -10,7 +10,6 @@ import { register as formTemplateApproval } from '../api/form.template.approval/
 import { register as templateFolder } from '../api/template.folder/template.folder.router';
 import { register as formEmbedding } from '../api/form.embedding/form.embedding.router';
 import { register as shareLink } from '../api/share.link/share.link.router';
-
 import { register as skipLogic } from '../api/field.logic/skip.logic/skip.logic.router';
 import { register as calculationLogic } from '../api/field.logic/calculation.logic/calculation.logic.router';
 import { register as validationLogic } from '../api/field.logic/validation.logic/validation.logic.router';
@@ -24,6 +23,7 @@ import { register as calculationRule } from '../api/field.rules/calculation.rule
 import { register as validationRule } from '../api/field.rules/validation.rule/validation.rule.router';
 import { register as fallbackRule } from '../api/field.rules/fallback.rule/fallback.rule.router';
 import { register as inputUnitList } from '../api/input.unit.list/input.unit.list.router';
+import { register as fieldLibrary } from '../api/field.library/field.library.router';
 
 import { logger } from "../logger/logger";
 import path from "path";
@@ -120,7 +120,7 @@ export class RouteHandler {
                 inputUnitList(expressApp);
                 formEmbedding(expressApp);
                 shareLink(expressApp);
-
+                fieldLibrary(expressApp);
                 skipLogic(expressApp);
                 calculationLogic(expressApp);
                 validationLogic(expressApp);

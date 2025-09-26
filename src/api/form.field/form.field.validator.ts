@@ -43,6 +43,10 @@ export class FormFieldValidator extends BaseValidator {
                 SkipLogicId: joi.string().uuid().optional(),
                 CalculateLogicId: joi.string().uuid().optional(),
                 ValidateLogicId: joi.string().uuid().optional(),
+                // Field Library identifiers
+                IsFieldLibraryField: joi.boolean().optional(),
+                FieldLibraryId: joi.string().optional(),
+                FieldLibraryType: joi.string().optional(),
             });
 
             await schema.validateAsync(request.body);
@@ -67,6 +71,10 @@ export class FormFieldValidator extends BaseValidator {
                 SkipLogicId: request.body.SkipLogicId,
                 CalculateLogicId: request.body.CalculateLogicId,
                 ValidateLogicId: request.body.ValidateLogicId,
+                // Field Library identifiers
+                IsFieldLibraryField: request.body.IsFieldLibraryField,
+                FieldLibraryId: request.body.FieldLibraryId,
+                FieldLibraryType: request.body.FieldLibraryType,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
