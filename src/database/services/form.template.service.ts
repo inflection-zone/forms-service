@@ -172,7 +172,12 @@ export class FormTemplateService extends BaseService {
             // Populate operations for all form fields
             await this.populateFormFieldsOperations(template.FormSections);
 
-            return template;
+            // Map the template to include IsFavourite field
+            const mappedTemplate = FormTemplateMapper.toDto(template);
+            return {
+                ...template,
+                ...mappedTemplate
+            };
         } catch (error) {
             logger.error(`❌ Error getting form template details by id: ${error.message}`);
             ErrorHandler.throwInternalServerError(error.message, error);

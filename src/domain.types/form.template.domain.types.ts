@@ -55,7 +55,7 @@ export interface FormTemplateSearchFilters extends BaseSearchFilters {
     Title?: string;
     Description?: string;
     CurrentVersion?: number;
-    TenantCode: string;
+    TenantCode?: string;
     Type?: FormType;
     DisplayCode?: string;
     OwnerUserId?: string;

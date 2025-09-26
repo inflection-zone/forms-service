@@ -4,11 +4,13 @@ import { FormTemplateValidator } from './form.template.validator';
 import { ErrorHandler } from '../../common/error.handling/error.handler';
 import { uuid } from '../../domain.types/miscellaneous/system.types';
 import { FormTemplateService } from '../../database/services/form.template.service';
+import { FavoriteTemplateService } from '../../database/services/favorite.template.service';
 import {
     FormTemplateCreateModel,
     FormTemplateSearchFilters,
     FormTemplateUpdateModel,
 } from '../../domain.types/form.template.domain.types';
+import { FavoriteTemplateCreateModel } from '../../domain.types/favorite.template.domain.types';
 import { FormSectionService } from '../../database/services/form.section.service';
 import { generateDisplayCode } from '../../domain.types/miscellaneous/display.code';
 import { Helper } from '../../domain.types/miscellaneous/helper';
@@ -29,6 +31,9 @@ export class FormTemplateController {
 
     _service: FormTemplateService =
         Injector.Container.resolve(FormTemplateService);
+    
+    _favoriteService: FavoriteTemplateService =
+        Injector.Container.resolve(FavoriteTemplateService);
 
     _section: FormSectionService =
         Injector.Container.resolve(FormSectionService);
@@ -372,6 +377,52 @@ export class FormTemplateController {
             return [];
         }
     }
+
+    updateFavourite = async (request: express.Request, response: express.Response) => {
+        try {
+            const id = request.params.id;
+            const { IsFavourite, userId } = request.body; // Get userId from request body
+        
+            
+            if (!userId) {
+                return ResponseHandler.failure(request, response, 'User ID is required', 400);
+            }
+            
+            // Update the IsFavourite flag in FormTemplate
+            const updateModel: FormTemplateUpdateModel = {
+                IsFavourite: IsFavourite
+            };
+            
+            const result = await this._service.update(id, updateModel);
+            
+            // Handle FavoriteTemplate table operations
+            if (IsFavourite === true) {
+                // Mark as favourite - create record in favorite_templates table
+                const existingFavorite = await this._favoriteService.findByUserAndTemplate(userId, id);
+                
+                if (!existingFavorite) {
+                    // Create new favorite record
+                    const favoriteCreateModel: FavoriteTemplateCreateModel = {
+                        UserId: userId,
+                        TemplateId: id
+                    };
+                    await this._favoriteService.create(favoriteCreateModel);
+                }
+            } else {
+                // Mark as non-favourite - find and delete record from favorite_templates table
+                const existingFavorite = await this._favoriteService.findByUserAndTemplate(userId, id);
+                
+                if (existingFavorite) {
+                    // Delete the favorite record
+                    await this._favoriteService.delete(existingFavorite.id);
+                }
+            }
+            
+            return ResponseHandler.success(request, response, `Template ${IsFavourite ? 'marked as favourite' : 'removed from favourites'} successfully!`, 200, result);
+        } catch (error) {
+            ResponseHandler.handleError(request, response, error);
+        }
+    };
 
     //#endregion
 }
