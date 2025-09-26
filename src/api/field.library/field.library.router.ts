@@ -26,5 +26,14 @@ export const register = (app: express.Application): void => {
     router.post('/seed', context(`${contextBase}.Seed`), controller.seed);
     router.post('/seed/:category', context(`${contextBase}.SeedByCategory`), controller.seedByCategory);
 
+    // Field template management
+    router.get('/template', context(`${contextBase}.GetTemplates`), controller.getTemplates);
+    router.get('/template/:id', context(`${contextBase}.GetTemplateById`), controller.getTemplateById);
+    router.post('/template', context(`${contextBase}.CreateTemplate`), controller.createTemplate);
+    router.put('/template/:id', context(`${contextBase}.UpdateTemplate`), controller.updateTemplate);
+    router.delete('/template/:id', context(`${contextBase}.DeleteTemplate`), controller.deleteTemplate);
+    router.post('/template/import', context(`${contextBase}.ImportTemplate`), controller.importTemplate);
+    router.get('/template/:id/export', context(`${contextBase}.ExportTemplate`), controller.exportTemplate);
+
     app.use('/api/v1/field-library', router);
 };
