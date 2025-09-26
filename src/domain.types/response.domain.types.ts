@@ -10,6 +10,7 @@ export interface QuestionResponseCreateModel {
     FormSubmissionId: string;
     // QuestionId: string;
     FormFieldId: string;
+    FormTemplateId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
     FloatValue: number;
@@ -28,6 +29,7 @@ export interface QuestionResponseUpdateModel {
     FormSubmissionId?: string;
     // QuestionId?: string;
     FormFieldId?: string;
+    FormTemplateId?: string;
     ResponseType?: QueryResponseType;
     IntegerValue?: number;
     FloatValue?: number;
@@ -50,12 +52,22 @@ export interface QuestionResponseResponseDto {
     id: string;
     FormSubmission?: {
         id: string;
-        TemplateId: string;
-        FormUrl: string;
-        UserId: string;
+        FormTemplateId: string;
+        Title?: string;
+        Type: string;
+        TenantId?: string;
+        UserId?: string;
+        UserMetaData?: string;
+        Encrypted?: string;
+        Unencrypted?: string;
+        Link?: string;
+        LinkQueryParams?: string;
         Status: FormStatus;
-        SubmissionTimestamp: Date;
+        ValidTill: Date;
+        SubmittedAt?: Date;
+        Score?: number;
         CreatedAt: Date;
+        UpdatedAt: Date;
     };
     Question?: {
         id: string;
@@ -72,6 +84,7 @@ export interface QuestionResponseResponseDto {
         UpdatedAt: Date;
     };
     FormFieldId: string;
+    FormTemplateId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
     FloatValue: number;
@@ -88,6 +101,7 @@ export interface QuestionResponseSearchFilters extends BaseSearchFilters {
     FormSubmissionId?: uuid;
     // QuestionId?: uuid;
     FormFieldId?: uuid;
+    FormTemplateId?: uuid;
     ResponseType?: QueryResponseType;
     IntegerValue?: number;
     FloatValue?: number;
@@ -108,12 +122,22 @@ export interface QuestionResponseSearchResponseDto extends BaseSearchResults {
     id: string;
     FormSubmission: {
         id: string;
-        TemplateId: string;
-        FormUrl: string;
-        UserId: string;
+        FormTemplateId: string;
+        Title?: string;
+        Type: string;
+        TenantId?: string;
+        UserId?: string;
+        UserMetaData?: string;
+        Encrypted?: string;
+        Unencrypted?: string;
+        Link?: string;
+        LinkQueryParams?: string;
         Status: FormStatus;
-        SubmissionTimestamp: Date;
+        ValidTill: Date;
+        SubmittedAt?: Date;
+        Score?: number;
         CreatedAt: Date;
+        UpdatedAt: Date;
     };
     Question: {
         id: string;
@@ -130,6 +154,7 @@ export interface QuestionResponseSearchResponseDto extends BaseSearchResults {
         UpdatedAt: Date;
     };
     FormFieldId: string;
+    FormTemplateId: string;
     ResponseType: QueryResponseType;
     IntegerValue: number;
     FloatValue: number;

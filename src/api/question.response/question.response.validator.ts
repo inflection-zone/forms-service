@@ -26,6 +26,7 @@ export class QuestionResponseValidator extends BaseValidator {
                 FormSubmissionId: joi.string().uuid().required(),
                 // QuestionId: joi.string().uuid().required(),
                 FormFieldId: joi.string().uuid().required(),
+                FormTemplateId: joi.string().uuid().required(),
                 ResponseType: joi.string(),
                 IntegerValue: joi.number().optional(),
                 FloatValue: joi.number().optional(),
@@ -43,6 +44,7 @@ export class QuestionResponseValidator extends BaseValidator {
                 FormSubmissionId: request.body.FormSubmissionId,
                 // QuestionId: request.body.QuestionId,
                 FormFieldId: request.body.FormFieldId,
+                FormTemplateId: request.body.FormTemplateId,
                 ResponseType: request.body.ResponseType,
                 IntegerValue: request.body.IntegerValue ?? null,
                 FloatValue: request.body.FloatValue ?? null,
@@ -118,6 +120,7 @@ export class QuestionResponseValidator extends BaseValidator {
                 formSubmissionId: joi.string().uuid().optional(),
                 // questionId: joi.string().uuid().optional(),
                 formFieldId: joi.string().uuid().optional(),
+                formTemplateId: joi.string().uuid().optional(),
                 responseType: joi.string().optional(),
                 integerValue: joi.number().optional(),
                 floatValue: joi.string().optional(),
@@ -167,6 +170,7 @@ export class QuestionResponseValidator extends BaseValidator {
                             FormSubmissionId: joi.string().uuid().required(),
                             // QuestionId: joi.string().uuid().required(),
                             FormFieldId: joi.string().uuid().required(),
+                            FormTemplateId: joi.string().uuid().required(),
                             ResponseType: joi.string().required(),
                             IntegerValue: joi.number().optional().allow(null),
                             FloatValue: joi.number().optional().allow(null),
@@ -219,6 +223,10 @@ export class QuestionResponseValidator extends BaseValidator {
         var formFieldId = query.formFieldId ? query.formFieldId : null;
         if (formFieldId != null) {
             filters['FormFieldId'] = formFieldId;
+        }
+        var formTemplateId = query.formTemplateId ? query.formTemplateId : null;
+        if (formTemplateId != null) {
+            filters['FormTemplateId'] = formTemplateId;
         }
         var responseType = query.responseType ? query.responseType : null;
         if (responseType != null) {
