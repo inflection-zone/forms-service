@@ -27,6 +27,7 @@ export class FormTemplateValidator extends BaseValidator {
                 OwnerUserId: joi.string().uuid(),
                 RootSectionId: joi.string().uuid(),
                 DefaultSectionNumbering: joi.boolean().optional(),
+                IsFavourite: joi.boolean().optional(),
             });
             await schema.validateAsync(request.body);
             return {
@@ -43,6 +44,7 @@ export class FormTemplateValidator extends BaseValidator {
                 RootSectionId: request.body.RootSectionId,
                 DefaultSectionNumbering:
                     request.body.DefaultSectionNumbering ?? false,
+                IsFavourite: request.body.IsFavourite ?? false,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
@@ -64,6 +66,7 @@ export class FormTemplateValidator extends BaseValidator {
                 OwnerUserId: joi.string().uuid().optional(),
                 RootSectionId: joi.string().uuid().optional(),
                 DefaultSectionNumbering: joi.boolean().optional(),
+                IsFavourite: joi.boolean().optional(),
             });
             await schema.validateAsync(request.body);
             return {
@@ -78,6 +81,7 @@ export class FormTemplateValidator extends BaseValidator {
                 RootSectionId: request.body.RootSectionId ?? null,
                 DefaultSectionNumbering:
                     request.body.DefaultSectionNumbering ?? null,
+                IsFavourite: request.body.IsFavourite ?? null,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
@@ -98,6 +102,7 @@ export class FormTemplateValidator extends BaseValidator {
                 ownerUserId: joi.string().optional(),
                 rootSectionId: joi.string().optional(),
                 defaultSectionNumbering: joi.boolean().optional(),
+                isFavourite: joi.boolean().optional(),
                 itemsPerPage: joi.number().optional(),
                 pageIndex: joi.number().optional(),
                 orderBy: joi.string().optional(),
@@ -164,6 +169,11 @@ export class FormTemplateValidator extends BaseValidator {
             : null;
         if (defaultSectionNumbering != null) {
             filters['DefaultSectionNumbering'] = defaultSectionNumbering;
+        }
+
+        var isFavourite = query.isFavourite ? query.isFavourite : null;
+        if (isFavourite != null) {
+            filters['IsFavourite'] = isFavourite;
         }
 
         return filters;
