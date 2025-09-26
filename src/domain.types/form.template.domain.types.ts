@@ -19,7 +19,6 @@ export interface FormTemplateCreateModel {
     OwnerUserId?: string;
     RootSectionId?: string;
     DefaultSectionNumbering: boolean;
-    IsFavourite?: boolean;
 }
 
 export interface FormTemplateUpdateModel {
@@ -32,7 +31,6 @@ export interface FormTemplateUpdateModel {
     OwnerUserId?: string;
     RootSectionId?: string;
     DefaultSectionNumbering?: boolean;
-    IsFavourite?: boolean;
 }
 
 export interface FormTemplateResponseDto {
@@ -46,7 +44,6 @@ export interface FormTemplateResponseDto {
     OwnerUserId?: string;
     RootSectionId: string;
     DefaultSectionNumbering: boolean;
-    IsFavourite: boolean;
     CreatedAt: Date;
     UpdatedAt: Date;
 }
@@ -61,7 +58,6 @@ export interface FormTemplateSearchFilters extends BaseSearchFilters {
     OwnerUserId?: string;
     RootSectionId?: string;
     DefaultSectionNumbering?: boolean;
-    IsFavourite?: boolean;
 }
 
 export interface FormTemplateSearchResults extends BaseSearchResults {
@@ -79,7 +75,6 @@ export interface FormTemplateSearchResponseDto extends BaseSearchResults {
     OwnerUserId: string;
     RootSectionId: string;
     DefaultSectionNumbering: boolean;
-    IsFavourite: boolean;
     CreatedAt: Date;
     UpdatedAt: Date;
 }
@@ -161,7 +156,6 @@ export interface TemplatePreviewDto {
     OwnerUserId?: string;
     RootSectionId: string;
     DefaultSectionNumbering: boolean;
-    IsFavourite: boolean;
     CreatedAt: Date;
     UpdatedAt: Date;
     RootSection: SectionPreviewDto[];
