@@ -46,6 +46,10 @@ export class FormFieldService extends BaseService {
             SkipLogicId: createModel.SkipLogicId,
             CalculateLogicId: createModel.CalculateLogicId,
             ValidateLogicId: createModel.ValidateLogicId,
+            // Field Library identifiers
+            IsFieldLibraryField: createModel.IsFieldLibraryField,
+            FieldLibraryId: createModel.FieldLibraryId,
+            FieldLibraryType: createModel.FieldLibraryType,
         });
         const record = await this._formFieldRepository.save(field);
 

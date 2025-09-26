@@ -37,6 +37,10 @@ export interface FormFieldCreateModel {
     SkipLogicId?: string;
     CalculateLogicId?: string;
     ValidateLogicId?: string;
+    // Field Library identifiers
+    IsFieldLibraryField?: boolean;
+    FieldLibraryId?: string;
+    FieldLibraryType?: string;
 }
 
 export interface FormFieldUpdateModel {
@@ -81,6 +85,10 @@ export interface FormFieldResponseDto {
     SkipLogicId?: string;
     CalculateLogicId?: string;
     ValidateLogicId?: string;
+    // Field Library identifiers
+    IsFieldLibraryField?: boolean;
+    FieldLibraryId?: string;
+    FieldLibraryType?: string;
     ParentFormSection?: {
         id: string;
         Title: string;

@@ -115,4 +115,14 @@ export class FormField extends BaseEntity {
     @ManyToOne(() => ValidationLogic, validationLogic => validationLogic.FieldId, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'ValidateLogicId' })
     ValidateLogic?: ValidationLogic;
+
+    // Field Library identifiers
+    @Column({ type: 'boolean', nullable: true, default: false })
+    IsFieldLibraryField?: boolean;
+
+    @Column({ type: 'varchar', length: 128, nullable: true })
+    FieldLibraryId?: string;
+
+    @Column({ type: 'varchar', length: 128, nullable: true })
+    FieldLibraryType?: string;
 }
