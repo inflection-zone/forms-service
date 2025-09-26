@@ -13,7 +13,7 @@ export const SURVEY_FIELDS: FieldDefinition[] = [
     type: 'matrix',
     responseType: 'Object',
     description: 'Grid of ratings',
-    icon: 'grid',
+    icon: 'material-symbols:grid-view',
     htmlType: 'text',
     component: 'MatrixRating',
     validationOptions: [
@@ -102,7 +102,7 @@ export const SURVEY_FIELDS: FieldDefinition[] = [
     type: 'ranking',
     responseType: 'Object',
     description: 'Drag-drop ranking',
-    icon: 'sort',
+    icon: 'material-symbols:sort',
     htmlType: 'text',
     component: 'RankOrder',
     validationOptions: [
@@ -188,7 +188,7 @@ export const SURVEY_FIELDS: FieldDefinition[] = [
     type: 'annotation',
     responseType: 'Object',
     description: 'Image markup',
-    icon: 'image',
+    icon: 'material-symbols:image',
     htmlType: 'text',
     component: 'ImageAnnotation',
     validationOptions: [
@@ -267,7 +267,7 @@ export const SURVEY_FIELDS: FieldDefinition[] = [
     type: 'video',
     responseType: 'File',
     description: 'Video response recording',
-    icon: 'video',
+    icon: 'material-symbols:play-circle',
     htmlType: 'file',
     component: 'VideoResponse',
     validationOptions: [
@@ -538,7 +538,7 @@ export const SURVEY_FIELDS: FieldDefinition[] = [
     type: 'range',
     responseType: 'Integer',
     description: 'Value slider',
-    icon: 'slider',
+    icon: 'material-symbols:tune',
     htmlType: 'range',
     component: 'Slider',
     validationOptions: [

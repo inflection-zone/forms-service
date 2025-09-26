@@ -104,7 +104,7 @@ export const GEOGRAPHIC_FIELDS: FieldDefinition[] = [
     type: 'location',
     responseType: 'Object',
     description: 'GPS coordinates',
-    icon: 'location',
+    icon: 'material-symbols:location-on',
     htmlType: 'text',
     component: 'LocationInput',
     validationOptions: [
@@ -190,7 +190,7 @@ export const GEOGRAPHIC_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Country selection',
-    icon: 'globe',
+    icon: 'material-symbols:public',
     htmlType: 'select',
     component: 'CountrySelect',
     validationOptions: [
@@ -354,7 +354,7 @@ export const GEOGRAPHIC_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'City selection',
-    icon: 'city',
+    icon: 'material-symbols:location-city',
     htmlType: 'select',
     component: 'CitySelect',
     validationOptions: [
@@ -445,7 +445,7 @@ export const GEOGRAPHIC_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Timezone selection',
-    icon: 'clock',
+    icon: 'material-symbols:schedule',
     htmlType: 'select',
     component: 'TimezoneSelect',
     validationOptions: [

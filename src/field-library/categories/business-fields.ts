@@ -13,7 +13,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Employee count ranges',
-    icon: 'building',
+    icon: 'material-symbols:business',
     htmlType: 'select',
     component: 'CompanySizeSelect',
     validationOptions: [
@@ -79,7 +79,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Business industry',
-    icon: 'industry',
+    icon: 'material-symbols:factory',
     htmlType: 'select',
     component: 'IndustrySelect',
     validationOptions: [
@@ -157,7 +157,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Annual revenue ranges',
-    icon: 'dollar-sign',
+    icon: 'material-symbols:attach-money',
     htmlType: 'select',
     component: 'RevenueSelect',
     validationOptions: [
@@ -230,7 +230,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Legal structure',
-    icon: 'briefcase',
+    icon: 'material-symbols:work',
     htmlType: 'select',
     component: 'BusinessTypeSelect',
     validationOptions: [
@@ -303,7 +303,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'text',
     responseType: 'Text',
     description: 'Professional title',
-    icon: 'user-tie',
+    icon: 'material-symbols:person',
     htmlType: 'text',
     component: 'JobTitleInput',
     validationOptions: [
@@ -394,7 +394,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Company department',
-    icon: 'sitemap',
+    icon: 'material-symbols:account-tree',
     htmlType: 'select',
     component: 'DepartmentSelect',
     validationOptions: [
@@ -474,7 +474,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Integer',
     description: 'Years of experience',
-    icon: 'clock',
+    icon: 'material-symbols:schedule',
     htmlType: 'number',
     component: 'WorkExperienceInput',
     validationOptions: [
@@ -573,7 +573,7 @@ export const BUSINESS_FIELDS: FieldDefinition[] = [
     type: 'multi-select',
     responseType: 'MultiChoiceSelection',
     description: 'Professional skills',
-    icon: 'cogs',
+    icon: 'material-symbols:settings',
     htmlType: 'select',
     component: 'SkillsSelect',
     validationOptions: [

@@ -13,7 +13,7 @@ export const NUMERIC_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Integer',
     description: 'Generic number input',
-    icon: 'number',
+    icon: 'material-symbols:123',
     htmlType: 'number',
     component: 'NumberInput',
     validationOptions: [
@@ -108,7 +108,7 @@ export const NUMERIC_FIELDS: FieldDefinition[] = [
     type: 'currency',
     responseType: 'Float',
     description: 'Money amount input',
-    icon: 'currency',
+    icon: 'material-symbols:attach-money',
     htmlType: 'number',
     component: 'CurrencyInput',
     validationOptions: [
@@ -214,7 +214,7 @@ export const NUMERIC_FIELDS: FieldDefinition[] = [
     type: 'percentage',
     responseType: 'Float',
     description: 'Percentage input (0-100)',
-    icon: 'percentage',
+    icon: 'material-symbols:percent',
     htmlType: 'number',
     component: 'PercentageInput',
     validationOptions: [
@@ -311,7 +311,7 @@ export const NUMERIC_FIELDS: FieldDefinition[] = [
     type: 'tel',
     responseType: 'Phone',
     description: 'Phone number input',
-    icon: 'phone',
+    icon: 'material-symbols:phone',
     htmlType: 'tel',
     component: 'PhoneInput',
     validationOptions: [
@@ -402,7 +402,7 @@ export const NUMERIC_FIELDS: FieldDefinition[] = [
     type: 'text',
     responseType: 'Text',
     description: 'Postal/ZIP code',
-    icon: 'location',
+    icon: 'material-symbols:location-on',
     htmlType: 'text',
     component: 'ZipCodeInput',
     validationOptions: [

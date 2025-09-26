@@ -13,7 +13,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Highest education',
-    icon: 'graduation-cap',
+    icon: 'material-symbols:school',
     htmlType: 'select',
     component: 'EducationLevelSelect',
     validationOptions: [
@@ -86,7 +86,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'text',
     responseType: 'Text',
     description: 'School/university name',
-    icon: 'university',
+    icon: 'material-symbols:account-balance',
     htmlType: 'text',
     component: 'InstitutionInput',
     validationOptions: [
@@ -177,7 +177,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Integer',
     description: 'Year of graduation',
-    icon: 'calendar',
+    icon: 'material-symbols:calendar-today',
     htmlType: 'number',
     component: 'GraduationYearInput',
     validationOptions: [
@@ -272,7 +272,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'text',
     responseType: 'Text',
     description: 'Major/specialization',
-    icon: 'book',
+    icon: 'material-symbols:menu-book',
     htmlType: 'text',
     component: 'FieldOfStudyInput',
     validationOptions: [
@@ -378,7 +378,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Grade point average',
-    icon: 'star',
+    icon: 'material-symbols:star',
     htmlType: 'number',
     component: 'GPAInput',
     validationOptions: [
@@ -483,7 +483,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'repeatable',
     responseType: 'Object',
     description: 'Professional certifications',
-    icon: 'certificate',
+    icon: 'material-symbols:workspace-premium',
     htmlType: 'text',
     component: 'CertificationsInput',
     validationOptions: [
@@ -571,7 +571,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'boolean',
     responseType: 'Boolean',
     description: 'Enrollment status',
-    icon: 'user-graduate',
+    icon: 'material-symbols:person',
     htmlType: 'checkbox',
     component: 'CurrentStudentInput',
     validationOptions: [
@@ -629,7 +629,7 @@ export const EDUCATIONAL_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Current grade level',
-    icon: 'school',
+    icon: 'material-symbols:school',
     htmlType: 'select',
     component: 'GradeLevelSelect',
     validationOptions: [

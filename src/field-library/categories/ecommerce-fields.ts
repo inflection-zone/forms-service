@@ -13,7 +13,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'hierarchical',
     responseType: 'SingleChoiceSelection',
     description: 'Nested categories',
-    icon: 'tags',
+    icon: 'material-symbols:tag',
     htmlType: 'select',
     component: 'ProductCategorySelect',
     validationOptions: [
@@ -109,7 +109,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'range',
     responseType: 'Object',
     description: 'Price filter',
-    icon: 'dollar-sign',
+    icon: 'material-symbols:attach-money',
     htmlType: 'text',
     component: 'PriceRangeInput',
     validationOptions: [
@@ -203,7 +203,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Integer',
     description: 'Item quantity',
-    icon: 'shopping-cart',
+    icon: 'material-symbols:shopping-cart',
     htmlType: 'number',
     component: 'QuantityInput',
     validationOptions: [
@@ -305,7 +305,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Product size',
-    icon: 'ruler',
+    icon: 'material-symbols:straighten',
     htmlType: 'select',
     component: 'SizeSelect',
     validationOptions: [
@@ -388,7 +388,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Product color',
-    icon: 'palette',
+    icon: 'material-symbols:palette',
     htmlType: 'select',
     component: 'ColorSelect',
     validationOptions: [
@@ -472,7 +472,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'radio',
     responseType: 'SingleChoiceSelection',
     description: 'Delivery options',
-    icon: 'truck',
+    icon: 'material-symbols:local-shipping',
     htmlType: 'radio',
     component: 'ShippingMethodSelect',
     validationOptions: [
@@ -550,7 +550,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'text',
     responseType: 'Text',
     description: 'Discount code',
-    icon: 'tag',
+    icon: 'material-symbols:tag',
     htmlType: 'text',
     component: 'CouponCodeInput',
     validationOptions: [
@@ -632,7 +632,7 @@ export const ECOMMERCE_FIELDS: FieldDefinition[] = [
     type: 'checkbox',
     responseType: 'Boolean',
     description: 'Add to wishlist',
-    icon: 'heart',
+    icon: 'material-symbols:favorite',
     htmlType: 'checkbox',
     component: 'WishlistInput',
     validationOptions: [],

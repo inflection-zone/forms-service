@@ -14,7 +14,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'conditional',
     responseType: 'Object',
     description: 'Show/hide based on logic',
-    icon: 'code-branch',
+    icon: 'material-symbols:account-tree',
     htmlType: 'text',
     component: 'ConditionalField',
     validationOptions: [
@@ -86,7 +86,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'calculated',
     responseType: 'Object',
     description: 'Auto-calculated values',
-    icon: 'calculator',
+    icon: 'material-symbols:calculate',
     htmlType: 'text',
     component: 'CalculatedField',
     validationOptions: [],
@@ -166,7 +166,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'repeatable',
     responseType: 'Array',
     description: 'Repeating field groups',
-    icon: 'copy',
+    icon: 'material-symbols:content-copy',
     htmlType: 'text',
     component: 'RepeatableField',
     validationOptions: [
@@ -251,7 +251,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'lookup',
     responseType: 'Text',
     description: 'Database lookup',
-    icon: 'search',
+    icon: 'material-symbols:search',
     htmlType: 'text',
     component: 'LookupField',
     validationOptions: [
@@ -425,7 +425,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'cascading',
     responseType: 'SingleChoiceSelection',
     description: 'Dependent dropdowns',
-    icon: 'sitemap',
+    icon: 'material-symbols:account-tree',
     htmlType: 'select',
     component: 'CascadingSelect',
     validationOptions: [
@@ -495,7 +495,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'color',
     responseType: 'Text',
     description: 'Color selection',
-    icon: 'palette',
+    icon: 'material-symbols:palette',
     htmlType: 'color',
     component: 'ColorPicker',
     validationOptions: [
@@ -572,7 +572,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'code',
     responseType: 'Text',
     description: 'Syntax-highlighted code',
-    icon: 'code',
+    icon: 'material-symbols:code',
     htmlType: 'textarea',
     component: 'CodeEditor',
     validationOptions: [
@@ -659,7 +659,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'formula',
     responseType: 'Text',
     description: 'Mathematical expressions',
-    icon: 'function',
+    icon: 'material-symbols:functions',
     htmlType: 'text',
     component: 'FormulaField',
     validationOptions: [
@@ -736,7 +736,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'drawing',
     responseType: 'File',
     description: 'Freehand drawing canvas',
-    icon: 'paint-brush',
+    icon: 'material-symbols:brush',
     htmlType: 'text',
     component: 'DrawingCanvas',
     validationOptions: [
@@ -823,7 +823,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'barcode',
     responseType: 'Text',
     description: 'Barcode scanner',
-    icon: 'barcode',
+    icon: 'material-symbols:qr-code',
     htmlType: 'text',
     component: 'BarcodeScanner',
     validationOptions: [
@@ -899,7 +899,7 @@ export const INTERACTIVE_FIELDS: FieldDefinition[] = [
     type: 'qrcode',
     responseType: 'Text',
     description: 'QR code scanner',
-    icon: 'qrcode',
+    icon: 'material-symbols:qr-code',
     htmlType: 'text',
     component: 'QRCodeScanner',
     validationOptions: [

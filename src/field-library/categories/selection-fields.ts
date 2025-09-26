@@ -14,7 +14,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'radio',
     responseType: 'SingleChoiceSelection',
     description: 'Single option selection',
-    icon: 'radio',
+    icon: 'material-symbols:radio-button-checked',
     htmlType: 'radio',
     component: 'RadioGroup',
     validationOptions: [
@@ -89,7 +89,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Dropdown menu selection',
-    icon: 'dropdown',
+    icon: 'material-symbols:arrow-drop-down',
     htmlType: 'select',
     component: 'Select',
     validationOptions: [
@@ -176,7 +176,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'radio',
     responseType: 'SingleChoiceSelection',
     description: 'Choice with images',
-    icon: 'image-choice',
+    icon: 'material-symbols:image',
     htmlType: 'radio',
     component: 'ImageChoice',
     validationOptions: [
@@ -245,7 +245,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'radio',
     responseType: 'SingleChoiceSelection',
     description: 'Button-style selection',
-    icon: 'button-group',
+    icon: 'material-symbols:group-work',
     htmlType: 'radio',
     component: 'ButtonGroup',
     validationOptions: [
@@ -316,7 +316,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'checkbox',
     responseType: 'MultiChoiceSelection',
     description: 'Multiple option selection',
-    icon: 'checkbox',
+    icon: 'material-symbols:check-box',
     htmlType: 'checkbox',
     component: 'CheckboxGroup',
     validationOptions: [
@@ -478,7 +478,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'tags',
     responseType: 'TextArray',
     description: 'Tag-style input',
-    icon: 'tags',
+    icon: 'material-symbols:tag',
     htmlType: 'text',
     component: 'TagInput',
     validationOptions: [
@@ -559,7 +559,7 @@ export const SELECTION_FIELDS: FieldDefinition[] = [
     type: 'checkbox',
     responseType: 'MultiChoiceSelection',
     description: 'Multiple image selection',
-    icon: 'image-multi-choice',
+    icon: 'material-symbols:image',
     htmlType: 'checkbox',
     component: 'ImageMultiChoice',
     validationOptions: [

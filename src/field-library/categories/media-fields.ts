@@ -13,7 +13,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'file',
     responseType: 'File',
     description: 'Single file upload',
-    icon: 'upload',
+    icon: 'material-symbols:upload',
     htmlType: 'file',
     component: 'FileUpload',
     validationOptions: [
@@ -117,7 +117,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'file',
     responseType: 'File',
     description: 'Multiple file upload',
-    icon: 'upload-multiple',
+    icon: 'material-symbols:upload-file',
     htmlType: 'file',
     component: 'MultiFileUpload',
     validationOptions: [
@@ -217,7 +217,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'file',
     responseType: 'File',
     description: 'Image-specific upload',
-    icon: 'image',
+    icon: 'material-symbols:image',
     htmlType: 'file',
     component: 'ImageUpload',
     validationOptions: [
@@ -345,7 +345,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'file',
     responseType: 'File',
     description: 'Video file upload',
-    icon: 'video',
+    icon: 'material-symbols:play-circle',
     htmlType: 'file',
     component: 'VideoUpload',
     validationOptions: [
@@ -456,7 +456,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'file',
     responseType: 'File',
     description: 'Audio file upload',
-    icon: 'audio',
+    icon: 'material-symbols:audiotrack',
     htmlType: 'file',
     component: 'AudioUpload',
     validationOptions: [
@@ -560,7 +560,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'file',
     responseType: 'File',
     description: 'Document upload',
-    icon: 'document',
+    icon: 'material-symbols:description',
     htmlType: 'file',
     component: 'DocumentUpload',
     validationOptions: [
@@ -653,7 +653,7 @@ export const MEDIA_FIELDS: FieldDefinition[] = [
     type: 'signature',
     responseType: 'Text',
     description: 'Digital signature capture',
-    icon: 'signature',
+    icon: 'material-symbols:edit',
     htmlType: 'text',
     component: 'SignaturePad',
     validationOptions: [

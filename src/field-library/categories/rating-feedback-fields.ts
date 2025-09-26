@@ -13,7 +13,7 @@ export const RATING_FEEDBACK_FIELDS: FieldDefinition[] = [
     type: 'rating',
     responseType: 'Integer',
     description: 'Star-based rating',
-    icon: 'star',
+    icon: 'material-symbols:star',
     htmlType: 'range',
     component: 'StarRating',
     validationOptions: [
@@ -116,7 +116,7 @@ export const RATING_FEEDBACK_FIELDS: FieldDefinition[] = [
     type: 'rating',
     responseType: 'Boolean',
     description: 'Thumbs up/down rating',
-    icon: 'thumbs-up',
+    icon: 'material-symbols:thumb-up',
     htmlType: 'radio',
     component: 'ThumbsRating',
     validationOptions: [
@@ -210,7 +210,7 @@ export const RATING_FEEDBACK_FIELDS: FieldDefinition[] = [
     type: 'rating',
     responseType: 'Integer',
     description: 'Emoji-based rating',
-    icon: 'smile',
+    icon: 'material-symbols:sentiment-satisfied',
     htmlType: 'radio',
     component: 'EmojiRating',
     validationOptions: [
@@ -295,7 +295,7 @@ export const RATING_FEEDBACK_FIELDS: FieldDefinition[] = [
     type: 'range',
     responseType: 'Integer',
     description: 'Slider-based rating',
-    icon: 'slider',
+    icon: 'material-symbols:tune',
     htmlType: 'range',
     component: 'SliderRating',
     validationOptions: [
@@ -405,7 +405,7 @@ export const RATING_FEEDBACK_FIELDS: FieldDefinition[] = [
     type: 'rating',
     responseType: 'Integer',
     description: 'Net Promoter Score (0-10)',
-    icon: 'nps',
+    icon: 'material-symbols:trending-up',
     htmlType: 'radio',
     component: 'NPSScore',
     validationOptions: [
@@ -504,7 +504,7 @@ export const RATING_FEEDBACK_FIELDS: FieldDefinition[] = [
     type: 'radio',
     responseType: 'SingleChoiceSelection',
     description: 'Agreement scale',
-    icon: 'scale',
+    icon: 'material-symbols:balance',
     htmlType: 'radio',
     component: 'LikertScale',
     validationOptions: [
