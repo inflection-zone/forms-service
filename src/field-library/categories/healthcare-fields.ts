@@ -14,7 +14,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'composite',
     responseType: 'Object',
     description: 'Systolic/Diastolic BP',
-    icon: 'heartbeat',
+    icon: 'material-symbols:monitor-heart',
     htmlType: 'text',
     component: 'BloodPressureInput',
     validationOptions: [
@@ -104,7 +104,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Integer',
     description: 'Heart rate measurement',
-    icon: 'pulse',
+    icon: 'material-symbols:favorite',
     htmlType: 'number',
     component: 'PulseRateInput',
     validationOptions: [
@@ -194,7 +194,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Glucose levels',
-    icon: 'droplet',
+    icon: 'material-symbols:water-drop',
     htmlType: 'number',
     component: 'BloodSugarInput',
     validationOptions: [
@@ -286,7 +286,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Blood oxygen levels',
-    icon: 'lungs',
+    icon: 'material-symbols:air',
     htmlType: 'number',
     component: 'OxygenSaturationInput',
     validationOptions: [
@@ -372,7 +372,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Integer',
     description: 'Breathing rate',
-    icon: 'breath',
+    icon: 'material-symbols:air',
     htmlType: 'number',
     component: 'RespiratoryRateInput',
     validationOptions: [
@@ -456,7 +456,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'calculated',
     responseType: 'Float',
     description: 'Body Mass Index',
-    icon: 'scale',
+    icon: 'material-symbols:monitor-weight',
     htmlType: 'number',
     component: 'BMIInput',
     validationOptions: [
@@ -546,7 +546,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'select',
     responseType: 'SingleChoiceSelection',
     description: 'Blood group selection',
-    icon: 'blood',
+    icon: 'material-symbols:water-drop',
     htmlType: 'select',
     component: 'BloodTypeSelect',
     validationOptions: [
@@ -619,7 +619,7 @@ export const HEALTHCARE_FIELDS: FieldDefinition[] = [
     type: 'multi-select',
     responseType: 'MultiChoiceSelection',
     description: 'Known allergies',
-    icon: 'allergy',
+    icon: 'material-symbols:warning',
     htmlType: 'select',
     component: 'AllergiesSelect',
     validationOptions: [

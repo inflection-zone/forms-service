@@ -13,7 +13,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'text',
     responseType: 'Text',
     description: 'Single line text input',
-    icon: 'text',
+    icon: 'material-symbols:text-fields',
     htmlType: 'text',
     component: 'TextInput',
     validationOptions: [
@@ -103,7 +103,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'textarea',
     responseType: 'Text',
     description: 'Multi-line text input',
-    icon: 'textarea',
+    icon: 'material-symbols:notes',
     htmlType: 'textarea',
     component: 'TextArea',
     validationOptions: [
@@ -189,7 +189,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'email',
     responseType: 'Email',
     description: 'Email address input',
-    icon: 'email',
+    icon: 'material-symbols:email',
     htmlType: 'email',
     component: 'EmailInput',
     validationOptions: [
@@ -261,7 +261,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'password',
     responseType: 'Password',
     description: 'Masked text input for passwords',
-    icon: 'password',
+    icon: 'material-symbols:lock',
     htmlType: 'password',
     component: 'PasswordInput',
     validationOptions: [
@@ -367,7 +367,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'url',
     responseType: 'URL',
     description: 'Website URL input',
-    icon: 'link',
+    icon: 'material-symbols:link',
     htmlType: 'url',
     component: 'UrlInput',
     validationOptions: [
@@ -440,7 +440,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'search',
     responseType: 'Text',
     description: 'Search input with suggestions',
-    icon: 'search',
+    icon: 'material-symbols:search',
     htmlType: 'search',
     component: 'SearchInput',
     validationOptions: [
@@ -516,7 +516,7 @@ export const TEXT_FIELDS: FieldDefinition[] = [
     type: 'richtext',
     responseType: 'RichText',
     description: 'WYSIWYG text editor',
-    icon: 'rich-text',
+    icon: 'material-symbols:format-bold',
     htmlType: 'text',
     component: 'RichTextEditor',
     validationOptions: [

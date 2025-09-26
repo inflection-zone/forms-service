@@ -13,7 +13,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'date',
     responseType: 'Date',
     description: 'Date picker',
-    icon: 'calendar',
+    icon: 'material-symbols:calendar-today',
     htmlType: 'date',
     component: 'DateInput',
     validationOptions: [
@@ -107,7 +107,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'time',
     responseType: 'Time',
     description: 'Time selector',
-    icon: 'clock',
+    icon: 'material-symbols:schedule',
     htmlType: 'time',
     component: 'TimeInput',
     validationOptions: [
@@ -185,7 +185,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'datetime-local',
     responseType: 'DateTime',
     description: 'Date and time picker',
-    icon: 'calendar-clock',
+    icon: 'material-symbols:event',
     htmlType: 'datetime-local',
     component: 'DateTimeInput',
     validationOptions: [
@@ -271,7 +271,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'daterange',
     responseType: 'Object',
     description: 'Date range selector',
-    icon: 'calendar-range',
+    icon: 'material-symbols:date-range',
     htmlType: 'text',
     component: 'DateRangeInput',
     validationOptions: [
@@ -361,7 +361,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'timerange',
     responseType: 'Object',
     description: 'Time range selector',
-    icon: 'clock-range',
+    icon: 'material-symbols:schedule',
     htmlType: 'text',
     component: 'TimeRangeInput',
     validationOptions: [
@@ -449,7 +449,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'recurring',
     responseType: 'Object',
     description: 'Recurring date pattern',
-    icon: 'repeat',
+    icon: 'material-symbols:repeat',
     htmlType: 'text',
     component: 'RecurringInput',
     validationOptions: [
@@ -544,7 +544,7 @@ export const DATE_TIME_FIELDS: FieldDefinition[] = [
     type: 'date',
     responseType: 'Date',
     description: 'Birth date with age calculation',
-    icon: 'birthday-cake',
+    icon: 'material-symbols:cake',
     htmlType: 'date',
     component: 'BirthdayInput',
     validationOptions: [

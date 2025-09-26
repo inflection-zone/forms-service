@@ -13,7 +13,7 @@ export const MEASUREMENT_FIELDS: FieldDefinition[] = [
     type: 'composite',
     responseType: 'Object',
     description: 'Height measurement',
-    icon: 'height',
+    icon: 'material-symbols:height',
     htmlType: 'text',
     component: 'HeightInput',
     validationOptions: [
@@ -98,7 +98,7 @@ export const MEASUREMENT_FIELDS: FieldDefinition[] = [
     type: 'composite',
     responseType: 'Object',
     description: 'Weight measurement',
-    icon: 'weight',
+    icon: 'material-symbols:monitor-weight',
     htmlType: 'text',
     component: 'WeightInput',
     validationOptions: [
@@ -183,7 +183,7 @@ export const MEASUREMENT_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Temperature input',
-    icon: 'thermometer',
+    icon: 'material-symbols:thermostat',
     htmlType: 'number',
     component: 'TemperatureInput',
     validationOptions: [
@@ -273,7 +273,7 @@ export const MEASUREMENT_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Distance measurement',
-    icon: 'ruler',
+    icon: 'material-symbols:straighten',
     htmlType: 'number',
     component: 'DistanceInput',
     validationOptions: [
@@ -357,7 +357,7 @@ export const MEASUREMENT_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Area measurement',
-    icon: 'square',
+    icon: 'material-symbols:square-foot',
     htmlType: 'number',
     component: 'AreaInput',
     validationOptions: [
@@ -452,7 +452,7 @@ export const MEASUREMENT_FIELDS: FieldDefinition[] = [
     type: 'number',
     responseType: 'Float',
     description: 'Volume measurement',
-    icon: 'cube',
+    icon: 'material-symbols:cube-outline',
     htmlType: 'number',
     component: 'VolumeInput',
     validationOptions: [
