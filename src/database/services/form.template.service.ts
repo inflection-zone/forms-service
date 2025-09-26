@@ -385,7 +385,6 @@ export class FormTemplateService extends BaseService {
                     UpdatedAt: template.UpdatedAt,
                     Sections: mappedSections,
                 },
-                Sections: mappedSections,
             };
 
             return exportDto;

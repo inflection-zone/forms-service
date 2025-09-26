@@ -80,7 +80,6 @@ export interface FormTemplateSearchResponseDto extends BaseSearchResults {
 }
 
 export interface ExportFormTemplateDto {
-    Sections: SectionDto[];
     Template: TemplateDto;
 }
 
