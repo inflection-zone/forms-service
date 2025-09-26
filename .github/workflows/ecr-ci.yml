@@ -10,7 +10,7 @@ name: Continuous Integration with ECR
 on:
   push:
     branches:
-      - develop
+      - develop-inflection
   # workflow_run:
   #   workflows:
   #     - GitGuardian Secrets Scan
