@@ -71,7 +71,7 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
             ${{ env.TRIGGER_WORKFLOW_URL }} \
             -d "{
-                  \"ref\": \"develop\",
+                  \"ref\": \"develop-inflection\",
                   \"inputs\": {
                     \"service\": \"forms-service\",
                     \"ecr_registry_uri\": \"${{ steps.ecr-login.outputs.registry }}\",
