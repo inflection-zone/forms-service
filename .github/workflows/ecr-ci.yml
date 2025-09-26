@@ -1,0 +1,89 @@
+# Required secrets
+# AWS_REGION
+# AWS_ACCESS_KEY_ID
+# AWS_SECRET_ACCESS_KEY
+# PERSONAL_ACCESS_TOKEN
+# ENV_FILE_BUCKET_PATH
+
+name: Continuous Integration with ECR
+
+on:
+  push:
+    branches:
+      - develop
+  # workflow_run:
+  #   workflows:
+  #     - GitGuardian Secrets Scan
+  #   types:
+  #     - completed
+  workflow_dispatch:
+    inputs:
+      trigger_cd:
+        description: 'Trigger CD workflow (true/false)'
+        required: true
+        default: 'false'
+
+env:
+  ECR_REPOSITORY_NAME: forms-service
+  ECR_IMAGE_TAG: ${{ github.sha }}
+  TRIGGER_WORKFLOW_URL: https://api.github.com/repos/inflection-zone/forms-service/actions/workflows/server-cd.yml/dispatches
+
+jobs:
+  build:
+    name: Build and push the docker image to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1  # required to scan only latest commit
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          # role-to-assume: ROLE_TO_ASSUME
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Login to Amazon ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+        # with:
+        #   registry-type: public
+
+      - name: Build and push the image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.ecr-login.outputs.registry }}/${{ env.ECR_REPOSITORY_NAME }}:${{ env.ECR_IMAGE_TAG }}
+
+      - name: Show ECR image tag
+        run: echo "Pushed image tag- ${{ env.ECR_IMAGE_TAG }}"
+
+      - name: Trigger server-cd workflow
+        # if: ${{ github.event.inputs.trigger_cd == 'true' }}
+        run: |
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.PERSONAL_ACCESS_TOKEN }}" \
+            ${{ env.TRIGGER_WORKFLOW_URL }} \
+            -d "{
+                  \"ref\": \"develop\",
+                  \"inputs\": {
+                    \"service\": \"forms-service\",
+                    \"ecr_registry_uri\": \"${{ steps.ecr-login.outputs.registry }}\",
+                    \"ecr_repository_name\": \"${{ env.ECR_REPOSITORY_NAME }}\",
+                    \"ecr_image_tag\": \"${{ env.ECR_IMAGE_TAG }}\"
+                  }
+                }"
+              )
+
+          if [ "$RESPONSE" -eq 204 ]; then
+            echo "CD workflow triggered successfully."
+          else
+            echo "Failed to trigger CD workflow. HTTP status: $RESPONSE"
+            exit 1
+          fi
