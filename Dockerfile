@@ -1,4 +1,4 @@
-FROM node:18.20.8-alpine3.21 AS builder
+FROM node:24.8-alpine3.21 AS builder
 COPY . /app
 RUN apk add bash
 RUN apk add --no-cache \
@@ -16,11 +16,10 @@ RUN npm install -g typescript
 RUN npm install
 COPY src ./src
 COPY tsconfig.json ./
-RUN npx prisma generate
 RUN npm run build
 
 ##
-FROM node:18.20.8-alpine3.21
+FROM node:24.8-alpine3.21
 RUN apk add bash
 RUN apk add --no-cache \
         python3 \
@@ -37,15 +36,14 @@ WORKDIR /app
 COPY package*.json /app/
 RUN npm install pm2 -g
 RUN npm install
-COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/dist/ .
 
 RUN chmod +x /app/entrypoint.sh
+RUN dos2unix /app/entrypoint.sh
 
 EXPOSE 5555
 
-CMD ["sh", "-c", "npx prisma migrate deploy"]
-
-ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "/app/entrypoint.sh"]
 
 
 
