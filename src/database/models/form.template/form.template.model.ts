@@ -63,6 +63,9 @@ export class FormTemplate extends BaseEntity {
     @Column({ type: 'varchar', length: 512, nullable: true })
     Tags?: string;
 
+    @Column({ type: 'boolean', nullable: false, default: false })
+    IsFavourite: boolean;
+
     @OneToMany(() => FormSubmission, submission => submission.FormTemplate)
     FormSubmissions: FormSubmission[];
 

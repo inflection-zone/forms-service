@@ -51,6 +51,7 @@ export class FormTemplateService extends BaseService {
             OwnerUserId: createModel.OwnerUserId,
             RootSectionId: createModel.RootSectionId,
             DefaultSectionNumbering: createModel.DefaultSectionNumbering,
+            IsFavourite: createModel.IsFavourite ?? false,
         });
         const record = await this._formTemplateRepository.save(template);
 
@@ -171,7 +172,12 @@ export class FormTemplateService extends BaseService {
             // Populate operations for all form fields
             await this.populateFormFieldsOperations(template.FormSections);
 
-            return template;
+            // Map the template to include IsFavourite field
+            const mappedTemplate = FormTemplateMapper.toDto(template);
+            return {
+                ...template,
+                ...mappedTemplate
+            };
         } catch (error) {
             logger.error(`❌ Error getting form template details by id: ${error.message}`);
             ErrorHandler.throwInternalServerError(error.message, error);
@@ -280,6 +286,9 @@ export class FormTemplateService extends BaseService {
             }
             if (model.DefaultSectionNumbering != null) {
                 template.DefaultSectionNumbering = model.DefaultSectionNumbering;
+            }
+            if (model.IsFavourite != null) {
+                template.IsFavourite = model.IsFavourite;
             }
             var record = await this._formTemplateRepository.save(template);
             return FormTemplateMapper.toDto(record);
@@ -464,6 +473,9 @@ export class FormTemplateService extends BaseService {
         }
         if (filters.OwnerUserId) {
             search.where['OwnerUserId'] = filters.OwnerUserId;
+        }
+        if (filters.IsFavourite !== undefined) {
+            search.where['IsFavourite'] = filters.IsFavourite;
         }
 
         return search;

@@ -52,12 +52,22 @@ export interface QuestionResponseResponseDto {
     id: string;
     FormSubmission?: {
         id: string;
-        TemplateId: string;
-        FormUrl: string;
-        UserId: string;
+        FormTemplateId: string;
+        Title?: string;
+        Type: string;
+        TenantId?: string;
+        UserId?: string;
+        UserMetaData?: string;
+        Encrypted?: string;
+        Unencrypted?: string;
+        Link?: string;
+        LinkQueryParams?: string;
         Status: FormStatus;
-        SubmissionTimestamp: Date;
+        ValidTill: Date;
+        SubmittedAt?: Date;
+        Score?: number;
         CreatedAt: Date;
+        UpdatedAt: Date;
     };
     Question?: {
         id: string;
@@ -112,12 +122,22 @@ export interface QuestionResponseSearchResponseDto extends BaseSearchResults {
     id: string;
     FormSubmission: {
         id: string;
-        TemplateId: string;
-        FormUrl: string;
-        UserId: string;
+        FormTemplateId: string;
+        Title?: string;
+        Type: string;
+        TenantId?: string;
+        UserId?: string;
+        UserMetaData?: string;
+        Encrypted?: string;
+        Unencrypted?: string;
+        Link?: string;
+        LinkQueryParams?: string;
         Status: FormStatus;
-        SubmissionTimestamp: Date;
+        ValidTill: Date;
+        SubmittedAt?: Date;
+        Score?: number;
         CreatedAt: Date;
+        UpdatedAt: Date;
     };
     Question: {
         id: string;

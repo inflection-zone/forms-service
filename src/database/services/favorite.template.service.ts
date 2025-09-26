@@ -110,6 +110,21 @@ export class FavoriteTemplateService extends BaseService {
         }
     };
 
+    public findByUserAndTemplate = async (userId: string, templateId: string): Promise<FavoriteTemplateResponseDto | null> => {
+        try {
+            const favorite = await this._favoriteTemplateRepository.findOne({
+                where: {
+                    UserId: userId,
+                    TemplateId: templateId,
+                    DeletedAt: null
+                }
+            });
+            return favorite ? FavoriteTemplateMapper.toDto(favorite) : null;
+        } catch (error) {
+            logger.error(`❌ Error finding favorite template by user and template: ${error.message}`);
+            ErrorHandler.throwInternalServerError(error.message, error);
+        }
+    };
     //#region Privates
 
     private getSearchModel = (filters: FavoriteTemplateSearchFilters) => {
