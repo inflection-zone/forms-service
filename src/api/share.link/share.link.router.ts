@@ -11,7 +11,7 @@ export const register = (app: express.Application): void => {
 
     // Form sharing endpoints
     router.post('/', context(`${contextBase}.Create`), controller.createShare);
-    router.post('/send-link', context(`${contextBase}.SendLink`), controller.sendLinkViaEmail);
+    router.post('/send-single-link', context(`${contextBase}.SendLink`), controller.sendLinkViaEmail);
     router.post('/send-multiple-links', context(`${contextBase}.SendMultipleLinks`), controller.sendLinksToMultipleEmails);
     router.get('/:shareToken', context(`${contextBase}.GetDetails`), controller.getShareDetails);
     router.get('/:id/analytics', context(`${contextBase}.GetAnalytics`), controller.getShareAnalytics);
