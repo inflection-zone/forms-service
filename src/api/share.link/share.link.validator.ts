@@ -77,4 +77,30 @@ export class ShareLinkValidator extends BaseValidator {
             ErrorHandler.handleValidationError(error);
         }
     };
+
+    public validateSendMultipleLinksRequest = async (
+        request: express.Request
+    ): Promise<any> => {
+        try {
+            const schema = joi.object({
+                FormTemplateId: joi.string().uuid().required(),
+                EmailList: joi.array().items(joi.string().email()).min(1).max(50).required(),
+                Message: joi.string().max(500).optional(),
+                ExpiresInValue: joi.number().min(1).optional(),
+                ExpiresInUnit: joi.string().valid('days', 'hours', 'weeks').optional(),
+            });
+
+            await schema.validateAsync(request.body);
+
+            return {
+                FormTemplateId: request.body.FormTemplateId,
+                EmailList: request.body.EmailList,
+                Message: request.body.Message || null,
+                ExpiresInValue: request.body.ExpiresInValue || 7,
+                ExpiresInUnit: request.body.ExpiresInUnit || 'days',
+            };
+        } catch (error) {
+            ErrorHandler.handleValidationError(error);
+        }
+    };
 }

@@ -1,0 +1,68 @@
+meta {
+  name: Send Multiple Links
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{base_url}}/api/v1/share-link/send-multiple-links
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{auth_token}}
+}
+
+body:json {
+  {
+    "FormTemplateId": "{{form_template_id}}",
+    "EmailList": [
+      "user1@example.com",
+      "user2@example.com", 
+      "user3@example.com"
+    ],
+    "Message": "Please fill out this survey. Your responses are important to us.",
+    "ExpiresInValue": 7,
+    "ExpiresInUnit": "days"
+  }
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Response has success property", function() {
+    expect(res.getBody()).to.have.property('success');
+  });
+  
+  test("Response indicates success", function() {
+    expect(res.getBody().success).to.be.true;
+  });
+  
+  test("Response contains form share ID", function() {
+    expect(res.getBody().data).to.have.property('formShareId');
+  });
+  
+  test("Response contains email results", function() {
+    expect(res.getBody().data).to.have.property('emailResults');
+    expect(res.getBody().data.emailResults).to.be.an('array');
+  });
+  
+  test("All emails were sent successfully", function() {
+    const emailResults = res.getBody().data.emailResults;
+    emailResults.forEach(result => {
+      expect(result.success).to.be.true;
+    });
+  });
+  
+  test("Total emails sent matches input", function() {
+    expect(res.getBody().data.totalEmailsSent).to.equal(3);
+  });
+  
+  test("No failed emails", function() {
+    expect(res.getBody().data.failedEmails).to.be.an('array');
+    expect(res.getBody().data.failedEmails).to.have.length(0);
+  });
+}

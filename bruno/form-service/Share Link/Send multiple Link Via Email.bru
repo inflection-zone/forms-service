@@ -1,11 +1,11 @@
 meta {
-  name: Send Link Via Email
+  name: Send multiple Link Via Email
   type: http
-  seq: 2
+  seq: 6
 }
 
 post {
-  url: {{baseUrl}}/api/v1/share-link/send-link
+  url: {{BASE_URL}}/share-link/send-multiple-links
   body: json
   auth: none
 }
@@ -19,7 +19,11 @@ headers {
 body:json {
   {
     "FormTemplateId": "4f2d438a-625e-4eb7-94f9-03587009f47b",
-    "EmailTo": "kiranakharade@gmail.com",
+    "EmailList": [
+    "prajaktamandlik72@gmail.com",
+    "prashantkharade3721@gmail.com",
+      "madhuraa712@gmail.com"
+  ],
     "Message": "Please fill out this form. Your response is important to us."
   }
 }
