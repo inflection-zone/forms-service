@@ -1,0 +1,43 @@
+meta {
+  name: Send Multiple Links - Validation Test
+  type: http
+  seq: 19
+}
+
+post {
+  url: {{base_url}}/api/v1/share-link/send-multiple-links
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{auth_token}}
+}
+
+body:json {
+  {
+    "FormTemplateId": "{{form_template_id}}",
+    "EmailList": [
+      "invalid-email",
+      "test@",
+      "not-an-email"
+    ],
+    "Message": "This should fail validation",
+    "ExpiresInValue": 0,
+    "ExpiresInUnit": "months"
+  }
+}
+
+tests {
+  test("Status code is 400 (Bad Request)", function() {
+    expect(res.getStatus()).to.equal(400);
+  });
+  
+  test("Response indicates failure", function() {
+    expect(res.getBody().success).to.be.false;
+  });
+  
+  test("Response contains error message", function() {
+    expect(res.getBody()).to.have.property('message');
+  });
+}

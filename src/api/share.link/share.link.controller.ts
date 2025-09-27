@@ -164,6 +164,48 @@ export class ShareLinkController {
         }
     };
 
+    sendLinksToMultipleEmails = async (request: express.Request, response: express.Response) => {
+        try {
+            const validatedData = await this._validator.validateSendMultipleLinksRequest(request);
+            
+            // Get form template
+            const template = await this._formTemplateService.getById(validatedData.FormTemplateId);
+            if (!template) {
+                ErrorHandler.throwNotFoundError('Template not found!');
+            }
+
+            // Create form share with multiple emails
+            const formShareCreateModel: FormShareCreateModel = {
+                formId: validatedData.FormTemplateId,
+                shareType: ShareType.SINGLE, // Use single type but with multiple email tokens
+                expiresInValue: validatedData.ExpiresInValue,
+                expiresInUnit: validatedData.ExpiresInUnit,
+                emailList: validatedData.EmailList.join(','), // Convert array to comma-separated string
+            };
+
+            const formShare = await this._formShareService.create(formShareCreateModel);
+
+            // Send emails to all recipients
+            const emailResults = await this.sendFormLinksToMultipleEmails(formShare, template, validatedData.EmailList, validatedData.Message);
+
+            const message = 'Form links sent to multiple emails successfully!';
+            return ResponseHandler.success(
+                request,
+                response,
+                message,
+                200,
+                {
+                    formShareId: formShare.id,
+                    totalEmailsSent: emailResults.successCount,
+                    failedEmails: emailResults.failedEmails,
+                    emailResults: emailResults.results
+                }
+            );
+        } catch (error) {
+            ResponseHandler.handleError(request, response, error);
+        }
+    };
+
     private sendFormLinkEmail = async (formShare: FormShareDto, template: any, emailTo: string, message?: string): Promise<void> => {
         try {
             // Get email template
@@ -190,5 +232,59 @@ export class ShareLinkController {
             // Log error but don't throw to avoid breaking the form creation
             console.error('Error sending form link email:', error);
         }
+    };
+
+    private sendFormLinksToMultipleEmails = async (formShare: FormShareDto, template: any, emailList: string[], message?: string): Promise<{
+        successCount: number;
+        failedEmails: string[];
+        results: Array<{ email: string; success: boolean; error?: string }>;
+    }> => {
+        const results: Array<{ email: string; success: boolean; error?: string }> = [];
+        const failedEmails: string[] = [];
+        let successCount = 0;
+
+        // Get email template once
+        const emailTemplate = await this._emailService.getTemplate('form.share.html');
+
+        // Process each email
+        for (const email of emailList) {
+            try {
+                // Find the specific token for this email
+                const emailTokenPair = formShare.emailTokens?.find(et => et.email === email);
+                const shareUrl = emailTokenPair?.url || formShare.shareUrl;
+
+                // Replace template variables
+                const emailBody = emailTemplate
+                    .replace(/{{PLATFORM_NAME}}/g, process.env.PLATFORM_NAME || 'Form Service')
+                    .replace(/{{RECIPIENT_NAME}}/g, 'User')
+                    .replace(/{{FORM_TITLE}}/g, template.Title)
+                    .replace(/{{FORM_CATEGORY}}/g, 'General')
+                    .replace(/{{EXPIRES_ON}}/g, new Date(formShare.expiresAt).toLocaleDateString())
+                    .replace(/{{FORM_LINK}}/g, shareUrl || '')
+                    .replace(/{{MESSAGE}}/g, message || 'Please fill out this form.');
+
+                const emailDetails: EmailDetails = {
+                    EmailTo: email,
+                    Subject: `Form Link: ${template.Title}`,
+                    Body: emailBody
+                };
+
+                await this._emailService.sendEmail(emailDetails, false);
+                
+                results.push({ email, success: true });
+                successCount++;
+            } catch (error) {
+                const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+                results.push({ email, success: false, error: errorMessage });
+                failedEmails.push(email);
+                console.error(`Error sending email to ${email}:`, error);
+            }
+        }
+
+        return {
+            successCount,
+            failedEmails,
+            results
+        };
     };
 }
