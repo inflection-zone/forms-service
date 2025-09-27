@@ -147,5 +147,6 @@
     "Gamification": false,
     "EHRAnalytics": true,
      "Logger" : "Pino",
-    "MaxUploadFileSize": 104857600
+    "MaxUploadFileSize": 104857600,
+    "JwtExpiresIn": 259200
 }

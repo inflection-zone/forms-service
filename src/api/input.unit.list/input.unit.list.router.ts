@@ -1,6 +1,7 @@
 import express from 'express';
 import { InputUnitListController } from './input.unit.list.controller';
-import { context } from '../../auth/context.handler';
+import { auth } from '../../auth.u/auth.handler';
+import { InputUnitListAuth } from './input.unit.list.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -10,11 +11,11 @@ export const register = (app: express.Application): void => {
     const controller = new InputUnitListController();
     const contextBase = 'InputUnitList';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', controller.delete);
+    router.get('/search', auth(InputUnitListAuth.search), controller.search);
+    router.post('/', auth(InputUnitListAuth.create), controller.create);
+    router.put('/:id', auth(InputUnitListAuth.update), controller.update);
+    router.get('/:id', auth(InputUnitListAuth.getById), controller.getById);
+    router.delete('/:id', auth(InputUnitListAuth.delete), controller.delete);
 
     app.use('/api/v1/input-units', router);
 };

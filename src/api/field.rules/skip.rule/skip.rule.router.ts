@@ -1,6 +1,7 @@
 import express from 'express';
 import { SkipRuleController } from './skip.rule.controller';
-import { context } from '../../../auth/context.handler';
+import { auth } from '../../../auth.u/auth.handler';
+import { SkipRuleAuth } from './skip.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,12 +10,12 @@ export const register = (app: express.Application): void => {
     const controller = new SkipRuleController();
     const contextBase = 'SkipRule';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.get('/:id/details', context(`${contextBase}.GetDetailsById`), controller.getDetailsById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/search', auth(SkipRuleAuth.search), controller.search);
+    router.post('/', auth(SkipRuleAuth.create), controller.create);
+    router.put('/:id', auth(SkipRuleAuth.update), controller.update);
+    router.get('/:id', auth(SkipRuleAuth.getById), controller.getById);
+    router.get('/:id/details', auth(SkipRuleAuth.getDetailsById), controller.getDetailsById);
+    router.delete('/:id', auth(SkipRuleAuth.delete), controller.delete);
 
     app.use('/api/v1/field-skip-rules', router);
 };

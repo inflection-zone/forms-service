@@ -1,6 +1,7 @@
 import express from 'express';
 import { UserController } from './user.controller';
-import { context } from '../../auth/context.handler';
+import { auth } from '../../auth.u/auth.handler';
+import { UserAuth } from './user.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,12 +10,12 @@ export const register = (app: express.Application): void => {
     const controller = new UserController();
     const contextBase = 'User';
 
-    router.get('/all', context(`${contextBase}.GetAll`), controller.getAll);
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/all', auth(UserAuth.getAll), controller.getAll);
+    router.get('/search', auth(UserAuth.search), controller.search);
+    router.post('/', auth(UserAuth.create), controller.create);
+    router.put('/:id', auth(UserAuth.update), controller.update);
+    router.get('/:id', auth(UserAuth.getById), controller.getById);
+    router.delete('/:id', auth(UserAuth.delete), controller.delete);
 
     app.use('/api/v1/users', router);
 };

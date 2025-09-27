@@ -29,4 +29,5 @@ export interface Configurations {
     };
     MaxUploadFileSize: number;
     Telemetry: boolean;
+    JwtExpiresIn: number;
 }

@@ -25,5 +25,6 @@
         "Provider": "Firebase"
     },
     "MaxUploadFileSize": 104857600,
-    "Telemetry": false
+    "Telemetry": false,
+    "JwtExpiresIn": 259200
 }

@@ -10,8 +10,10 @@ export class WinstonDebugLogger extends AbstrctWinstonLogger {
 
         const format = winston.format.combine(
             winston.format.colorize({ all: true }),
-            winston.format.label({ label: `[${process.env.NODE_ENV}-${process.env.SERVICE_NAME}]` }),
-            winston.format.timestamp({ format: 'YY-MM-DD HH:MM:SS' }),
+            winston.format.label({ 
+                label: `[${process.env.NODE_ENV || 'dev'}-${process.env.SERVICE_NAME || 'forms-service'}]` 
+            }),
+            winston.format.timestamp({ format: 'YY-MM-DD HH:mm:ss' }), // Fixed: MM -> mm
             winston.format.printf(
                 (x) =>
                     `${x.timestamp} ${x.label} ${x.level} : ${x.message}`
@@ -26,25 +28,12 @@ export class WinstonDebugLogger extends AbstrctWinstonLogger {
         });
 
         this._logger = winston.createLogger({
-            levels     : this._logLevels,
-            level      : 'debug',
-            // format : winston.format.combine(
-            //     winston.format.colorize({
-            //         all : true
-            //     }),
-            //     winston.format.timestamp({
-            //         format : `YY-MM-DD HH:mm:ss`
-            //     }),
-            //     this._customFormat,
-            //     winston.format.json()
-            // ),
-            transports : [
-                // new winston.transports.File({ filename: logFile, level: 'silly' }),
+            level: 'debug',  // Remove custom levels for now
+            format: format,
+            transports: [
                 new winston.transports.Console({
-                    handleExceptions : true,
-                    format
+                    handleExceptions: true,
                 }),
-                //this._dailyRotateFile,
             ]
         });
     }
