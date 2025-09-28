@@ -1,0 +1,18 @@
+meta {
+  name: upload file
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/file-resources/upload
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  UserId: 298d09aa-168f-4fc2-88fa-8f06e07cc87b
+  IsPublicResource: true
+  Name: @file(C:\Users\user5\OneDrive\Pictures\abhi edited.jpg)
+  IsMultiResolutionImage: false
+}

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import "reflect-metadata";
+import 'reflect-metadata';
 import { Config } from './database.config';
 import { logger } from '../logger/logger';
-import { DataSource } from "typeorm";
-import path from "path";
+import { DataSource } from 'typeorm';
+import path from 'path';
 import { User } from './models/user/user.model';
 import { FormTemplate } from './models/form.template/form.template.model';
 import { FavoriteTemplate } from './models/favorite.template/favorite.template.model';
@@ -26,8 +26,11 @@ import { FunctionExpressionOperation } from './models/operation/function.express
 import { IterateOperation } from './models/operation/iterate.operation.model';
 import { LogicalOperation } from './models/operation/logical.operation.model';
 import { MathematicalOperation } from './models/operation/mathematical.operation.model';
-import { DBLogger } from "./database.logger";
-import { DbClient } from "./db.clients/db.client";
+import { DBLogger } from './database.logger';
+import { DbClient } from './db.clients/db.client';
+import { FileResource } from './models/file.resource/file.resource.model';
+import { FileResourceReference } from './models/file.resource/file.resource.reference.model';
+import { FileResourceVersion } from './models/file.resource/file.resource.version.model';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -39,20 +42,19 @@ logger.info(`Database Host : ${Config.host}`);
 ///////////////////////////////////////////////////////////////////////////////////
 
 class DatabaseConnector {
-
     static _basePath = path.join(process.cwd(), 'src/database/models').replace(/\\/g, '/');
 
     static _source = new DataSource({
-        name        : Config.dialect,
-        type        : Config.dialect,
-        host        : Config.host,
-        port        : Config.port,
-        username    : Config.username,
-        password    : Config.password,
-        database    : Config.database,
-        synchronize : true,
+        name: Config.dialect,
+        type: Config.dialect,
+        host: Config.host,
+        port: Config.port,
+        username: Config.username,
+        password: Config.password,
+        database: Config.database,
+        synchronize: true,
         //entities    : [this._basePath + '/**/*.model{.ts,.js}'],
-        entities    : [
+        entities: [
             FormTemplate,
             FavoriteTemplate,
             FormSection,
@@ -71,19 +73,22 @@ class DatabaseConnector {
             CalculationRule,
             SkipRule,
             FallbackRule,
+            FileResource,
+            FileResourceReference,
+            FileResourceVersion,
             CompositionOperation,
             FunctionExpressionOperation,
             IterateOperation,
             LogicalOperation,
             MathematicalOperation,
         ],
-        migrations  : [],
-        subscribers : [],
+        migrations: [],
+        subscribers: [],
         // logger      : 'advanced-console', //Use console for the typeorm logging
-        logger      : new DBLogger(),
-        logging     : false,
-        poolSize    : Config.pool.max,
-        cache       : true,
+        logger: new DBLogger(),
+        logging: false,
+        poolSize: Config.pool.max,
+        cache: true,
     });
 
     private static initialize = (): Promise<boolean> => {
@@ -127,7 +132,6 @@ class DatabaseConnector {
                 });
         });
     };
-
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
