@@ -25,6 +25,7 @@ body:json {
       "OwnerUserId": "{{USER_ID}}",
   //     "RootSectionId": "{{SECTION_ID}}",
       "DefaultSectionNumbering": false,
+      "IsFavourite": true,
       "ItemsPerPage": "OneQuestion"
   }
 }
@@ -55,6 +56,8 @@ script:post-response {
       expect(jsonRes.Data).to.have.property('DisplayCode');
       expect(jsonRes.Data).to.have.property('OwnerUserId');
       expect(jsonRes.Data).to.have.property('RootSectionId');
-      expect(jsonRes.Data).to.have.property('DefaultSectionNumbering');    
+      expect(jsonRes.Data).to.have.property('DefaultSectionNumbering');
+      expect(jsonRes.Data).to.have.property('IsFavourite');
+      expect(jsonRes.Data.IsFavourite).to.equal(true);
   });
 }

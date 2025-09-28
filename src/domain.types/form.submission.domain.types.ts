@@ -20,6 +20,8 @@ export interface FormSubmissionCreateModel {
     SubmittedAt?: Date;
     Status?: FormStatus;
     Category: FormType;
+    EmailTo?: string;
+    Message?: string;
 }
 
 export interface LinkQueryParams {

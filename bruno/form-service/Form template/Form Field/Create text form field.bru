@@ -1,0 +1,49 @@
+meta {
+  name: Create text form field
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{BASE_URL}}/form-fields
+  body: json
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "ParentTemplateId": "{{TEMPLATE_ID}}",
+      "ParentSectionId": "{{SECTION_ID}}",
+      "Title": "What is your email?",
+      "Description": "Please enter your email as it appears on official documents",
+      "ResponseType": "Text",
+      "Score": 3,
+      "CorrectAnswer": "johndoe@gmail.com",
+      "IsRequired": true,
+      "Hint": "Enter your email"
+  //     "QuestionImageUrl": "https://example.com/name-field.jpg",
+  //     "RangeMin": 2,
+  //     "RangeMax": 50
+  }
+}
+
+script:post-response {
+  test("Request is successful", function () {
+      expect(res.getStatus()).to.equal(201);
+      var jsonRes = res.getBody();
+      expect(jsonRes.Status).to.eql('Success');
+  });
+  
+  test("Text form field is created", function () {
+      var jsonRes = res.getBody();
+      expect(jsonRes.Data).to.have.property('id');
+      expect(jsonRes.Data.ResponseType).to.equal('Text');
+      expect(jsonRes.Data.IsRequired).to.equal(true);
+  });
+}

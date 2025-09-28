@@ -8,6 +8,7 @@ import { register as Response } from '../api/question.response/question.response
 import { register as favoriteTemplate } from '../api/favorite.template/favorite.template.router';
 import { register as formTemplateApproval } from '../api/form.template.approval/form.template.approval.router';
 import { register as templateFolder } from '../api/template.folder/template.folder.router';
+import { register as shareLink } from '../api/share.link/share.link.router';
 
 import { register as skipLogic } from '../api/field.logic/skip.logic/skip.logic.router';
 import { register as calculationLogic } from '../api/field.logic/calculation.logic/calculation.logic.router';
@@ -116,6 +117,7 @@ export class RouteHandler {
                 formTemplateApproval(expressApp);
                 templateFolder(expressApp);
                 inputUnitList(expressApp);
+                shareLink(expressApp);
 
                 skipLogic(expressApp);
                 calculationLogic(expressApp);

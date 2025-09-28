@@ -1,0 +1,38 @@
+meta {
+  name: Get Share Details
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/share-link/{{shareToken}}
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{authToken}}
+  x-api-key: {{INTERNAL_API_KEY}}
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:5555
+  authToken: your-jwt-token-here
+  shareToken: your-share-token-here
+}
+
+tests {
+  test("Status code is 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("Response contains share details", function() {
+    expect(res.getBody()).to.have.property('Data');
+    expect(res.getBody().Data).to.have.property('id');
+    expect(res.getBody().Data).to.have.property('formId');
+    expect(res.getBody().Data).to.have.property('shareToken');
+    expect(res.getBody().Data).to.have.property('shareType');
+    expect(res.getBody().Data).to.have.property('isActive');
+  });
+}
