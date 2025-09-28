@@ -19,6 +19,7 @@ export interface FormSubmissionCreateModel {
     ValidTill?: Date;
     SubmittedAt?: Date;
     Status?: FormStatus;
+    IsEmbedded?: boolean;
     Category: FormType;
     EmailTo?: string;
     Message?: string;
@@ -43,6 +44,7 @@ export interface FormSubmissionUpdateModel {
     SubmittedAt?: Date;
     Status?: FormStatus;
     Category?: FormType;
+    IsEmbedded?: boolean;
 }
 
 export interface FormSubmissionDto {
@@ -58,6 +60,7 @@ export interface FormSubmissionDto {
     ValidTill?: Date;
     Status?: string;
     Category?: FormType;
+    IsEmbedded?: boolean;
 }
 
 export interface FormSubmissionSearchFilters extends BaseSearchFilters {
@@ -67,6 +70,7 @@ export interface FormSubmissionSearchFilters extends BaseSearchFilters {
     Status?: FormStatus;
     ValidTill?: Date;
     SubmittedAt?: Date;
+    IsEmbedded?: boolean;
 }
 
 export interface FormSubmissionSearchResults extends BaseSearchResults {

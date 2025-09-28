@@ -17,7 +17,6 @@ export class FormTemplateMapper {
             OwnerUserId: record.OwnerUserId,
             RootSectionId: record.RootSectionId,
             DefaultSectionNumbering: record.DefaultSectionNumbering,
-            IsFavourite: record.IsFavourite,
             CreatedAt: record.CreatedAt,
             UpdatedAt: record.UpdatedAt,
         };

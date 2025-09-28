@@ -43,6 +43,10 @@ export class FormFieldMapper {
             RangeMax: record.RangeMax,
             DefaultExpectedUnit: record.DefaultExpectedUnit,
             PageBreakAfter: record.PageBreakAfter,
+            // Field Library identifiers
+            IsFieldLibraryField: record.IsFieldLibraryField,
+            FieldLibraryId: record.FieldLibraryId,
+            FieldLibraryType: record.FieldLibraryType,
             ParentFormSection: record.ParentFormSection ? {
                 id: record.ParentFormSection.id,
                 Title: record.ParentFormSection.Title,

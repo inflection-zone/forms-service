@@ -31,6 +31,7 @@ import { FileResourceReference } from './models/file.resource/file.resource.refe
 import { FileResourceVersion } from './models/file.resource/file.resource.version.model';
 import { FormShare } from './models/form.share/form.share.model';
 import { ResponseToken } from './models/response.token/response.token.model';
+import { FieldLibrary } from './models/field.library/field.library.model';
 import { DBLogger } from "./database.logger";
 import { DbClient } from "./db.clients/db.client";
 
@@ -69,7 +70,7 @@ class DatabaseConnector {
             User,
             FormShare,
             ResponseToken,
-
+            FieldLibrary,
             SkipLogic,
             CalculationLogic,
             ValidationLogic,

@@ -37,6 +37,7 @@ export class FormService extends BaseService {
             SubmittedAt: createModel.SubmittedAt,
             Status: createModel.Status ?? FormStatus.LinkShared,
             Type: createModel.Category,
+            IsEmbedded: createModel.IsEmbedded ?? false,
         });
         const record = await this._formSubmissionRepository.save(submission);
 

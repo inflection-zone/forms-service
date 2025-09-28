@@ -8,8 +8,8 @@ import { register as Response } from '../api/question.response/question.response
 import { register as favoriteTemplate } from '../api/favorite.template/favorite.template.router';
 import { register as formTemplateApproval } from '../api/form.template.approval/form.template.approval.router';
 import { register as templateFolder } from '../api/template.folder/template.folder.router';
+import { register as formEmbedding } from '../api/form.embedding/form.embedding.router';
 import { register as shareLink } from '../api/share.link/share.link.router';
-
 import { register as skipLogic } from '../api/field.logic/skip.logic/skip.logic.router';
 import { register as calculationLogic } from '../api/field.logic/calculation.logic/calculation.logic.router';
 import { register as validationLogic } from '../api/field.logic/validation.logic/validation.logic.router';
@@ -24,6 +24,7 @@ import { register as validationRule } from '../api/field.rules/validation.rule/v
 import { register as fallbackRule } from '../api/field.rules/fallback.rule/fallback.rule.router';
 import { register as inputUnitList } from '../api/input.unit.list/input.unit.list.router';
 import {register as FileResource} from '../api/file.resource/file.resource.routes'
+import { register as fieldLibrary } from '../api/field.library/field.library.router';
 
 import { logger } from "../logger/logger";
 import path from "path";
@@ -106,6 +107,7 @@ export class RouteHandler {
                 expressApp.get("/api/docs", (req, res) => {
                     res.sendFile(path.join(__dirname, "docs/index.html"));
                 });
+                
 
                 form(expressApp);
                 formTemplate(expressApp);
@@ -117,8 +119,9 @@ export class RouteHandler {
                 formTemplateApproval(expressApp);
                 templateFolder(expressApp);
                 inputUnitList(expressApp);
+                formEmbedding(expressApp);
                 shareLink(expressApp);
-
+                fieldLibrary(expressApp);
                 skipLogic(expressApp);
                 calculationLogic(expressApp);
                 validationLogic(expressApp);

@@ -41,9 +41,15 @@ export class FormFieldService extends BaseService {
             ImageResourceId: createModel.ImageResourceId,
             RangeMin: createModel.RangeMin,
             RangeMax: createModel.RangeMax,
+            DefaultExpectedUnit: createModel.DefaultExpectedUnit,
+            PageBreakAfter: createModel.PageBreakAfter,
             SkipLogicId: createModel.SkipLogicId,
             CalculateLogicId: createModel.CalculateLogicId,
             ValidateLogicId: createModel.ValidateLogicId,
+            // Field Library identifiers
+            IsFieldLibraryField: createModel.IsFieldLibraryField,
+            FieldLibraryId: createModel.FieldLibraryId,
+            FieldLibraryType: createModel.FieldLibraryType,
         });
         const record = await this._formFieldRepository.save(field);
 
