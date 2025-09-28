@@ -1,6 +1,7 @@
 import express from 'express';
 import { MathematicalOperationController } from './mathematical.operation.controller';
-import { context } from '../../../auth/context.handler';
+import { auth } from '../../../auth.u/auth.handler';
+import { MathematicalOperationAuth } from './mathematical.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,11 +10,11 @@ export const register = (app: express.Application): void => {
     const controller = new MathematicalOperationController();
     const contextBase = 'MathematicalOperation';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/search', auth(MathematicalOperationAuth.search), controller.search);
+    router.post('/', auth(MathematicalOperationAuth.create), controller.create);
+    router.put('/:id', auth(MathematicalOperationAuth.update), controller.update);
+    router.get('/:id', auth(MathematicalOperationAuth.getById), controller.getById);
+    router.delete('/:id', auth(MathematicalOperationAuth.delete), controller.delete);
 
     app.use('/api/v1/field-mathematical-operations', router);
 };

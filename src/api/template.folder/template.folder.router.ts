@@ -1,6 +1,7 @@
 import express from 'express';
 import { TemplateFolderController } from './template.folder.controller';
-import { context } from '../../auth/context.handler';
+import { auth } from '../../auth.u/auth.handler';
+import { TemplateFolderAuth } from './template.folder.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,11 +10,11 @@ export const register = (app: express.Application): void => {
     const controller = new TemplateFolderController();
     const contextBase = 'TemplateFolder';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/search', auth(TemplateFolderAuth.search), controller.search);
+    router.post('/', auth(TemplateFolderAuth.create), controller.create);
+    router.put('/:id', auth(TemplateFolderAuth.update), controller.update);
+    router.get('/:id', auth(TemplateFolderAuth.getById), controller.getById);
+    router.delete('/:id', auth(TemplateFolderAuth.delete), controller.delete);
 
     app.use('/api/v1/template-folders', router);
 };

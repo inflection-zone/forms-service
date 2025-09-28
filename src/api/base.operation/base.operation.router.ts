@@ -1,6 +1,7 @@
 import express from 'express';
 import { BaseOperationController } from './base.operation.controller';
-import { context } from '../../auth/context.handler';
+import { auth } from '../../auth.u/auth.handler';
+import { BaseOperationAuth } from './base.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,11 +10,11 @@ export const register = (app: express.Application): void => {
     const controller = new BaseOperationController();
     const contextBase = 'BaseOperation';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/search', auth(BaseOperationAuth.search), controller.search);
+    router.post('/', auth(BaseOperationAuth.create), controller.create);
+    router.put('/:id', auth(BaseOperationAuth.update), controller.update);
+    router.get('/:id', auth(BaseOperationAuth.getById), controller.getById);
+    router.delete('/:id', auth(BaseOperationAuth.delete), controller.delete);
 
     app.use('/api/v1/base-operations', router);
 }; 

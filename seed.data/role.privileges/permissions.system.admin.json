@@ -1,0 +1,176 @@
+{
+    "User":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true,
+        "GetAll": true
+    },
+    "BaseOperation":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FavoriteTemplate":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FormTemplate":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true,
+        "GetDetailsById": true
+    },
+    "FormTemplateApproval":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FormSection":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FormField":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FormSubmission":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true,
+        "Submit": true
+    },
+    "QuestionResponse":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true,
+        "Save": true
+    },
+    "InputUnitList":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "TemplateFolder":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "CalculationLogic":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "SkipLogic":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "ValidationLogic":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "CompositionOperation":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FunctionExpressionOperation":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "IterateOperation":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "LogicalOperation":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "MathematicalOperation":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "CalculationRule":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FallbackRule":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "SkipRule":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true,
+        "GetDetailsById": true
+    },
+    "ValidationRule":{
+        "Create": true,
+        "Search": true,
+        "GetById": true,
+        "Update": true,
+        "Delete": true
+    },
+    "FileResource":{
+        "Upload": true,
+        "Download": true,
+        "GetById": true,
+        "Delete": true
+    }
+}
+
+  

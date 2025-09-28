@@ -28,6 +28,9 @@ import { LogicalOperation } from './models/operation/logical.operation.model';
 import { MathematicalOperation } from './models/operation/mathematical.operation.model';
 import { DBLogger } from "./database.logger";
 import { DbClient } from "./db.clients/db.client";
+import { RolePrivilege } from "./models/role.privilege.model";
+import { Role } from "./models/role.model";
+import { RolePermission } from "./models/role.permission.model";
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -76,6 +79,9 @@ class DatabaseConnector {
             IterateOperation,
             LogicalOperation,
             MathematicalOperation,
+            Role,
+            RolePermission,
+            RolePrivilege,
         ],
         migrations  : [],
         subscribers : [],

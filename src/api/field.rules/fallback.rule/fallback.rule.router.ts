@@ -1,6 +1,7 @@
 import express from 'express';
 import { FallbackRuleController } from './fallback.rule.controller';
-import { context } from '../../../auth/context.handler';
+import { auth } from '../../../auth.u/auth.handler';
+import { FallbackRuleAuth } from './fallback.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,11 +10,11 @@ export const register = (app: express.Application): void => {
     const controller = new FallbackRuleController();
     const contextBase = 'FallbackRule';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/search', auth(FallbackRuleAuth.search), controller.search);
+    router.post('/', auth(FallbackRuleAuth.create), controller.create);
+    router.put('/:id', auth(FallbackRuleAuth.update), controller.update);
+    router.get('/:id', auth(FallbackRuleAuth.getById), controller.getById);
+    router.delete('/id', auth(FallbackRuleAuth.delete), controller.delete);
 
     app.use('/api/v1/field-fallback-rules', router);
 };

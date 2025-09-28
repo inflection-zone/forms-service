@@ -1,6 +1,7 @@
 import express from 'express';
 import { CalculationRuleController } from './calculation.rule.controller';
-import { context } from '../../../auth/context.handler';
+import { auth } from '../../../auth.u/auth.handler';
+import { CalculationRuleAuth } from './calculation.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,11 +10,11 @@ export const register = (app: express.Application): void => {
     const controller = new CalculationRuleController();
     const contextBase = 'CalculationRule';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
+    router.get('/search', auth(CalculationRuleAuth.search), controller.search);
+    router.post('/', auth(CalculationRuleAuth.create), controller.create);
+    router.put('/:id', auth(CalculationRuleAuth.update), controller.update);
+    router.get('/:id', auth(CalculationRuleAuth.getById), controller.getById);
+    router.delete('/:id', auth(CalculationRuleAuth.delete), controller.delete);
 
     app.use('/api/v1/field-calculation-rules', router);
 };

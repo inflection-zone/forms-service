@@ -5,6 +5,7 @@ import { CustomDebugLogger } from './custom/custom.debug.logger';
 // import { PinoProdLogger } from './pino/pino.prod.logger';
 import { WinstonDebugLogger } from './winston/winston.debug.logger';
 import { WinstonProdLogger } from './winston/winston.prod.logger';
+import { CustomProdLogger } from './custom/custom.prod.logger';
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,27 +17,27 @@ class Logger {
 
     static getLogger = (): ILogger => {
 
-        const provider: LoggerProvider = 'Winston';
+        const provider: LoggerProvider = 'Custom';
         var logger_: ILogger = new CustomDebugLogger();
 
-        if (provider === 'Winston') {
-            logger_ = new WinstonDebugLogger();
-            if (process.env.NODE_ENV === 'production') {
-                logger_ = new WinstonProdLogger();
-            }
-        }
+        // if (provider === 'Winston') {
+        //     logger_ = new WinstonDebugLogger();
+        //     if (process.env.NODE_ENV === 'production') {
+        //         logger_ = new WinstonProdLogger();
+        //     }
+        // }
         // if (provider === 'Pino') {
         //     logger_ = new PinoDebugLogger();
         //     if (process.env.NODE_ENV === 'production') {
         //         logger_ = new PinoProdLogger();
         //     }
         // }
-        // if (provider === 'Custom') {
-        //     logger_ = new CustomDebugLogger();
-        //     if (process.env.NODE_ENV === 'production') {
-        //         logger_ = new CustomProdLogger();
-        //     }
-        // }
+        if (provider === 'Custom') {
+            logger_ = new CustomDebugLogger();
+            if (process.env.NODE_ENV === 'production') {
+                logger_ = new CustomProdLogger();
+            }
+        }
         return logger_;
     };
 
