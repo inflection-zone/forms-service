@@ -15,6 +15,7 @@ export const register = (app: express.Application): void => {
     router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
     router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
     router.get('/:id/details', context(`${contextBase}.GetDetailsById`), controller.getDetailsById);
+    router.get('/:id/export', context(`${contextBase}.Export`), controller.export);
     router.put('/:id/favourites', context(`${contextBase}.UpdateFavourite`), controller.updateFavourite);
 
     app.use('/api/v1/form-templates', router);
