@@ -11,8 +11,24 @@ post {
 }
 
 body:multipart-form {
-  UserId: 3258af0b-811a-4974-b84f-d31e933c851a
+  UserId: {{USER_ID}}
   IsPublicResource: true
-  Name: @file(C:\Users\Aditya\Downloads\form-service.json)
+  Name: @file(C:\Users\Prashant Kharade\OneDrive\Pictures\1694802364088.jpg)
   IsMultiResolutionImage: false
+}
+
+script:post-response {
+  try {
+      var jsonRes = res.getBody();
+      bru.setEnvVar("FILE_RESOURCE_ID", jsonRes.Data.id);
+  }
+  catch (error) {
+      console.log(error.message);
+  }
+  
+  test("Request is successfull", function () {
+      expect(res.getStatus()).to.equal(201);
+      var jsonRes = res.getBody();
+      expect(jsonRes.Status).to.eql('Success');
+  });
 }
