@@ -219,12 +219,12 @@ export class FormTemplateController {
             const exportData = await this._service.export(id);
 
             const { filename, sourceFileLocation }
-                        = await Helper.storeTemplateToFileLocally(exportData);
-            
-             var mimeType = Helper.getMimeType(sourceFileLocation);
+                = await Helper.storeTemplateToFileLocally(exportData);
+
+            var mimeType = Helper.getMimeType(sourceFileLocation);
             response.setHeader('Content-type', mimeType);
             response.setHeader('Content-disposition', 'attachment; filename=' + filename);
-            
+
             var filestream = fs.createReadStream(sourceFileLocation);
             filestream.pipe(response);
         } catch (error) {

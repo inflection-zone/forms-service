@@ -52,7 +52,7 @@ export class FormEmbeddingController {
             // Set appropriate headers for JavaScript content
             response.setHeader('Content-Type', 'application/javascript');
             response.setHeader('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
-            
+
             // Send the JavaScript content
             response.send(scriptContent);
         } catch (error) {
@@ -67,7 +67,26 @@ export class FormEmbeddingController {
             ErrorHandler.throwNotFoundError('Template not found!');
         }
         //Get markdown - how-to-embed-charcoal-form.md
-        let markdown = fs.readFileSync(path.join(__dirname, 'how-to-embed-charcoal-form.md'), 'utf8');
+        // Try multiple paths to handle both development and production environments
+        const possiblePaths = [
+            path.join(__dirname, 'how-to-embed-charcoal-form.md'), // Production (dist folder)
+            path.join(process.cwd(), 'src', 'api', 'form.embedding', 'how-to-embed-charcoal-form.md'), // Development
+            path.join(process.cwd(), 'dist', 'src', 'api', 'form.embedding', 'how-to-embed-charcoal-form.md') // Alternative production path
+        ];
+
+        let markdownPath = null;
+        for (const possiblePath of possiblePaths) {
+            if (fs.existsSync(possiblePath)) {
+                markdownPath = possiblePath;
+                break;
+            }
+        }
+
+        if (!markdownPath) {
+            ErrorHandler.throwNotFoundError('Markdown file not found in any expected location!');
+        }
+
+        let markdown = fs.readFileSync(markdownPath, 'utf8');
         const thisBaseUrl = process.env.THIS_BASE_URL;
 
         //Replace all instances of {{THIS_BASE_URL}} with the thisBaseUrl
@@ -86,7 +105,7 @@ export class FormEmbeddingController {
         );
     };
 
-    
+
     private generateUniqueKey = (input: string): string => {
         try {
             const privateKey = process.env.PRIVATE_KEY;
@@ -100,11 +119,23 @@ export class FormEmbeddingController {
     };
 
     private getEmbedScript() {
-        const scriptPath = path.join(__dirname, 'charcoal.form.embed.js');
+        // Try multiple paths to handle both development and production environments
+        const possiblePaths = [
+            path.join(__dirname, 'charcoal.form.embed.js'), // Production (dist folder)
+            path.join(process.cwd(), 'src', 'api', 'form.embedding', 'charcoal.form.embed.js'), // Development
+            path.join(process.cwd(), 'dist', 'src', 'api', 'form.embedding', 'charcoal.form.embed.js') // Alternative production path
+        ];
 
-        // Check if file exists
-        if (!fs.existsSync(scriptPath)) {
-            ErrorHandler.throwNotFoundError('Charcoal script not found!');
+        let scriptPath = null;
+        for (const possiblePath of possiblePaths) {
+            if (fs.existsSync(possiblePath)) {
+                scriptPath = possiblePath;
+                break;
+            }
+        }
+
+        if (!scriptPath) {
+            ErrorHandler.throwNotFoundError('Charcoal script not found in any expected location!');
         }
 
         // Read the JavaScript file

@@ -1,17 +1,10 @@
 import path from 'path';
 import * as defaultConfiguration from '../../service.config.json';
-import {
-    Configurations,
-    EmailProvider,
-    FileStorageProvider,
-    MobileNotificationProvider,
-    SmsProvider
-} from './configuration.types';
+import { Configurations, EmailProvider, FileStorageProvider, MobileNotificationProvider, SmsProvider } from './configuration.types';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 export class ConfigurationManager {
-
     static _config: Configurations | null = null;
 
     static initialize = (): void => {
@@ -20,24 +13,24 @@ export class ConfigurationManager {
             SystemIdentifier: defaultConfiguration.SystemIdentifier as string,
             MaxUploadFileSize: parseInt(defaultConfiguration.MaxUploadFileSize.toString(), 10),
             FileStorage: {
-                Provider: defaultConfiguration.FileStorage.Provider as FileStorageProvider
+                Provider: defaultConfiguration.FileStorage.Provider as FileStorageProvider,
             },
             Email: {
-                Provider: defaultConfiguration.Email.Provider as EmailProvider
+                Provider: defaultConfiguration.Email.Provider as EmailProvider,
             },
             Sms: {
-                Provider: defaultConfiguration.Sms.Provider as SmsProvider
+                Provider: defaultConfiguration.Sms.Provider as SmsProvider,
             },
             MobileNotification: {
-                Provider: defaultConfiguration.MobileNotification.Provider as MobileNotificationProvider
+                Provider: defaultConfiguration.MobileNotification.Provider as MobileNotificationProvider,
             },
             TemporaryFolders: {
                 UploadFolder: defaultConfiguration.TemporaryFolders.UploadFolder,
                 DownloadFolder: defaultConfiguration.TemporaryFolders.DownloadFolder,
                 LogFolder: defaultConfiguration.TemporaryFolders.LogFolder,
-                CleanupEveryMinutes: parseInt(defaultConfiguration.TemporaryFolders.CleanupEveryMinutes.toString(), 10)
+                CleanupEveryMinutes: parseInt(defaultConfiguration.TemporaryFolders.CleanupEveryMinutes.toString(), 10),
             },
-            Telemetry: defaultConfiguration.Telemetry
+            Telemetry: defaultConfiguration.Telemetry,
         };
     };
 
@@ -82,7 +75,6 @@ export class ConfigurationManager {
     public static MobileNotificationProvider = (): MobileNotificationProvider => {
         return ConfigurationManager._config.MobileNotification.Provider;
     };
-
 }
 
 ConfigurationManager.initialize();

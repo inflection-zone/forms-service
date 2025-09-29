@@ -23,6 +23,7 @@ import { register as calculationRule } from '../api/field.rules/calculation.rule
 import { register as validationRule } from '../api/field.rules/validation.rule/validation.rule.router';
 import { register as fallbackRule } from '../api/field.rules/fallback.rule/fallback.rule.router';
 import { register as inputUnitList } from '../api/input.unit.list/input.unit.list.router';
+import {register as FileResource} from '../api/file.resource/file.resource.routes'
 import { register as fieldLibrary } from '../api/field.library/field.library.router';
 
 import { logger } from "../logger/logger";
@@ -133,6 +134,7 @@ export class RouteHandler {
                 calculationRule(expressApp);
                 validationRule(expressApp);
                 fallbackRule(expressApp);
+                FileResource(expressApp);
 
                 resolve(true);
 
