@@ -12,6 +12,7 @@ export const register = (app: express.Application): void => {
     const contextBase = 'FileResource';
     fileUploadMiddleware(router);
 
+    router.post('/upload-binary', controller.uploadBinary);
     router.post('/upload', controller.upload);
 
     router.get('/:id/download', controller.downloadById);

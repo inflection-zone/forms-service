@@ -1,0 +1,18 @@
+meta {
+  name: File Upload-binary
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{BASE_URL}}/file-resources/upload-binary
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  Name: @file(C:\Users\user5\OneDrive\Pictures\abhi edited.jpg)
+  IsPublicResource: true
+  IsMultiResolution: false
+  UserId: 298d09aa-168f-4fc2-88fa-8f06e07cc87b
+}

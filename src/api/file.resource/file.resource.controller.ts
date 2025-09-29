@@ -10,6 +10,7 @@ import {
     FileResourceSearchFilters,
     DownloadDisposition,
     FileResourceMetadata,
+    FileResourceUploadDomainModel
 } from '../../domain.types/file.resource.upload.domain.types';
 import { FileResourceService } from '../../database/services/file.resource.service';
 import { FileResourceValidator } from './file.resource.validator';
@@ -37,6 +38,23 @@ export class FileResourceController {
     //#endregion
 
     //#region Action methods
+
+    uploadBinary = async (request: express.Request, response: express.Response): Promise<void> => {
+        try {
+            const model: FileResourceUploadDomainModel = this.getBinaryUploadModel(request);
+            // await this.authorizeOne(request, model.OwnerUserId);
+
+            const dtos = [];
+            const dto = await this._service.uploadBinary(model);
+            dtos.push(this.sanitizeDto(dto));
+
+            ResponseHandler.success(request, response, 'File resource uploaded successfully!', 201, {
+                FileResources : dtos,
+            });
+        } catch (error) {
+            ResponseHandler.handleError(request, response, error);
+        }
+    };
 
     upload = async (request: express.Request, response: express.Response): Promise<void> => {
         try {
@@ -211,6 +229,33 @@ export class FileResourceController {
 
     //#region Privates
 
+
+    private getBinaryUploadModel(request: express.Request) {
+        var filename = request.headers["filename"] as string;
+        var publicResource = request.headers['public'] === 'true' ? true : false;
+        const sizeStr = request.headers['size'] ? request.headers['size'] as string : null;
+        var size = sizeStr ? parseInt(sizeStr)  : 0;
+
+        const metadata: FileResourceMetadata = {
+            FileName     : filename,
+            OriginalName : filename,
+            MimeType     : Helper.getMimeType(filename),
+            Version      : '1',
+            StorageKey   : null,
+            Stream       : request,
+            Size         : size,
+        };
+        const model: FileResourceUploadDomainModel = {
+            FileMetadata           : metadata,
+            // OwnerUserId            : request.body.OwnerUserId ?? request.currentUser.UserId,
+            OwnerUserId            : request.body.UserId,
+            UploadedByUserId       : request.body.UserId,
+            IsPublicResource       : publicResource,
+            IsMultiResolutionImage : false,
+            MimeType               : Helper.getMimeType(filename),
+        };
+        return model;
+    }
     private streamToResponse(localDestination: string, response: express.Response<any, Record<string, any>>, metadata: FileResourceMetadata) {
         if (localDestination == null) {
             throw new AppError('File resource not found.', 404);
@@ -266,3 +311,4 @@ export class FileResourceController {
 
     //#endregion
 }
+
