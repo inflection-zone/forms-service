@@ -5,8 +5,7 @@ const ServiceConfiguration = require('../../service.config.json');
 import { Roles } from "../master.data/roles";
 import { RolePermissions } from "../master.data/role.permissions";
 import { uuid } from "../domain.types/miscellaneous/system.types";
-import { roleCache } from "../auth/role.cache";
-import { rolePermissionsCache } from "../auth/role.permissions.cache";
+
 import {
     getDefaultTenant,
     getExistingCustomRolesForTenant,
@@ -15,43 +14,34 @@ import {
     getSystemRoles,
     getAllRoles
 } from "../modules/user.service.connector/user.roles.utilities";
-import { TestDataSeeder } from "../startup/test.data.seeder";
+// import { TestDataSeeder } from "../startup/test.data.seeder";
 import { NavigationPermissions } from "../master.data/navigation.permissions";
 import { RoleNavigationPermissions } from "../master.data/navigation.role.permissions";
-import { FieldLibrarySeederStartup } from "./field.library.seeder";
+import { RolePrivilegeService } from "../database/services/role.privilege.service";
 
 //////////////////////////////////////////////////////////////////////////////
 
 export class Seeder {
 
+    static _rolePrivilegeService: RolePrivilegeService = new RolePrivilegeService();
+    
     public static seed = async (): Promise<void> => {
         try {
             logger.info('🌾 Seeding service data...');
             await createTempFolders();
-            
-            // Seed field library data first (independent of tenant)
-            logger.info('🌾 Seeding field library data...');
-            const fieldLibrarySeeder = new FieldLibrarySeederStartup();
-            await fieldLibrarySeeder.initialize();
-            logger.info('✅ Field library data seeded successfully');
+            // const tenant = await getDefaultTenant();
+            // await seedRoles(tenant.id);
+            // await seedPermissions(tenant.id);
+            // await seedRolePermissions(tenant.id);
+            // await seedNavigationPermissions(tenant.id);
+            // await seedRoleNavigationPermissions(tenant.id);
+            // await cacheRoles(tenant.id);
+            // await cacheRolePermissions(tenant.id);
 
-            try {
-                const tenant = await getDefaultTenant();
-                await seedRoles(tenant.id);
-                await seedPermissions(tenant.id);
-                await seedRolePermissions(tenant.id);
-                await seedNavigationPermissions(tenant.id);
-                await seedRoleNavigationPermissions(tenant.id);
-                await cacheRoles(tenant.id);
-                await cacheRolePermissions(tenant.id);
+            // await seedMasterData();
 
-                await seedMasterData();
-
-                await TestDataSeeder.seed(tenant.id);
-            } catch (tenantError) {
-                logger.error(`❌ Error seeding tenant-dependent data: ${tenantError.message}`);
-                logger.info('⚠️ Continuing with field library data only...');
-            }
+            // await TestDataSeeder.seed(tenant.id);
+            await this._rolePrivilegeService.seedRolePrivileges();
 
         } catch (error) {
             logger.error(`❌ Error seeding service data: ${error.message}`);
@@ -284,34 +274,34 @@ const seedRoleNavigationPermissions = async (tenantId: uuid) => {
     }
 };
 
-const cacheRoles = async (tenantId: uuid) => {
-    const customRoles = await getExistingCustomRolesForTenant(tenantId);
-    const systemRoles = await getSystemRoles();
-    const roles = [...customRoles, ...systemRoles];
-    for (const role of roles) {
-        await roleCache.add({
-            id           : role.id,
-            Name         : role.Name,
-            Description  : role.Description,
-            TenantId     : role.TenantId,
-            IsSystemRole : role.IsSystemRole
-        });
-    }
-};
+// const cacheRoles = async (tenantId: uuid) => {
+//     const customRoles = await getExistingCustomRolesForTenant(tenantId);
+//     const systemRoles = await getSystemRoles();
+//     const roles = [...customRoles, ...systemRoles];
+//     for (const role of roles) {
+//         await roleCache.add({
+//             id           : role.id,
+//             Name         : role.Name,
+//             Description  : role.Description,
+//             TenantId     : role.TenantId,
+//             IsSystemRole : role.IsSystemRole
+//         });
+//     }
+// };
 
-const cacheRolePermissions = async (tenantId: uuid) => {
-    const rolePermissions = await getExistingRolePermissions(tenantId);
-    for (const rp of rolePermissions) {
-        await rolePermissionsCache.add({
-            id             : rp.id,
-            RoleId         : rp.RoleId,
-            RoleName       : rp.RoleName,
-            PermissionId   : rp.PermissionId,
-            PermissionName : rp.PermissionName,
-            TenantId       : rp.TenantId
-        });
-    }
-};
+// const cacheRolePermissions = async (tenantId: uuid) => {
+//     const rolePermissions = await getExistingRolePermissions(tenantId);
+//     for (const rp of rolePermissions) {
+//         await rolePermissionsCache.add({
+//             id             : rp.id,
+//             RoleId         : rp.RoleId,
+//             RoleName       : rp.RoleName,
+//             PermissionId   : rp.PermissionId,
+//             PermissionName : rp.PermissionName,
+//             TenantId       : rp.TenantId
+//         });
+//     }
+// };
 
 //////////////////////////////////////////////////////////////////////////////
 

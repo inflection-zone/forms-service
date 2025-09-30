@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import * as chalk from 'chalk';
 import { AbstrctCustomLogger } from './abstract.custom.logger';
 
 ///////////////////////////////////////////////////////////////////////
@@ -13,11 +12,10 @@ export class CustomDebugLogger extends AbstrctCustomLogger {
     info = (str: string) => {
         const dateTime = new Date().toISOString();
         if (this._useConsole) {
-            const str_ = chalk.hex('#AEADED')(`[${dateTime}] `) + chalk.bold.bgCyanBright(' INFO ') + ' ' + chalk.gray(str);
-            console.log(chalk.green(str_));
+            console.log(`[${dateTime}] INFO: ${str}`);
         }
         else {
-            const str_ = `[${dateTime}]  INFO  ${str}`;
+            const str_ = `[${dateTime}]  INFO  ${str}\n`;
             this._stream.write(str_);
         }
     };
@@ -25,11 +23,10 @@ export class CustomDebugLogger extends AbstrctCustomLogger {
     error = (str: string) => {
         const dateTime = new Date().toISOString();
         if (this._useConsole) {
-            const str_ = chalk.hex('#AEADED')(`[${dateTime}] `) + chalk.bold.bgRedBright(' ERROR ') + ' ' + chalk.gray(str);
-            console.log(chalk.red(str_));
+            console.error(`[${dateTime}] ERROR: ${str}`);
         }
         else {
-            const str_ = `[${dateTime}]  ERROR  ${str}`;
+            const str_ = `[${dateTime}]  ERROR  ${str}\n`;
             this._stream.write(str_);
         }
     };
@@ -37,11 +34,10 @@ export class CustomDebugLogger extends AbstrctCustomLogger {
     warn = (str: string) => {
         const dateTime = new Date().toISOString();
         if (this._useConsole) {
-            const str_ = chalk.hex('#AEADED')(`[${dateTime}] `) + chalk.bold.bgYellowBright(' WARN ') + ' ' + chalk.gray(str);
-            console.log(chalk.yellow(str_));
+            console.warn(`[${dateTime}] WARN: ${str}`);
         }
         else {
-            const str_ = `[${dateTime}]  WARN  ${str}`;
+            const str_ = `[${dateTime}]  WARN  ${str}\n`;
             this._stream.write(str_);
         }
     };
@@ -49,11 +45,10 @@ export class CustomDebugLogger extends AbstrctCustomLogger {
     debug = (str: string) => {
         const dateTime = new Date().toISOString();
         if (this._useConsole) {
-            const str_ = chalk.hex('#AEADED')(`[${dateTime}] `) + chalk.bold.bgBlueBright(' DEBUG ') + ' ' + chalk.gray(str);
-            console.log(chalk.blue(str_));
+            console.log(`[${dateTime}] DEBUG: ${str}`);
         }
         else {
-            const str_ = `[${dateTime}]  DEBUG  ${str}`;
+            const str_ = `[${dateTime}]  DEBUG  ${str}\n`;
             this._stream.write(str_);
         }
     };

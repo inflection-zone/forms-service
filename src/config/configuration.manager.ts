@@ -31,6 +31,7 @@ export class ConfigurationManager {
                 CleanupEveryMinutes: parseInt(defaultConfiguration.TemporaryFolders.CleanupEveryMinutes.toString(), 10),
             },
             Telemetry: defaultConfiguration.Telemetry,
+            JwtExpiresIn: parseInt(defaultConfiguration.JwtExpiresIn.toString(), 10)
         };
     };
 
@@ -75,6 +76,11 @@ export class ConfigurationManager {
     public static MobileNotificationProvider = (): MobileNotificationProvider => {
         return ConfigurationManager._config.MobileNotification.Provider;
     };
+
+    public static JwtExpiresIn = (): number => {
+        return ConfigurationManager._config.JwtExpiresIn;
+    };
+
 }
 
 ConfigurationManager.initialize();

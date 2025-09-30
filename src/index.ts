@@ -19,7 +19,7 @@ import { DatabaseConnector } from './database/database.connector';
 /////////////////////////////////////////////////////////////////////////
 
 (async () => {
-    Telemetry.instance().details();
+    // Telemetry.instance().details();
     const app = Application.instance();
     await app.start();
 })();
@@ -47,36 +47,36 @@ import { DatabaseConnector } from './database/database.connector';
 // });
 
 // Handle graceful shutdown
-process.on("SIGTERM", async () => {
-    logger.info("🛑 SIGTERM received, shutting down gracefully");
-    Telemetry.instance().shutdown();
-    await DatabaseConnector.close();
-    process.exit(0);
-});
+// process.on("SIGTERM", async () => {
+//     logger.info("🛑 SIGTERM received, shutting down gracefully");
+//     Telemetry.instance().shutdown();
+//     await DatabaseConnector.close();
+//     process.exit(0);
+// });
 
-process.on("SIGINT", async () => {
-    logger.info("🛑 SIGINT received, shutting down gracefully");
-    Telemetry.instance().shutdown();
-    await DatabaseConnector.close();
-    process.exit(0);
-});
+// process.on("SIGINT", async () => {
+//     logger.info("🛑 SIGINT received, shutting down gracefully");
+//     Telemetry.instance().shutdown();
+//     await DatabaseConnector.close();
+//     process.exit(0);
+// });
 
-process.on("uncaughtException", async (error) => {
-    logger.error("🛑 Uncaught exception received, shutting down gracefully");
-    logger.error(error.message);
-    logger.error(JSON.stringify(error.stack, null, 2));
-    Telemetry.instance().shutdown();
-    await DatabaseConnector.close();
-    process.exit(1);
-});
+// process.on("uncaughtException", async (error) => {
+//     logger.error("🛑 Uncaught exception received, shutting down gracefully");
+//     logger.error(error.message);
+//     logger.error(JSON.stringify(error.stack, null, 2));
+//     Telemetry.instance().shutdown();
+//     await DatabaseConnector.close();
+//     process.exit(1);
+// });
 
-process.on("unhandledRejection", async (reason: any, promise: Promise<any>) => {
-    logger.error("🛑 Unhandled rejection received, shutting down gracefully");
-    logger.error(`reason: ${reason}`);
-    logger.error(`promise: ${JSON.stringify(promise, null, 2)}`);
-    Telemetry.instance().shutdown();
-    await DatabaseConnector.close();
-    process.exit(1);
-});
+// process.on("unhandledRejection", async (reason: any, promise: Promise<any>) => {
+//     logger.error("🛑 Unhandled rejection received, shutting down gracefully");
+//     logger.error(`reason: ${reason}`);
+//     logger.error(`promise: ${JSON.stringify(promise, null, 2)}`);
+//     Telemetry.instance().shutdown();
+//     await DatabaseConnector.close();
+//     process.exit(1);
+// });
 
 /////////////////////////////////////////////////////////////////////////

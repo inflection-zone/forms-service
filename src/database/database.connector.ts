@@ -34,6 +34,9 @@ import { ResponseToken } from './models/response.token/response.token.model';
 import { FieldLibrary } from './models/field.library/field.library.model';
 import { DBLogger } from "./database.logger";
 import { DbClient } from "./db.clients/db.client";
+import { RolePrivilege } from "./models/role.privilege.model";
+import { Role } from "./models/role.model";
+import { RolePermission } from "./models/role.permission.model";
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -86,6 +89,9 @@ class DatabaseConnector {
             IterateOperation,
             LogicalOperation,
             MathematicalOperation,
+            Role,
+            RolePermission,
+            RolePrivilege,
         ],
         migrations: [],
         subscribers: [],

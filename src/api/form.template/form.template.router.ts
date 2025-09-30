@@ -1,6 +1,7 @@
 import express from 'express';
 import { FormTemplateController } from './form.template.controller';
-import { context } from '../../auth/context.handler';
+import { auth } from '../../auth.u/auth.handler';
+import { FormTemplateAuth } from './form.template.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
@@ -9,13 +10,12 @@ export const register = (app: express.Application): void => {
     const controller = new FormTemplateController();
     const contextBase = 'FormTemplate';
 
-    router.get('/search', context(`${contextBase}.Search`), controller.search);
-    router.post('/', context(`${contextBase}.Create`), controller.create);
-    router.put('/:id', context(`${contextBase}.Update`), controller.update);
-    router.get('/:id', context(`${contextBase}.GetById`), controller.getById);
-    router.delete('/:id', context(`${contextBase}.Delete`), controller.delete);
-    router.get('/:id/details', context(`${contextBase}.GetDetailsById`), controller.getDetailsById);
-    router.get('/:id/export', context(`${contextBase}.Export`), controller.export);
+    router.get('/search', auth(FormTemplateAuth.search), controller.search);
+    router.post('/', auth(FormTemplateAuth.create), controller.create);
+    router.put('/:id', auth(FormTemplateAuth.update), controller.update);
+    router.get('/:id', auth(FormTemplateAuth.getById), controller.getById);
+    router.delete('/:id', auth(FormTemplateAuth.delete), controller.delete);
+    router.get('/:id/details', auth(FormTemplateAuth.getDetailsById), controller.getDetailsById);
 
     app.use('/api/v1/form-templates', router);
 };
