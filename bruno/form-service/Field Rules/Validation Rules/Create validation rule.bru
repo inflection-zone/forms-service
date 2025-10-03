@@ -1,0 +1,76 @@
+meta {
+  name: Create Validation Rule
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/field-validation-rules
+  body: json
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "Name": "Adult check rule",
+    "Description": "Validate that person is adult",
+    "Priority": 1,
+    "IsActive": true,
+    "OperationType": "Logical",
+    "OperationId": "aa48f853-acdc-4fbf-be44-a73ef7c8016f",
+  
+    "ErrorWhenFalse": true,
+    "ErrorMessage": "Check user is adult or not",
+  
+    "LogicId": "bf348643-c23d-499a-afd3-617782d06e21",
+    "FallbackRuleId": "{{FALLBACK_RULE_ID}}"
+  }
+}
+
+script:post-response {
+  try {
+    var jsonRes = res.getBody();
+    bru.setEnvVar("VALIDATION_RULE_ID", jsonRes.Data.id);
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
+tests {
+  test("Request is successful", function () {
+    expect(res.getStatus()).to.equal(201);
+    var jsonRes = res.getBody();
+    expect(jsonRes.Status).to.eql('Success');
+  });
+  
+  test("Validation Rule is created with correct properties", function () {
+    var jsonRes = res.getBody();
+    expect(jsonRes.Data).to.have.property('id');
+    expect(jsonRes.Data).to.have.property('Name');
+    expect(jsonRes.Data.Name).equals('Adult check rule');
+    expect(jsonRes.Data).to.have.property('Description');
+    expect(jsonRes.Data.Description).equals('Validate that person is adult');
+    expect(jsonRes.Data).to.have.property('Priority');
+    expect(jsonRes.Data.Priority).equals(1);
+    expect(jsonRes.Data).to.have.property('IsActive');
+    expect(jsonRes.Data.IsActive).equals(true);
+    expect(jsonRes.Data).to.have.property('OperationType');
+    expect(jsonRes.Data.OperationType).equals('Logical');
+    expect(jsonRes.Data).to.have.property('OperationId');
+    expect(jsonRes.Data.OperationId).equals('b8a1c0b0-c01c-4659-a5fd-f9f6c2a22457');
+    expect(jsonRes.Data).to.have.property('ErrorWhenFalse');
+    expect(jsonRes.Data.ErrorWhenFalse).equals(true);
+    expect(jsonRes.Data).to.have.property('ErrorMessage');
+    expect(jsonRes.Data.ErrorMessage).equals('Check user is adult or not');
+    expect(jsonRes.Data).to.have.property('LogicId');
+    expect(jsonRes.Data).to.have.property('CreatedAt');
+    expect(jsonRes.Data).to.have.property('UpdatedAt');
+  });
+}

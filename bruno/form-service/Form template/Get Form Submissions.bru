@@ -1,0 +1,17 @@
+meta {
+  name: Get Form Submissions
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{BASE_URL}}/form-templates/{{TEMPLATE_ID}}/submissions
+  body: none
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}

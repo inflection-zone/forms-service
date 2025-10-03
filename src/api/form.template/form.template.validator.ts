@@ -1,73 +1,96 @@
 import joi from 'joi';
 import express from 'express';
-import {
-    ErrorHandler
-} from '../../common/error.handler';
+import { ErrorHandler } from '../../common/error.handling/error.handler';
 import BaseValidator from '../base.validator';
-import { FormTemplateCreateModel, FormTemplateSearchFilters, FormTemplateUpdateModel } from '../../domain.types/forms/form.template.domain.types';
+import {
+    FormTemplateCreateModel,
+    FormTemplateSearchFilters,
+    FormTemplateUpdateModel,
+} from '../../domain.types/form.template.domain.types';
 import { generateDisplayCode } from '../../domain.types/miscellaneous/display.code';
-import { ParsedQs } from 'qs';
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 export class FormTemplateValidator extends BaseValidator {
-
-    public validateCreateRequest = async (request: express.Request): Promise<FormTemplateCreateModel> => {
+    public validateCreateRequest = async (
+        request: express.Request
+    ): Promise<FormTemplateCreateModel> => {
         try {
             const schema = joi.object({
                 Title: joi.string().required(),
                 Description: joi.string().max(512).optional(),
                 CurrentVersion: joi.number().optional(),
-                TenantId: joi.string().optional(),
+                TenantCode: joi.string().optional(),
                 Type: joi.string().required(),
                 ItemsPerPage: joi.string().required(),
                 DisplayCode: joi.string().optional(),
                 OwnerUserId: joi.string().uuid(),
                 RootSectionId: joi.string().uuid(),
-                DefaultSectionNumbering: joi.boolean().optional()
+                DefaultSectionNumbering: joi.boolean().optional(),
+                IsFavourite: joi.boolean().optional(),
             });
             await schema.validateAsync(request.body);
             return {
                 Title: request.body.Title,
                 Description: request.body.Description ?? null,
                 CurrentVersion: request.body.CurrentVersion ?? 1,
-                TenantId: request.body.TenantId,
+                TenantCode: request.body.TenantCode,
                 Type: request.body.Type,
-                ItemsPerPage: request.body.ItemsPerPage,
-                DisplayCode: request.body.DisplayCode ?? generateDisplayCode(30, 'ASSESS_TEMP_#'),
+                // ItemsPerPage: request.body.ItemsPerPage,
+                DisplayCode:
+                    request.body.DisplayCode ??
+                    generateDisplayCode(30, 'ASSESS_TEMP_#'),
                 OwnerUserId: request.body.OwnerUserId,
                 RootSectionId: request.body.RootSectionId,
-                DefaultSectionNumbering: request.body.DefaultSectionNumbering ?? false,
+                DefaultSectionNumbering:
+                    request.body.DefaultSectionNumbering ?? false,
+                IsFavourite: request.body.IsFavourite ?? false,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
     };
 
-    public validateUpdateRequest = async (request: express.Request): Promise<FormTemplateUpdateModel | undefined> => {
+    public validateUpdateRequest = async (
+        request: express.Request
+    ): Promise<FormTemplateUpdateModel | undefined> => {
         try {
             const schema = joi.object({
                 Title: joi.string().optional(),
                 Description: joi.string().max(512).optional(),
                 CurrentVersion: joi.number().optional(),
-                TenantId: joi.string().optional(),
+                TenantCode: joi.string().optional(),
                 Type: joi.string().optional(),
                 ItemsPerPage: joi.string().optional(),
+                DisplayCode: joi.string().max(64).optional(),
+                OwnerUserId: joi.string().uuid().optional(),
+                RootSectionId: joi.string().uuid().optional(),
+                DefaultSectionNumbering: joi.boolean().optional(),
+                IsFavourite: joi.boolean().optional(),
             });
             await schema.validateAsync(request.body);
             return {
                 Title: request.body.Title ?? null,
                 Description: request.body.Description ?? null,
                 CurrentVersion: request.body.CurrentVersion ?? null,
-                TenantId: request.body.TenantId ?? null,
+                TenantCode: request.body.TenantCode ?? null,
                 Type: request.body.Type ?? null,
-                ItemsPerPage: request.body.ItemsPerPage ?? null
+                // ItemsPerPage: request.body.ItemsPerPage ?? null,
+                DisplayCode: request.body.DisplayCode ?? null,
+                OwnerUserId: request.body.OwnerUserId ?? null,
+                RootSectionId: request.body.RootSectionId ?? null,
+                DefaultSectionNumbering:
+                    request.body.DefaultSectionNumbering ?? null,
+                IsFavourite: request.body.IsFavourite ?? null,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
     };
 
-    public validateSearchRequest = async (request: express.Request): Promise<FormTemplateSearchFilters> => {
+    public validateSearchRequest = async (
+        request: express.Request
+    ): Promise<FormTemplateSearchFilters> => {
         try {
             const schema = joi.object({
                 id: joi.string().uuid().optional(),
@@ -76,25 +99,29 @@ export class FormTemplateValidator extends BaseValidator {
                 currentVersion: joi.number().optional(),
                 type: joi.string().optional(),
                 displayCode: joi.string().optional(),
-                tenantId: joi.string().uuid().optional(),
-                ownerUserId: joi.string().uuid().optional(),
-                rootSectionId: joi.string().uuid().optional(),
+                ownerUserId: joi.string().optional(),
+                rootSectionId: joi.string().optional(),
                 defaultSectionNumbering: joi.boolean().optional(),
+                isFavourite: joi.boolean().optional(),
                 itemsPerPage: joi.number().optional(),
                 pageIndex: joi.number().optional(),
                 orderBy: joi.string().optional(),
-                order:joi.string().optional()
+                order: joi.string().optional(),
             });
 
             await schema.validateAsync(request.query);
             const filters = this.getSearchFilters(request.query);
-            return filters;
+            const baseFilters = await this.validateBaseSearchFilters(request);
+            return {
+                ...baseFilters,
+                ...filters
+            };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
     };
 
-    private getSearchFilters = (query: ParsedQs): FormTemplateSearchFilters => {
+    private getSearchFilters = (query: any): FormTemplateSearchFilters => {
         var filters: any = {};
 
         var id = query.id ? query.id : null;
@@ -109,7 +136,7 @@ export class FormTemplateValidator extends BaseValidator {
 
         var tenantCode = query.tenantCode ? query.tenantCode : null;
         if (tenantCode != null) {
-            filters['TenantId'] = tenantCode;
+            filters['TenantCode'] = tenantCode;
         }
 
         var description = query.description ? query.description : null;
@@ -137,32 +164,18 @@ export class FormTemplateValidator extends BaseValidator {
         if (rootSectionId != null) {
             filters['RootSectionId'] = rootSectionId;
         }
-        var defaultSectionNumbering = query.defaultSectionNumbering ? query.defaultSectionNumbering : null;
+        var defaultSectionNumbering = query.defaultSectionNumbering
+            ? query.defaultSectionNumbering
+            : null;
         if (defaultSectionNumbering != null) {
             filters['DefaultSectionNumbering'] = defaultSectionNumbering;
         }
 
-
-        var itemsPerPage = query.itemsPerPage ? query.itemsPerPage : 25;
-        if (itemsPerPage != null) {
-            filters['ItemsPerPage'] = Number(itemsPerPage);
-        }
-        var orderBy = query.orderBy ? query.orderBy : 'CreatedAt';
-        if (orderBy != null) {
-            filters['OrderBy'] = orderBy;
-        }
-        var order = query.order ? query.order : 'ASC';
-        if (order != null) {
-            filters['Order'] = order;
+        var isFavourite = query.isFavourite ? query.isFavourite : null;
+        if (isFavourite != null) {
+            filters['IsFavourite'] = isFavourite;
         }
 
-        const pageIndex = query.pageIndex ? query.pageIndex : 0;
-        if (pageIndex != null) {
-            filters['PageIndex'] = pageIndex;
-        }
         return filters;
     };
-
 }
-
-

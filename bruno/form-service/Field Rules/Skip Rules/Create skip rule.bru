@@ -1,0 +1,70 @@
+meta {
+  name: Create Skip Rule
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/field-skip-rules
+  body: json
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "Name": "Adult Check Skip Rule",
+    "Description": "Skip guardian fields if user is 18 or older",
+    "Priority": 1,
+    "IsActive": true,
+    "OperationType": "Logical",
+    "OperationId": "{{LOGICAL_OPERATION_ID}}",
+    "SkipWhenTrue": true,
+    "LogicId": "{{SKIP_LOGIC_ID}}",
+    "FallbackRuleId": "{{FALLBACK_RULE_ID}}"
+  }
+}
+
+script:post-response {
+  try {
+    var jsonRes = res.getBody();
+    bru.setEnvVar("SKIP_RULE_ID", jsonRes.Data.id);
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
+tests {
+  test("Request is successful", function () {
+    expect(res.getStatus()).to.equal(201);
+    var jsonRes = res.getBody();
+    expect(jsonRes.Status).to.eql('Success');
+  });
+  
+  test("Skip Rule is created with correct properties", function () {
+    var jsonRes = res.getBody();
+    expect(jsonRes.Data).to.have.property('id');
+    expect(jsonRes.Data).to.have.property('Name');
+    expect(jsonRes.Data.Name).equals('Adult Check Skip Rule');
+    expect(jsonRes.Data).to.have.property('Description');
+    expect(jsonRes.Data.Description).equals('Skip guardian fields if user is 18 or older');
+    expect(jsonRes.Data).to.have.property('Priority');
+    expect(jsonRes.Data.Priority).equals(1);
+    expect(jsonRes.Data).to.have.property('IsActive');
+    expect(jsonRes.Data.IsActive).equals(true);
+    expect(jsonRes.Data).to.have.property('OperationType');
+    expect(jsonRes.Data.OperationType).equals('Logical');
+    expect(jsonRes.Data).to.have.property('OperationId');
+    expect(jsonRes.Data).to.have.property('SkipWhenTrue');
+    expect(jsonRes.Data.SkipWhenTrue).equals(true);
+    expect(jsonRes.Data).to.have.property('LogicId');
+    expect(jsonRes.Data).to.have.property('CreatedAt');
+    expect(jsonRes.Data).to.have.property('UpdatedAt');
+  });
+}

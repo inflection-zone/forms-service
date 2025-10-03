@@ -1,0 +1,481 @@
+[
+    {
+        "Role": "SystemAdmin",
+        "Privileges": [
+            "User.Create",
+            "User.Search",
+            "User.GetById",
+            "User.Update",
+            "User.Delete",
+            "User.GetAll",
+
+            "BaseOperation.Create",
+            "BaseOperation.Search",
+            "BaseOperation.GetById",
+            "BaseOperation.Update",
+            "BaseOperation.Delete",
+
+            "FavoriteTemplate.Create",
+            "FavoriteTemplate.Search",
+            "FavoriteTemplate.GetById",
+            "FavoriteTemplate.Update",
+            "FavoriteTemplate.Delete",
+
+            "FormTemplate.Create",
+            "FormTemplate.Search",
+            "FormTemplate.GetById",
+            "FormTemplate.Update",
+            "FormTemplate.Delete",
+            "FormTemplate.GetDetailsById",
+
+            "FormTemplateApproval.Create",
+            "FormTemplateApproval.Search",
+            "FormTemplateApproval.GetById",
+            "FormTemplateApproval.Update",
+            "FormTemplateApproval.Delete",
+
+            "FormSection.Create",
+            "FormSection.Search",
+            "FormSection.GetById",
+            "FormSection.Update",
+            "FormSection.Delete",
+
+            "FormField.Create",
+            "FormField.Search",
+            "FormField.GetById",
+            "FormField.Update",
+            "FormField.Delete",
+
+            "FormSubmission.Create",
+            "FormSubmission.Search",
+            "FormSubmission.GetById",
+            "FormSubmission.Update",
+            "FormSubmission.Delete",
+            "FormSubmission.Submit",
+
+            "QuestionResponse.Create",
+            "QuestionResponse.Search",
+            "QuestionResponse.GetById",
+            "QuestionResponse.Update",
+            "QuestionResponse.Delete",
+            "QuestionResponse.Save",
+
+            "InputUnitList.Create",
+            "InputUnitList.Search",
+            "InputUnitList.GetById",
+            "InputUnitList.Update",
+            "InputUnitList.Delete",
+
+            "TemplateFolder.Create",
+            "TemplateFolder.Search",
+            "TemplateFolder.GetById",
+            "TemplateFolder.Update",
+            "TemplateFolder.Delete",
+
+            "CalculationLogic.Create",
+            "CalculationLogic.Search",
+            "CalculationLogic.GetById",
+            "CalculationLogic.Update",
+            "CalculationLogic.Delete",
+
+            "SkipLogic.Create",
+            "SkipLogic.Search",
+            "SkipLogic.GetById",
+            "SkipLogic.Update",
+            "SkipLogic.Delete",
+
+            "ValidationLogic.Create",
+            "ValidationLogic.Search",
+            "ValidationLogic.GetById",
+            "ValidationLogic.Update",
+            "ValidationLogic.Delete",
+
+            "CompositionOperation.Create",
+            "CompositionOperation.Search",
+            "CompositionOperation.GetById",
+            "CompositionOperation.Update",
+            "CompositionOperation.Delete",
+
+            "FunctionExpressionOperation.Create",
+            "FunctionExpressionOperation.Search",
+            "FunctionExpressionOperation.GetById",
+            "FunctionExpressionOperation.Update",
+            "FunctionExpressionOperation.Delete",
+
+            "IterateOperation.Create",
+            "IterateOperation.Search",
+            "IterateOperation.GetById",
+            "IterateOperation.Update",
+            "IterateOperation.Delete",
+
+            "LogicalOperation.Create",
+            "LogicalOperation.Search",
+            "LogicalOperation.GetById",
+            "LogicalOperation.Update",
+            "LogicalOperation.Delete",
+
+            "MathematicalOperation.Create",
+            "MathematicalOperation.Search",
+            "MathematicalOperation.GetById",
+            "MathematicalOperation.Update",
+            "MathematicalOperation.Delete",
+
+            "CalculationRule.Create",
+            "CalculationRule.Search",
+            "CalculationRule.GetById",
+            "CalculationRule.Update",
+            "CalculationRule.Delete",
+
+            "FallbackRule.Create",
+            "FallbackRule.Search",
+            "FallbackRule.GetById",
+            "FallbackRule.Update",
+            "FallbackRule.Delete",
+
+            "SkipRule.Create",
+            "SkipRule.Search",
+            "SkipRule.GetById",
+            "SkipRule.Update",
+            "SkipRule.Delete",
+            "SkipRule.GetDetailsById",
+
+            "ValidationRule.Create",
+            "ValidationRule.Search",
+            "ValidationRule.GetById",
+            "ValidationRule.Update",
+            "ValidationRule.Delete",
+
+            "FileResource.Upload",
+            "FileResource.Download",
+            "FileResource.GetById",
+            "FileResource.Delete"
+        ]
+    },
+    {
+        "Role": "TenantAdmin",
+        "Privileges": [
+            "User.Create",
+            "User.Search",
+            "User.GetById",
+            "User.Update",
+            "User.Delete",
+            "User.GetAll",
+
+            "BaseOperation.Create",
+            "BaseOperation.Search",
+            "BaseOperation.GetById",
+            "BaseOperation.Update",
+            "BaseOperation.Delete",
+
+            "FavoriteTemplate.Create",
+            "FavoriteTemplate.Search",
+            "FavoriteTemplate.GetById",
+            "FavoriteTemplate.Update",
+            "FavoriteTemplate.Delete",
+
+            "FormTemplate.Create",
+            "FormTemplate.Search",
+            "FormTemplate.GetById",
+            "FormTemplate.Update",
+            "FormTemplate.Delete",
+            "FormTemplate.GetDetailsById",
+
+            "FormTemplateApproval.Create",
+            "FormTemplateApproval.Search",
+            "FormTemplateApproval.GetById",
+            "FormTemplateApproval.Update",
+            "FormTemplateApproval.Delete",
+
+            "FormSection.Create",
+            "FormSection.Search",
+            "FormSection.GetById",
+            "FormSection.Update",
+            "FormSection.Delete",
+
+            "FormField.Create",
+            "FormField.Search",
+            "FormField.GetById",
+            "FormField.Update",
+            "FormField.Delete",
+
+            "FormSubmission.Create",
+            "FormSubmission.Search",
+            "FormSubmission.GetById",
+            "FormSubmission.Update",
+            "FormSubmission.Delete",
+            "FormSubmission.Submit",
+
+            "QuestionResponse.Create",
+            "QuestionResponse.Search",
+            "QuestionResponse.GetById",
+            "QuestionResponse.Update",
+            "QuestionResponse.Delete",
+            "QuestionResponse.Save",
+
+            "InputUnitList.Create",
+            "InputUnitList.Search",
+            "InputUnitList.GetById",
+            "InputUnitList.Update",
+            "InputUnitList.Delete",
+
+            "TemplateFolder.Create",
+            "TemplateFolder.Search",
+            "TemplateFolder.GetById",
+            "TemplateFolder.Update",
+            "TemplateFolder.Delete",
+
+            "CalculationLogic.Create",
+            "CalculationLogic.Search",
+            "CalculationLogic.GetById",
+            "CalculationLogic.Update",
+            "CalculationLogic.Delete",
+
+            "SkipLogic.Create",
+            "SkipLogic.Search",
+            "SkipLogic.GetById",
+            "SkipLogic.Update",
+            "SkipLogic.Delete",
+
+            "ValidationLogic.Create",
+            "ValidationLogic.Search",
+            "ValidationLogic.GetById",
+            "ValidationLogic.Update",
+            "ValidationLogic.Delete",
+
+            "CompositionOperation.Create",
+            "CompositionOperation.Search",
+            "CompositionOperation.GetById",
+            "CompositionOperation.Update",
+            "CompositionOperation.Delete",
+
+            "FunctionExpressionOperation.Create",
+            "FunctionExpressionOperation.Search",
+            "FunctionExpressionOperation.GetById",
+            "FunctionExpressionOperation.Update",
+            "FunctionExpressionOperation.Delete",
+
+            "IterateOperation.Create",
+            "IterateOperation.Search",
+            "IterateOperation.GetById",
+            "IterateOperation.Update",
+            "IterateOperation.Delete",
+
+            "LogicalOperation.Create",
+            "LogicalOperation.Search",
+            "LogicalOperation.GetById",
+            "LogicalOperation.Update",
+            "LogicalOperation.Delete",
+
+            "MathematicalOperation.Create",
+            "MathematicalOperation.Search",
+            "MathematicalOperation.GetById",
+            "MathematicalOperation.Update",
+            "MathematicalOperation.Delete",
+
+            "CalculationRule.Create",
+            "CalculationRule.Search",
+            "CalculationRule.GetById",
+            "CalculationRule.Update",
+            "CalculationRule.Delete",
+
+            "FallbackRule.Create",
+            "FallbackRule.Search",
+            "FallbackRule.GetById",
+            "FallbackRule.Update",
+            "FallbackRule.Delete",
+
+            "SkipRule.Create",
+            "SkipRule.Search",
+            "SkipRule.GetById",
+            "SkipRule.Update",
+            "SkipRule.Delete",
+            "SkipRule.GetDetailsById",
+
+            "ValidationRule.Create",
+            "ValidationRule.Search",
+            "ValidationRule.GetById",
+            "ValidationRule.Update",
+            "ValidationRule.Delete",
+
+            "FileResource.Upload",
+            "FileResource.Download",
+            "FileResource.GetById",
+            "FileResource.Delete"
+        ]
+    },
+    {
+        "Role": "FormBuilder",
+        "Privileges": [
+            "User.GetById",
+            "User.Update",
+
+            "BaseOperation.Search",
+            "BaseOperation.GetById",
+
+            "FavoriteTemplate.Create",
+            "FavoriteTemplate.Search",
+            "FavoriteTemplate.GetById",
+            "FavoriteTemplate.Update",
+            "FavoriteTemplate.Delete",
+
+            "FormTemplate.Create",
+            "FormTemplate.Search",
+            "FormTemplate.GetById",
+            "FormTemplate.Update",
+            "FormTemplate.Delete",
+            "FormTemplate.GetDetailsById",
+
+            "FormSection.Create",
+            "FormSection.Search",
+            "FormSection.GetById",
+            "FormSection.Update",
+            "FormSection.Delete",
+
+            "FormField.Create",
+            "FormField.Search",
+            "FormField.GetById",
+            "FormField.Update",
+            "FormField.Delete",
+
+            "FormSubmission.Search",
+            "FormSubmission.GetById",
+
+            "QuestionResponse.Search",
+            "QuestionResponse.GetById",
+
+            "InputUnitList.Search",
+            "InputUnitList.GetById",
+
+            "TemplateFolder.Create",
+            "TemplateFolder.Search",
+            "TemplateFolder.GetById",
+            "TemplateFolder.Update",
+            "TemplateFolder.Delete",
+
+            "CalculationLogic.Create",
+            "CalculationLogic.Search",
+            "CalculationLogic.GetById",
+            "CalculationLogic.Update",
+            "CalculationLogic.Delete",
+
+            "SkipLogic.Create",
+            "SkipLogic.Search",
+            "SkipLogic.GetById",
+            "SkipLogic.Update",
+            "SkipLogic.Delete",
+
+            "ValidationLogic.Create",
+            "ValidationLogic.Search",
+            "ValidationLogic.GetById",
+            "ValidationLogic.Update",
+            "ValidationLogic.Delete",
+
+            "CompositionOperation.Create",
+            "CompositionOperation.Search",
+            "CompositionOperation.GetById",
+            "CompositionOperation.Update",
+            "CompositionOperation.Delete",
+
+            "FunctionExpressionOperation.Create",
+            "FunctionExpressionOperation.Search",
+            "FunctionExpressionOperation.GetById",
+            "FunctionExpressionOperation.Update",
+            "FunctionExpressionOperation.Delete",
+
+            "IterateOperation.Create",
+            "IterateOperation.Search",
+            "IterateOperation.GetById",
+            "IterateOperation.Update",
+            "IterateOperation.Delete",
+
+            "LogicalOperation.Create",
+            "LogicalOperation.Search",
+            "LogicalOperation.GetById",
+            "LogicalOperation.Update",
+            "LogicalOperation.Delete",
+
+            "MathematicalOperation.Create",
+            "MathematicalOperation.Search",
+            "MathematicalOperation.GetById",
+            "MathematicalOperation.Update",
+            "MathematicalOperation.Delete",
+
+            "CalculationRule.Create",
+            "CalculationRule.Search",
+            "CalculationRule.GetById",
+            "CalculationRule.Update",
+            "CalculationRule.Delete",
+
+            "FallbackRule.Create",
+            "FallbackRule.Search",
+            "FallbackRule.GetById",
+            "FallbackRule.Update",
+            "FallbackRule.Delete",
+
+            "SkipRule.Create",
+            "SkipRule.Search",
+            "SkipRule.GetById",
+            "SkipRule.Update",
+            "SkipRule.Delete",
+            "SkipRule.GetDetailsById",
+
+            "ValidationRule.Create",
+            "ValidationRule.Search",
+            "ValidationRule.GetById",
+            "ValidationRule.Update",
+            "ValidationRule.Delete",
+
+            "FileResource.Upload",
+            "FileResource.Download",
+            "FileResource.GetById"
+        ]
+    },
+    {
+        "Role": "FormUser",
+        "Privileges": [
+            "User.GetById",
+            "User.Update",
+
+            "BaseOperation.Search",
+            "BaseOperation.GetById",
+
+            "FavoriteTemplate.Create",
+            "FavoriteTemplate.Search",
+            "FavoriteTemplate.GetById",
+            "FavoriteTemplate.Update",
+            "FavoriteTemplate.Delete",
+
+            "FormTemplate.Search",
+            "FormTemplate.GetById",
+            "FormTemplate.GetDetailsById",
+
+            "FormSection.Search",
+            "FormSection.GetById",
+
+            "FormField.Search",
+            "FormField.GetById",
+
+            "FormSubmission.Create",
+            "FormSubmission.GetById",
+            "FormSubmission.Update",
+            "FormSubmission.Delete",
+            "FormSubmission.Submit",
+
+            "QuestionResponse.Create",
+            "QuestionResponse.GetById",
+            "QuestionResponse.Update",
+            "QuestionResponse.Delete",
+            "QuestionResponse.Save",
+
+            "InputUnitList.Search",
+            "InputUnitList.GetById",
+
+            "TemplateFolder.Search",
+            "TemplateFolder.GetById",
+
+            "FileResource.Upload",
+            "FileResource.Download",
+            "FileResource.GetById"
+        ]
+    }
+]

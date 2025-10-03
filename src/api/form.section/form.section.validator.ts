@@ -1,61 +1,38 @@
-import joi, { optional } from 'joi';
+import joi from 'joi';
 import express from 'express';
-import {
-    ErrorHandler
-} from '../../common/error.handler';
+import { ErrorHandler } from '../../common/error.handling/error.handler';
 import BaseValidator from '../base.validator';
-import { FormSectionCreateModel, FormSectionSearchFilters, FormSectionUpdateModel } from '../../domain.types/forms/form.section.domain.types';
+import {
+    FormSectionCreateModel,
+    FormSectionSearchFilters,
+    FormSectionUpdateModel,
+} from '../../domain.types/form.section.domain.types';
 import { generateDisplayCode } from '../../domain.types/miscellaneous/display.code';
-import { ParsedQs } from 'qs';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 export class FormSectionValidator extends BaseValidator {
-
-    public validateCreateRequest = async (request: express.Request): Promise<FormSectionCreateModel> => {
+    public validateCreateRequest = async (
+        request: express.Request
+    ): Promise<FormSectionCreateModel> => {
         try {
             const schema = joi.object({
-                ParentFormTemplateId: joi.string().uuid().optional(),
+                ParentFormTemplateId: joi.string().uuid().required(),
                 Title: joi.string().optional(),
                 Description: joi.string().optional(),
-                SectionIdentifier: joi.string().optional(),
-                DisplayCode: joi.string().optional(),
-                Sequence: joi.string().optional(),
+                Sequence: joi.number().optional(),
                 ParentSectionId: joi.string().uuid().optional(),
             });
             await schema.validateAsync(request.body);
             return {
                 ParentFormTemplateId: request.body.ParentFormTemplateId,
                 SectionIdentifier: request.body.SectionIdentifier ?? null,
-                Title: request.body.Title ?? null,
+                Title: request.body.Title,
                 Description: request.body.Description ?? null,
-                DisplayCode: request.body.DisplayCode ?? generateDisplayCode(25, 'SECTION_#'),
+                DisplayCode:
+                    request.body.DisplayCode ??
+                    generateDisplayCode(25, 'SECTION_#'),
                 Sequence: request.body.Sequence ?? null,
-                ParentSectionId: request.body.ParentSectionId ?? null
-            };
-        } catch (error) {
-            ErrorHandler.handleValidationError(error);
-        }
-    };
-
-    public validateUpdateRequest = async (request: express.Request): Promise<FormSectionUpdateModel | undefined> => {
-        try {
-            const schema = joi.object({
-                // TemplateId: joi.string().uuid().optional(),
-                SectionIdentifier: joi.string().optional(),
-                Title: joi.string().optional(),
-                Description: joi.string().optional(),
-                // DisplayCode: joi.string().optional(),
-                // Sequence: joi.string().optional(),
-                ParentSectionId: joi.string().uuid().optional()
-            });
-            await schema.validateAsync(request.body);
-            return {
-                SectionIdentifier: request.body.SectionIdentifier ?? null,
-                Title: request.body.Title ?? null,
-                Description: request.body.Description ?? null,
-                // DisplayCode: request.body.DisplayCode ?? null,
-                // Sequence: request.body.Sequence ?? null,
                 ParentSectionId: request.body.ParentSectionId ?? null,
             };
         } catch (error) {
@@ -63,7 +40,31 @@ export class FormSectionValidator extends BaseValidator {
         }
     };
 
-    public validateSearchRequest = async (request: express.Request): Promise<FormSectionSearchFilters> => {
+    public validateUpdateRequest = async (
+        request: express.Request
+    ): Promise<FormSectionUpdateModel | undefined> => {
+        try {
+            const schema = joi.object({
+                SectionIdentifier: joi.string().optional(),
+                Title: joi.string().optional(),
+                Description: joi.string().optional(),
+                ParentSectionId: joi.string().uuid().optional(),
+            });
+            await schema.validateAsync(request.body);
+            return {
+                SectionIdentifier: request.body.SectionIdentifier ?? null,
+                Title: request.body.Title ?? null,
+                Description: request.body.Description ?? null,
+                ParentSectionId: request.body.ParentSectionId ?? null,
+            };
+        } catch (error) {
+            ErrorHandler.handleValidationError(error);
+        }
+    };
+
+    public validateSearchRequest = async (
+        request: express.Request
+    ): Promise<FormSectionSearchFilters> => {
         try {
             const schema = joi.object({
                 parentFormTemplateId: joi.string().uuid().optional(),
@@ -72,40 +73,38 @@ export class FormSectionValidator extends BaseValidator {
                 description: joi.string().optional(),
                 displayCode: joi.string().optional(),
                 sequence: joi.string().optional(),
-                parentSectionId: joi.string().uuid().optional()
+                parentSectionId: joi.string().uuid().optional(),
             });
 
             await schema.validateAsync(request.query);
             const filters = this.getSearchFilters(request.query);
-            return filters;
+            const baseFilters = await this.validateBaseSearchFilters(request);
+            return {
+                ...baseFilters,
+                ...filters
+            };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
     };
 
-    private getSearchFilters = (query: ParsedQs): FormSectionSearchFilters => {
-        // var filters:FormSectionSearchFilters = {};
-        var filters: any = {
-            // id,
-            // parentFormTemplateId,
-            // sectionIdentifier,
-            // title,
-            // description,
-            // displayCode,
-            // sequence,
-            // parentSectionId,
-        };
+    private getSearchFilters = (query: any): FormSectionSearchFilters => {
+        var filters: any = {};
 
         var id = query.id ? query.id : null;
         if (id != null) {
             filters['id'] = id;
         }
 
-        var parentFormTemplateId = query.parentFormTemplateId ? query.parentFormTemplateId : null;
+        var parentFormTemplateId = query.parentFormTemplateId
+            ? query.parentFormTemplateId
+            : null;
         if (parentFormTemplateId != null) {
             filters['parentFormTemplateId'] = parentFormTemplateId;
         }
-        var sectionIdentifier = query.sectionIdentifier ? query.sectionIdentifier : null;
+        var sectionIdentifier = query.sectionIdentifier
+            ? query.sectionIdentifier
+            : null;
         if (sectionIdentifier != null) {
             filters['sectionIdentifier'] = sectionIdentifier;
         }
@@ -126,24 +125,13 @@ export class FormSectionValidator extends BaseValidator {
         if (sequence != null) {
             filters['sequence'] = sequence;
         }
-        var parentSectionId = query.parentSectionId ? query.parentSectionId : null;
+        var parentSectionId = query.parentSectionId
+            ? query.parentSectionId
+            : null;
         if (parentSectionId != null) {
             filters['parentSectionId'] = parentSectionId;
         }
 
-        var itemsPerPage = query.itemsPerPage ? query.itemsPerPage : 25;
-        if (itemsPerPage != null) {
-            filters['ItemsPerPage'] = itemsPerPage;
-        }
-        var orderBy = query.orderBy ? query.orderBy : 'CreatedAt';
-        if (orderBy != null) {
-            filters['OrderBy'] = orderBy;
-        }
-        var order = query.order ? query.order : 'ASC';
-        if (order != null) {
-            filters['Order'] = order;
-        }
         return filters;
     };
-
 }

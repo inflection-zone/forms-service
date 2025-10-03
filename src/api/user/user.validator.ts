@@ -1,17 +1,19 @@
 import joi from 'joi';
 import express from 'express';
-import {
-    ErrorHandler
-} from '../../common/error.handler';
+import { ErrorHandler } from '../../common/error.handling/error.handler';
 import BaseValidator from '../base.validator';
-import { UserCreateModel, UserSearchFilters, UserUpdateModel } from '../../domain.types/forms/user.domain.types';
-import { ParsedQs } from 'qs';
+import {
+    UserCreateModel,
+    UserSearchFilters,
+    UserUpdateModel,
+} from '../../domain.types/user.domain.types';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 export class UserValidator extends BaseValidator {
-
-    public validateCreateRequest = async (request: express.Request): Promise<UserCreateModel> => {
+    public validateCreateRequest = async (
+        request: express.Request
+    ): Promise<UserCreateModel> => {
         try {
             const schema = joi.object({
                 FirstName: joi.string(),
@@ -20,7 +22,7 @@ export class UserValidator extends BaseValidator {
                 Phone: joi.string(),
                 Email: joi.string().email(),
                 Username: joi.string().required(),
-                Password: joi.string().required()
+                Password: joi.string().required(),
             });
             await schema.validateAsync(request.body);
             return {
@@ -37,7 +39,9 @@ export class UserValidator extends BaseValidator {
         }
     };
 
-    public validateUpdateRequest = async (request: express.Request): Promise<UserUpdateModel | undefined> => {
+    public validateUpdateRequest = async (
+        request: express.Request
+    ): Promise<UserUpdateModel> => {
         try {
             const schema = joi.object({
                 FirstName: joi.string().optional(),
@@ -46,7 +50,7 @@ export class UserValidator extends BaseValidator {
                 Phone: joi.string().optional(),
                 Email: joi.string().email().optional(),
                 Username: joi.string().optional(),
-                Password: joi.string().optional()
+                Password: joi.string().optional(),
             });
             await schema.validateAsync(request.body);
             return {
@@ -63,7 +67,9 @@ export class UserValidator extends BaseValidator {
         }
     };
 
-    public validateSearchRequest = async (request: express.Request): Promise<UserSearchFilters> => {
+    public validateSearchRequest = async (
+        request: express.Request
+    ): Promise<UserSearchFilters> => {
         try {
             const schema = joi.object({
                 firstName: joi.string().optional(),
@@ -73,58 +79,61 @@ export class UserValidator extends BaseValidator {
                 email: joi.string().optional(),
                 username: joi.string().optional(),
                 password: joi.string().optional(),
+                itemsPerPage: joi.number().optional(),
+                orderBy: joi.string().optional(),
+                order: joi.string().optional(),
             });
-
             await schema.validateAsync(request.query);
             const filters = this.getSearchFilters(request.query);
-            return filters;
+            const baseFilters = await this.validateBaseSearchFilters(request);
+            return {
+                ...baseFilters,
+                ...filters
+            };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
     };
 
-    private getSearchFilters = (query: ParsedQs): UserSearchFilters => {
-        var filters:any = {};
-
-        var firstName = query.firstName ? query.firstName : null;
+    private getSearchFilters = (query: any): UserSearchFilters => {
+        const filters: any = {};
+        const firstName = query.firstName ? query.firstName : null;
         if (firstName != null) {
             filters['firstName'] = firstName;
         }
-        var lastName = query.lastName ? query.lastName : null;
+        const lastName = query.lastName ? query.lastName : null;
         if (lastName != null) {
             filters['lastName'] = lastName;
         }
-        var countryCode = query.countryCode ? query.countryCode : null;
+        const countryCode = query.countryCode ? query.countryCode : null;
         if (countryCode != null) {
             filters['countryCode'] = countryCode;
         }
-        var phone = query.phone ? query.phone : null;
+        const phone = query.phone ? query.phone : null;
         if (phone != null) {
             filters['phone'] = phone;
         }
-
-        var email = query.email ? query.email : null;
+        const email = query.email ? query.email : null;
         if (email != null) {
-            filters['mail'] = email;
+            filters['email'] = email;
         }
-        var username = query.username ? query.username : null;
+        const username = query.username ? query.username : null;
         if (username != null) {
             filters['username'] = username;
         }
-        var password = query.password ? query.password : null;
+        const password = query.password ? query.password : null;
         if (password != null) {
             filters['password'] = password;
         }
-
-        var itemsPerPage = query.itemsPerPage ? query.itemsPerPage : 25;
+        const itemsPerPage = query.itemsPerPage ? query.itemsPerPage : 25;
         if (itemsPerPage != null) {
-            filters['ItemsPerPage'] = itemsPerPage;
+            filters['ItemsPerPage'] = Number(itemsPerPage);
         }
-        var orderBy = query.orderBy ? query.orderBy : 'CreatedAt';
+        const orderBy = query.orderBy ? query.orderBy : 'CreatedAt';
         if (orderBy != null) {
             filters['OrderBy'] = orderBy;
         }
-        var order = query.order ? query.order : 'ASC';
+        const order = query.order ? query.order : 'ASC';
         if (order != null) {
             filters['Order'] = order;
         }

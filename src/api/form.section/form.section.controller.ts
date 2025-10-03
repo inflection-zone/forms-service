@@ -1,26 +1,31 @@
 import express from 'express';
-import { ResponseHandler } from '../../common/response.handler';
-import { BaseController } from '../base.controller';
-import { ErrorHandler } from '../../common/error.handler';
+import { ResponseHandler } from '../../common/handlers/response.handler';
+import { ErrorHandler } from '../../common/error.handling/error.handler';
 import { uuid } from '../../domain.types/miscellaneous/system.types';
-import { error } from 'console';
 import { FormSectionValidator } from './form.section.validator';
-import { FormSectionService } from '../../services/form.section.service';
-import { FormSectionCreateModel, FormSectionSearchFilters, FormSectionUpdateModel } from '../../domain.types/forms/form.section.domain.types';
+import { FormSectionService } from '../../database/services/form.section.service';
+import {
+    FormSectionCreateModel,
+    FormSectionSearchFilters,
+    FormSectionUpdateModel,
+} from '../../domain.types/form.section.domain.types';
+import { Injector } from '../../startup/injector';
+import { FormTemplateService } from '../../database/services/form.template.service';
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-export class FormSectionController extends BaseController {
-
+export class FormSectionController {
     //#region member variables and constructors
 
-    _service: FormSectionService = new FormSectionService();
+    // _service: FormSectionService = new FormSectionService();
+
+    _service: FormSectionService =
+        Injector.Container.resolve(FormSectionService);
+
+    _templService: FormTemplateService =
+        Injector.Container.resolve(FormTemplateService);
 
     _validator: FormSectionValidator = new FormSectionValidator();
-
-    constructor() {
-        super();
-    }
 
     //#endregion
 
@@ -117,26 +122,47 @@ export class FormSectionController extends BaseController {
     // };
     create = async (request: express.Request, response: express.Response) => {
         try {
-            const model: FormSectionCreateModel = await this._validator.validateCreateRequest(request);
+            const model: FormSectionCreateModel =
+                await this._validator.validateCreateRequest(request);
             const parentTemplateId: string = request.body.ParentFormTemplateId;
-            const sectionsByTemplateId = await this._service.getByTemplateId(parentTemplateId);
+            const sectionsByTemplateId =
+                await this._service.getByTemplateId(parentTemplateId);
 
             let sequence;
-            sectionsByTemplateId.forEach(element => {
-                if (element.ParentFormTemplate.DefaultSectionNumbering === true) {
-                    sequence = "A" + (sectionsByTemplateId.length + 1);
-                } else {
-                    sequence = request.body.Sequence;
-                }
-            });
+
+            // sectionsByTemplateId.forEach(element => {
+            //     if (element.ParentFormTemplate.DefaultSectionNumbering === true) {
+            //         sequence = (sectionsByTemplateId.length + 1);
+            //     } else {
+            //         sequence = request.body.Sequence;
+            //     }
+            // });
+
+            const templateData =
+                await this._templService.getById(parentTemplateId);
+
+            if (templateData.DefaultSectionNumbering === true) {
+                sequence = Object.keys(sectionsByTemplateId).length + 1;
+            } else {
+                sequence = request.body.Sequence;
+            }
 
             model.Sequence = sequence;
             const record = await this._service.create(model);
             if (record === null) {
-                ErrorHandler.throwInternalServerError('Unable to add Form section!', error);
+                ErrorHandler.throwInternalServerError(
+                    'Unable to add Form section!',
+                    new Error('Unable to add Form section!')
+                );
             }
             const message = 'Form section added successfully!';
-            return ResponseHandler.success(request, response, message, 201, record);
+            return ResponseHandler.success(
+                request,
+                response,
+                message,
+                201,
+                record
+            );
         } catch (error) {
             ResponseHandler.handleError(request, response, error);
         }
@@ -145,10 +171,19 @@ export class FormSectionController extends BaseController {
     getById = async (request: express.Request, response: express.Response) => {
         try {
             // await this.authorize('Form.GetById', request, response);
-            var id: uuid = await this._validator.validateParamAsUUID(request, 'id');
+            var id: uuid = await this._validator.requestParamAsUUID(
+                request,
+                'id'
+            );
             const record = await this._service.getById(id);
             const message = 'Form section retrieved successfully!';
-            return ResponseHandler.success(request, response, message, 200, record);
+            return ResponseHandler.success(
+                request,
+                response,
+                message,
+                200,
+                record
+            );
         } catch (error) {
             ResponseHandler.handleError(request, response, error);
         }
@@ -157,20 +192,33 @@ export class FormSectionController extends BaseController {
     update = async (request: express.Request, response: express.Response) => {
         try {
             // await this.authorize('Form.Update', request, response);
-            const id = await this._validator.validateParamAsUUID(request, 'id');
-            var model: FormSectionUpdateModel = await this._validator.validateUpdateRequest(request);
+            const id = await this._validator.requestParamAsUUID(request, 'id');
+            var model: FormSectionUpdateModel =
+                await this._validator.validateUpdateRequest(request);
             const updatedRecord = await this._service.update(id, model);
             const message = 'Form section updated successfully!';
-            ResponseHandler.success(request, response, message, 200, updatedRecord);
+            ResponseHandler.success(
+                request,
+                response,
+                message,
+                200,
+                updatedRecord
+            );
         } catch (error) {
             ResponseHandler.handleError(request, response, error);
         }
     };
 
-    delete = async (request: express.Request, response: express.Response): Promise<void> => {
+    delete = async (
+        request: express.Request,
+        response: express.Response
+    ): Promise<void> => {
         try {
             // await this.authorize('Form.Delete', request, response);
-            var id: uuid = await this._validator.validateParamAsUUID(request, 'id');
+            var id: uuid = await this._validator.requestParamAsUUID(
+                request,
+                'id'
+            );
             const result = await this._service.delete(id);
             const message = 'Form section deleted successfully!';
             ResponseHandler.success(request, response, message, 200, result);
@@ -179,13 +227,26 @@ export class FormSectionController extends BaseController {
         }
     };
 
-    getByTemplateId = async (request: express.Request, response: express.Response) => {
+    getByTemplateId = async (
+        request: express.Request,
+        response: express.Response
+    ) => {
         try {
-            var id: uuid = await this._validator.validateParamAsUUID(request, 'templateId');
+            var id: uuid = await this._validator.requestParamAsUUID(
+                request,
+                'templateId'
+            );
             // var ida :uuid = request.params.templateId;
             const record = await this._service.getByTemplateId(id);
-            const message = 'Form section by templateId retrieved successfully!';
-            return ResponseHandler.success(request, response, message, 200, record);
+            const message =
+                'Form section by templateId retrieved successfully!';
+            return ResponseHandler.success(
+                request,
+                response,
+                message,
+                200,
+                record
+            );
         } catch (error) {
             ResponseHandler.handleError(request, response, error);
         }
@@ -193,13 +254,19 @@ export class FormSectionController extends BaseController {
 
     search = async (request: express.Request, response: express.Response) => {
         try {
-            var filters: FormSectionSearchFilters = await this._validator.validateSearchRequest(request);
+            var filters: FormSectionSearchFilters =
+                await this._validator.validateSearchRequest(request);
             const searchResults = await this._service.search(filters);
             const message = 'Form section retrieved successfully!';
-            ResponseHandler.success(request, response, message, 200, searchResults);
+            ResponseHandler.success(
+                request,
+                response,
+                message,
+                200,
+                searchResults
+            );
         } catch (error) {
             ResponseHandler.handleError(request, response, error);
         }
     };
-
 }

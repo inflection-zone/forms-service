@@ -1,0 +1,78 @@
+meta {
+  name: Create Calculation Rule
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/field-calculation-rules
+  body: json
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}
+
+body:json {
+  // {
+  //   "Name": "BMI Calculation Rule",
+  //   "Description": "Calculate BMI using weight and height fields",
+  //   "Priority": 1,
+  //   "IsActive": true,
+  //   "OperationType": "FunctionExpression",
+  //   "ConditionForOperationId": "{{LOGICAL_OPERATION_ID}}",
+  //   "OperationId": "{{FUNCTION_EXPRESSION_OPERATION_ID}}",
+  //   "LogicId": "{{CALCULATION_LOGIC_ID}}",
+  //   "FallbackRuleId": "{{FALLBACK_RULE_ID}}"
+  // }
+  {
+    "Name": "Total Price Calculation",
+    "Description": "Field Calculation-rule Description",
+    "OperationType": "FunctionExpression",
+  //   "ConditionForOperationId": "47e0e1fd-d5e1-4eba-b5fa-31edb8fb24f9",
+    "BaseOperationId": "47e0e1fd-d5e1-4eba-b5fa-31edb8fb24f9",
+    "LogicId": "e08d47f4-eb09-4bda-a6db-a7501ce16b07",
+    "FallbackRuleId": "{{FALLBACK_RULE_ID}}"
+  }
+}
+
+script:post-response {
+  try {
+    var jsonRes = res.getBody();
+    bru.setEnvVar("CALCULATION_RULE_ID", jsonRes.Data.id);
+  }
+  catch (error) {
+    console.log(error.message);
+  }
+}
+
+tests {
+  test("Request is successful", function () {
+    expect(res.getStatus()).to.equal(201);
+    var jsonRes = res.getBody();
+    expect(jsonRes.Status).to.eql('Success');
+  });
+  
+  test("Calculation Rule is created with correct properties", function () {
+    var jsonRes = res.getBody();
+    expect(jsonRes.Data).to.have.property('id');
+    expect(jsonRes.Data).to.have.property('Name');
+    expect(jsonRes.Data.Name).equals('BMI Calculation Rule');
+    expect(jsonRes.Data).to.have.property('Description');
+    expect(jsonRes.Data.Description).equals('Calculate BMI using weight and height fields');
+    expect(jsonRes.Data).to.have.property('Priority');
+    expect(jsonRes.Data.Priority).equals(1);
+    expect(jsonRes.Data).to.have.property('IsActive');
+    expect(jsonRes.Data.IsActive).equals(true);
+    expect(jsonRes.Data).to.have.property('OperationType');
+    expect(jsonRes.Data.OperationType).equals('FunctionExpression');
+    expect(jsonRes.Data).to.have.property('ConditionForOperationId');
+    expect(jsonRes.Data).to.have.property('OperationId');
+    expect(jsonRes.Data).to.have.property('LogicId');
+    expect(jsonRes.Data).to.have.property('CreatedAt');
+    expect(jsonRes.Data).to.have.property('UpdatedAt');
+  });
+}

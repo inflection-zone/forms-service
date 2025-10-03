@@ -1,0 +1,19 @@
+import { Entity, Column } from 'typeorm';
+import { BaseRule } from './base.rule.model';
+
+@Entity({ name: 'eval_fallback_rules' })
+export class FallbackRule extends BaseRule {
+    // BaseOperationId is inherited from BaseRule
+
+    @Column({ type: 'varchar', length: 100, nullable: false })
+    Action: string; // e.g., 'SET_DEFAULT', 'SHOW_MESSAGE', 'SKIP_FIELD', 'RETRY', etc.
+
+    @Column({ type: 'varchar', length: 500, nullable: true })
+    ActionMessage?: string; // User-friendly message for the action
+
+    @Column({ type: 'json', nullable: true })
+    ActionParameters?: string; // Additional parameters for complex actions
+
+    // Note: Operation relationship will be handled at application level
+    // since operations are polymorphic across multiple tables
+}

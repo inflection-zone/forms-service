@@ -1,0 +1,17 @@
+meta {
+  name: Preview Form Template
+  type: http
+  seq: 9
+}
+
+get {
+  url: 
+  body: none
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}

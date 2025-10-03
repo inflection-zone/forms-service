@@ -1,14 +1,14 @@
+import { uuid } from "./system.types";
 
 export interface CurrentUser {
-    UserId: string;
-    FirstName: string;
-    LastName: string;
-    CountryCode: number;
-    Phone: string;
-    Email: string;
-    UserName: string;
-    Password: string;
-    // CurrentRoleId: number;
-    // CurrentRoleName?: string;
-    SessionId: string;
+    UserId          : string;
+    DisplayName     : string;
+    Phone           : string;
+    Email           : string;
+    UserName        : string;
+    CurrentRoleId   : number;
+    CurrentRoleName?: string;
+    SessionId       : string;
+    TenantId        : string;
+    TenantName      : string;
 }

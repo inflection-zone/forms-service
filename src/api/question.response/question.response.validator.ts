@@ -1,19 +1,22 @@
-import joi from "joi";
-import express from "express";
-import { ErrorHandler } from "../../common/error.handler";
-import BaseValidator from "../base.validator";
+import joi from 'joi';
+import express from 'express';
+import { ErrorHandler } from '../../common/error.handling/error.handler';
 import {
     QuestionResponseCreateModel,
     QuestionResponseSaveModel,
     QuestionResponseSearchFilters,
     QuestionResponseUpdateModel,
-} from "../../domain.types/forms/response.domain.types";
-import { ParsedQs } from 'qs';
-import { FormStatus, FormSubmissionDto } from "../../domain.types/forms/form.submission.domain.types";
-import { ApiError } from "../../common/api.error";
+} from '../../domain.types/response.domain.types';
+import { FormSubmissionDto } from '../../domain.types/form.submission.domain.types';
+import { FormStatus } from '../../domain.types/enums/form.submission.enums';
+import BaseValidator from '../base.validator';
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 export class QuestionResponseValidator extends BaseValidator {
+    //#region member variables and constructors
+
+    //#endregion
 
     public validateCreateRequest = async (
         request: express.Request
@@ -21,7 +24,9 @@ export class QuestionResponseValidator extends BaseValidator {
         try {
             const schema = joi.object({
                 FormSubmissionId: joi.string().uuid().required(),
-                QuestionId: joi.string().uuid().required(),
+                // QuestionId: joi.string().uuid().required(),
+                FormFieldId: joi.string().uuid().required(),
+                FormTemplateId: joi.string().uuid().required(),
                 ResponseType: joi.string(),
                 IntegerValue: joi.number().optional(),
                 FloatValue: joi.number().optional(),
@@ -30,11 +35,16 @@ export class QuestionResponseValidator extends BaseValidator {
                 Url: joi.string().optional(),
                 FileResourceId: joi.string().optional(),
                 TextValue: joi.string().optional(),
+                UserResponse: joi.string().optional(),
+                SubmissionTimestamp: joi.date().optional(),
+                LastSaveTimestamp: joi.date().optional(),
             });
             await schema.validateAsync(request.body);
             return {
                 FormSubmissionId: request.body.FormSubmissionId,
-                QuestionId: request.body.QuestionId,
+                // QuestionId: request.body.QuestionId,
+                FormFieldId: request.body.FormFieldId,
+                FormTemplateId: request.body.FormTemplateId,
                 ResponseType: request.body.ResponseType,
                 IntegerValue: request.body.IntegerValue ?? null,
                 FloatValue: request.body.FloatValue ?? null,
@@ -43,6 +53,9 @@ export class QuestionResponseValidator extends BaseValidator {
                 Url: request.body.Url ?? null,
                 FileResourceId: request.body.FileResourceId ?? null,
                 TextValue: request.body.TextValue ?? null,
+                UserResponse: request.body.UserResponse ?? null,
+                SubmissionTimestamp: new Date(request.body.SubmissionTimestamp) ?? null,
+                LastSaveTimestamp: new Date(request.body.LastSaveTimestamp) ?? null,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
@@ -62,6 +75,8 @@ export class QuestionResponseValidator extends BaseValidator {
                 Url: joi.string().optional(),
                 FileResourceId: joi.string().optional(),
                 TextValue: joi.string().optional(),
+                SubmissionTimestamp: joi.date().optional(),
+                LastSaveTimestamp: joi.date().optional(),
             });
             await schema.validateAsync(request.body);
             return {
@@ -73,6 +88,8 @@ export class QuestionResponseValidator extends BaseValidator {
                 Url: request.body.Url ?? null,
                 FileResourceId: request.body.FileResourceId ?? null,
                 TextValue: request.body.TextValue ?? null,
+                SubmissionTimestamp: new Date(request.body.SubmissionTimestamp) ?? null,
+                LastSaveTimestamp: new Date(request.body.LastSaveTimestamp) ?? null,
             };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
@@ -95,65 +112,84 @@ export class QuestionResponseValidator extends BaseValidator {
         }
     };
 
-    public validateSearchRequest = async (request: express.Request): Promise<QuestionResponseSearchFilters> => {
+    public validateSearchRequest = async (
+        request: express.Request
+    ): Promise<QuestionResponseSearchFilters> => {
         try {
             const schema = joi.object({
                 formSubmissionId: joi.string().uuid().optional(),
-                questionId: joi.string().uuid().optional(),
+                // questionId: joi.string().uuid().optional(),
+                formFieldId: joi.string().uuid().optional(),
+                formTemplateId: joi.string().uuid().optional(),
                 responseType: joi.string().optional(),
                 integerValue: joi.number().optional(),
                 floatValue: joi.string().optional(),
                 booleanValue: joi.boolean().optional(),
                 url: joi.string().optional(),
                 fileResourceId: joi.string().optional(),
-                textValue: joi.string().optional()
+                textValue: joi.string().optional(),
+                submissionTimestamp: joi.date().optional(),
+                lastSaveTimestamp: joi.date().optional(),
             });
 
             await schema.validateAsync(request.query);
             const filters = this.getSearchFilters(request.query);
-            return filters;
+            const baseFilters = await this.validateBaseSearchFilters(request);
+            return {
+                ...baseFilters,
+                ...filters
+            };
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
     };
 
-    public _validateSubmission(submission: FormSubmissionDto) {
-        if(!submission) {
-            throw new ApiError('Form not found!', 404);
+    public validateSubmission(submission: FormSubmissionDto) {
+        if (
+            submission.Status === FormStatus.Submitted ||
+            submission.SubmittedAt !== null
+        ) {
+            throw new Error('Form already submitted!');
         }
 
-        if (submission.Status === FormStatus.Submitted || submission.SubmittedAt !== null) {
-            throw new ApiError('Form already submitted!', 409);
-        }
-    
         if (submission.ValidTill < new Date()) {
-            throw new ApiError('Form link is expired!', 400);
+            throw new Error('Form link is expired!');
         }
-    
     }
 
-    public validateSaveRequest = async (request: express.Request): Promise<QuestionResponseSaveModel> => {
+    public validateSaveRequest = async (
+        request: express.Request
+    ): Promise<QuestionResponseSaveModel> => {
         try {
             const schema = joi.object({
-                QuestionResponses: joi.array().items(joi.object({
-                    id: joi.string().uuid().optional().allow(null),
-                    FormSubmissionId: joi.string().uuid().required(),
-                    QuestionId: joi.string().uuid().required(),
-                    ResponseType: joi.string().required(),
-                    IntegerValue: joi.number().optional().allow(null),
-                    FloatValue: joi.number().optional().allow(null),
-                    BooleanValue: joi.string().optional().allow(null),  
-                    DateTimeValue: joi.date().optional().allow(null),
-                    Url: joi.string().optional().allow(null),
-                    FileResourceId: joi.string().optional().allow(null),
-                    TextValue: joi.string().optional().allow(null),
-                })).min(0).required(),
-            
+                QuestionResponses: joi
+                    .array()
+                    .items(
+                        joi.object({
+                            id: joi.string().uuid().optional().allow(null),
+                            FormSubmissionId: joi.string().uuid().required(),
+                            // QuestionId: joi.string().uuid().required(),
+                            FormFieldId: joi.string().uuid().required(),
+                            FormTemplateId: joi.string().uuid().required(),
+                            ResponseType: joi.string().required(),
+                            IntegerValue: joi.number().optional().allow(null),
+                            FloatValue: joi.number().optional().allow(null),
+                            BooleanValue: joi.string().optional().allow(null),
+                            DateTimeValue: joi.date().optional().allow(null),
+                            Url: joi.string().optional().allow(null),
+                            FileResourceId: joi.string().optional().allow(null),
+                            TextValue: joi.string().optional().allow(null),
+                        })
+                    )
+                    .min(0)
+                    .required(),
+
                 FormSubmissionKey: joi.string().length(64).required().messages({
-                    'string.length': 'Invalid FormSubmissionKey, must be exactly 64 characters.',
+                    'string.length':
+                        'Invalid FormSubmissionKey, must be exactly 64 characters.',
                     'string.base': 'FormSubmissionKey must be a string.',
-                    'any.required': 'FormSubmissionKey is required.'
-                })
+                    'any.required': 'FormSubmissionKey is required.',
+                }),
             });
             await schema.validateAsync(request.body);
             const model = this.getQuestionResponseSaveModel(request.body);
@@ -161,26 +197,36 @@ export class QuestionResponseValidator extends BaseValidator {
         } catch (error) {
             ErrorHandler.handleValidationError(error);
         }
-    }
+    };
 
-    private getQuestionResponseSaveModel = (body: any): QuestionResponseSaveModel => {
+    private getQuestionResponseSaveModel = (
+        body: any
+    ): QuestionResponseSaveModel => {
         const model: QuestionResponseSaveModel = {
             QuestionResponses: body.QuestionResponses,
-            FormSubmissionKey: body.FormSubmissionKey
+            FormSubmissionKey: body.FormSubmissionKey,
         };
         return model;
-    }
+    };
 
-    private getSearchFilters = (query: ParsedQs): QuestionResponseSearchFilters => {
+    private getSearchFilters = (
+        query: any
+    ): QuestionResponseSearchFilters => {
         var filters: any = {};
 
-        var formSubmissionId = query.formSubmissionId ? query.formSubmissionId : null;
+        var formSubmissionId = query.formSubmissionId
+            ? query.formSubmissionId
+            : null;
         if (formSubmissionId != null) {
             filters['FormSubmissionId'] = formSubmissionId;
         }
-        var questionId = query.questionId ? query.questionId : null;
-        if (questionId != null) {
-            filters['QuestionId'] = questionId;
+        var formFieldId = query.formFieldId ? query.formFieldId : null;
+        if (formFieldId != null) {
+            filters['FormFieldId'] = formFieldId;
+        }
+        var formTemplateId = query.formTemplateId ? query.formTemplateId : null;
+        if (formTemplateId != null) {
+            filters['FormTemplateId'] = formTemplateId;
         }
         var responseType = query.responseType ? query.responseType : null;
         if (responseType != null) {
@@ -211,26 +257,15 @@ export class QuestionResponseValidator extends BaseValidator {
         if (textValue != null) {
             filters['TextValue'] = textValue;
         }
-
-        var itemsPerPage = query.itemsPerPage ? query.itemsPerPage : 25;
-        if (itemsPerPage != null) {
-            filters['ItemsPerPage'] = Number(itemsPerPage);
+        var submissionTimestamp = query.submissionTimestamp ? query.submissionTimestamp : null;
+        if (submissionTimestamp != null) {
+            filters['SubmissionTimestamp'] = submissionTimestamp;
         }
-        var orderBy = query.orderBy ? query.orderBy : 'CreatedAt';
-        if (orderBy != null) {
-            filters['OrderBy'] = orderBy;
-        }
-        var order = query.order ? query.order : 'ASC';
-        if (order != null) {
-            filters['Order'] = order;
-        }
-
-        const pageIndex = query.pageIndex ? query.pageIndex : 0;
-        if (pageIndex != null) {
-            filters['PageIndex'] = pageIndex;
+        var lastSaveTimestamp = query.lastSaveTimestamp ? query.lastSaveTimestamp : null;
+        if (lastSaveTimestamp != null) {
+            filters['LastSaveTimestamp'] = lastSaveTimestamp;
         }
 
         return filters;
     };
-
 }

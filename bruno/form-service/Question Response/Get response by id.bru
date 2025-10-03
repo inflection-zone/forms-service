@@ -1,0 +1,17 @@
+meta {
+  name: Get response by id
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/question-responses/{{RESPONSE_ID}}
+  body: none
+  auth: none
+}
+
+headers {
+  x-api-key: {{INTERNAL_API_KEY}}
+  Authorization: Bearer {{JWT_TOKEN}}
+  Content-Type: application/json
+}
