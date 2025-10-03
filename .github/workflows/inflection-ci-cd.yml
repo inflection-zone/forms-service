@@ -25,7 +25,7 @@ env:
 
 jobs:
   build:
-    name: Build and push the docker image to ECR
+    name: Inflection CI/CD
     runs-on: ubuntu-latest
 
     steps:
@@ -78,7 +78,7 @@ jobs:
             echo "Pulling latest image $ECR_IMAGE..."
             docker pull $ECR_IMAGE
 
-            COMPOSE_FILE="./webservices/forms-dev/compose/docker-compose.yml"
+            COMPOSE_FILE="./webservices/forms/compose/docker-compose.yml"
 
             echo "Updating image for $SERVICE_NAME in $COMPOSE_FILE..."
             # Replace image line under the selected service
