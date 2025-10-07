@@ -1,6 +1,6 @@
 import express from 'express';
 import { CalculationRuleController } from './calculation.rule.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { CalculationRuleAuth } from './calculation.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

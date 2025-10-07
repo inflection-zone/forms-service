@@ -1,6 +1,6 @@
 import express from 'express';
 import { IterateOperationController } from './iterate.operation.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { IterateOperationAuth } from './iterate.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

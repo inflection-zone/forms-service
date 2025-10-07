@@ -1,6 +1,6 @@
 import express from 'express';
 import { CalculationLogicController } from './calculation.logic.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { CalculationLogicAuth } from './calculation.logic.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

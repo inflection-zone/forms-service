@@ -1,6 +1,6 @@
 import express from 'express';
 import { FormFieldController } from './form.field.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { FormFieldAuth } from './form.field.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

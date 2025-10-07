@@ -1,6 +1,6 @@
 import express from 'express';
 import { FormSectionController } from './form.section.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { FormSectionAuth } from './form.section.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

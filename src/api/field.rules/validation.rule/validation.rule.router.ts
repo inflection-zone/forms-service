@@ -1,6 +1,6 @@
 import express from 'express';
 import { ValidationRuleController } from './validation.rule.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { ValidationRuleAuth } from './validation.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

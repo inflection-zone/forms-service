@@ -1,6 +1,6 @@
 import express from 'express';
 import { SkipRuleController } from './skip.rule.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { SkipRuleAuth } from './skip.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

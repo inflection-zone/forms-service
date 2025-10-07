@@ -1,6 +1,6 @@
 import express from 'express';
 import { InputUnitListController } from './input.unit.list.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { InputUnitListAuth } from './input.unit.list.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -1,12 +1,12 @@
 import express from 'express';
 import { FunctionExpressionOperationController } from './function.expression.operation.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { FunctionExpressionOperationAuth } from './function.expression.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
 
 export const register = (app: express.Application): void => {
-    
+
     const router = express.Router();
     const controller = new FunctionExpressionOperationController();
     const contextBase = 'FunctionExpressionOperation';

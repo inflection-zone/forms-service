@@ -1,6 +1,6 @@
 import express from 'express';
 import { QuestionResponseController } from './question.response.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { QuestionResponseAuth } from './question.response.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

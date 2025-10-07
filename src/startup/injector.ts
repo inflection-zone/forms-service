@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { ModuleInjector } from '../modules/module.injector';
 import { DependencyContainer, container } from 'tsyringe';
 import { logger } from '../logger/logger';
-import { AuthInjector } from '../auth.u/auth.injector';
+import { AuthInjector } from '../auth/auth.injector';
 //  import { AuthInjector } from '../auth/auth.injector';
 // import { DatabaseInjector } from '../database/database.injector';
 

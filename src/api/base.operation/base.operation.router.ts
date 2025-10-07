@@ -1,6 +1,6 @@
 import express from 'express';
 import { BaseOperationController } from './base.operation.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { BaseOperationAuth } from './base.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -17,4 +17,4 @@ export const register = (app: express.Application): void => {
     router.delete('/:id', auth(BaseOperationAuth.delete), controller.delete);
 
     app.use('/api/v1/base-operations', router);
-}; 
+};

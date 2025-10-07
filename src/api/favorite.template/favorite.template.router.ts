@@ -1,6 +1,6 @@
 import express from 'express';
 import { FavoriteTemplateController } from './favorite.template.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { FavoriteTemplateAuth } from './favorite.template.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

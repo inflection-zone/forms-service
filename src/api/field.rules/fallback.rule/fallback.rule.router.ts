@@ -1,6 +1,6 @@
 import express from 'express';
 import { FallbackRuleController } from './fallback.rule.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { FallbackRuleAuth } from './fallback.rule.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

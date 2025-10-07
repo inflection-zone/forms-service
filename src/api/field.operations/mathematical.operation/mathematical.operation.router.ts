@@ -1,6 +1,6 @@
 import express from 'express';
 import { MathematicalOperationController } from './mathematical.operation.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { MathematicalOperationAuth } from './mathematical.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

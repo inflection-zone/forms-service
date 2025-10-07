@@ -1,6 +1,6 @@
 import express from 'express';
 import { FieldLibraryController } from './field.library.controller';
-import { context } from '../../auth/context.handler';
+import { auth } from '../../auth.handler';
 
 export const register = (app: express.Application): void => {
     const router = express.Router();

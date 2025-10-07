@@ -1,6 +1,6 @@
 import express from 'express';
 import { FormController } from './form.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { FormSubmissionAuth } from './form.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

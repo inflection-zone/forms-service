@@ -1,6 +1,6 @@
 import express from 'express';
 import { TemplateFolderController } from './template.folder.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { TemplateFolderAuth } from './template.folder.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

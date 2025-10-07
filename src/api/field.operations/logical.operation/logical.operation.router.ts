@@ -1,6 +1,6 @@
 import express from 'express';
 import { LogicalOperationController } from './logical.operation.controller';
-import { auth } from '../../../auth.u/auth.handler';
+import { auth } from '../../../auth/auth.handler';
 import { LogicalOperationAuth } from './logical.operation.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

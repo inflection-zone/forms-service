@@ -1,6 +1,6 @@
 import express from 'express';
 import { FormTemplateApprovalController } from './form.template.approval.controller';
-import { auth } from '../../auth.u/auth.handler';
+import { auth } from '../../auth/auth.handler';
 import { FormTemplateApprovalAuth } from './form.template.approval.auth';
 
 ///////////////////////////////////////////////////////////////////////////////////

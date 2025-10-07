@@ -4,7 +4,7 @@ import {
     ResourceOwnership,
     ActionScope,
     DefaultAuthOptions
-} from '../../../auth.u/auth.types';
+} from '../../../auth/auth.types';
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
